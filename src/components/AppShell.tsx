@@ -1,4 +1,4 @@
-
+// src/components/AppShell.tsx
 'use client';
 
 import React from 'react';
@@ -28,62 +28,69 @@ export default function AppShell({
 }) {
   const { currentStep, setCurrentStep, patientCase, loadDemoCase } = useCase();
 
-  // หน้า S1 (เข้าสู่ระบบ) แสดงแบบ Split Screen เต็มจอตาม Figma S1
   if (currentStep === 'S1') {
     return <div className="min-h-screen flex">{children}</div>;
   }
 
   const currentIdx = STEP_ORDER.indexOf(currentStep);
-  const isClinicalFlow = currentIdx >= STEP_ORDER.indexOf('S4');
+  const isClinicalFlow = currentIdx >= STEP_ORDER.indexOf('S4') && currentStep !== 'S9';
 
   return (
     <div className="min-h-screen flex bg-[#F9F8F4] text-[#1A2E25]">
-      {/* Left Sidebar ตาม Figma S2 - S9 */}
-      <aside className="w-60 bg-[#123123] text-white flex flex-col justify-between p-5 shrink-0">
+      {/* Left Sidebar */}
+      <aside className="w-60 bg-[#123123] text-white flex flex-col justify-between p-5 shrink-0 select-none">
         <div>
-          <div className="mb-8 px-2">
-            <h1 className="text-xl font-bold text-[#E5C483]">TTM Copilot</h1>
+          <div className="mb-8 px-2 cursor-pointer" onClick={() => setCurrentStep('S2')}>
+            <h1 className="text-xl font-bold text-[#E5C483] tracking-tight hover:opacity-90 transition">TTM Copilot</h1>
             <p className="text-xs text-[#9AB3A6] mt-0.5">ผู้ช่วยเวชกรรมไทย</p>
           </div>
 
           <nav className="space-y-1.5 text-sm">
+            {/* เมนู 1: ผู้ป่วยวันนี้ */}
             <button
               onClick={() => setCurrentStep('S2')}
-              className={`w-full text-left px-3.5 py-2.5 rounded-lg flex items-center gap-2 transition ${
+              className={`w-full text-left px-3.5 py-2.5 rounded-lg flex items-center gap-2 transition-all duration-150 cursor-pointer ${
                 currentStep === 'S2' || currentStep === 'S3'
-                  ? 'bg-[#1E4635] font-semibold text-white border-l-4 border-[#E5C483]'
-                  : 'text-[#B2C5BB] hover:bg-[#193B2C]'
+                  ? 'bg-[#1E4635] font-bold text-white border-l-4 border-[#E5C483] shadow-sm'
+                  : 'text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white'
               }`}
             >
               ผู้ป่วยวันนี้
             </button>
 
+            {/* เมนู 2: ตรวจรักษา (เคสปัจจุบัน) */}
             <button
               onClick={() => setCurrentStep('S4')}
-              className={`w-full text-left px-3.5 py-2.5 rounded-lg flex items-center gap-2 transition ${
+              className={`w-full text-left px-3.5 py-2.5 rounded-lg flex items-center gap-2 transition-all duration-150 cursor-pointer ${
                 isClinicalFlow
-                  ? 'bg-[#1E4635] font-semibold text-white border-l-4 border-[#E5C483]'
-                  : 'text-[#B2C5BB] hover:bg-[#193B2C]'
+                  ? 'bg-[#1E4635] font-bold text-white border-l-4 border-[#E5C483] shadow-sm'
+                  : 'text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white'
               }`}
             >
               ตรวจรักษา (เคสปัจจุบัน)
             </button>
 
-            <button className="w-full text-left px-3.5 py-2.5 rounded-lg text-[#B2C5BB] hover:bg-[#193B2C] transition">
+            {/* เมนู 3: ฐานความรู้ตำรา */}
+            <button className="w-full text-left px-3.5 py-2.5 rounded-lg text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white transition-all duration-150 cursor-pointer">
               ฐานความรู้ตำรา
             </button>
 
+            {/* เมนู 4: รายงาน / ส่งออก (แก้ให้คลิกและมี Hover & Active สวยงาม) */}
             <button
               onClick={() => setCurrentStep('S9')}
-              className="w-full text-left px-3.5 py-2.5 rounded-lg text-[#B2C5BB] hover:bg-[#193B2C] transition"
+              className={`w-full text-left px-3.5 py-2.5 rounded-lg flex items-center gap-2 transition-all duration-150 cursor-pointer ${
+                currentStep === 'S9'
+                  ? 'bg-[#1E4635] font-bold text-white border-l-4 border-[#E5C483] shadow-sm'
+                  : 'text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white'
+              }`}
             >
               รายงาน / ส่งออก
             </button>
           </nav>
         </div>
 
-        {/* การ์ดผู้ใช้งานด้านล่างซ้ายตาม Figma */}
-        <div className="bg-[#1B3F30] rounded-xl p-3.5 text-xs">
+        {/* การ์ดผู้ใช้งานด้านล่าง */}
+        <div className="bg-[#1B3F30] rounded-xl p-3.5 text-xs border border-teal-900/40">
           <p className="font-semibold text-white">แพทย์แผนไทย (ตัวอย่าง)</p>
           <p className="text-[#9AB3A6] mt-0.5">รพ.สต. ตัวอย่าง</p>
         </div>
@@ -92,26 +99,27 @@ export default function AppShell({
       {/* Main Content Area */}
       <main className="flex-1 p-8 overflow-y-auto">
         <div className="max-w-5xl mx-auto">
-          {/* Header + ปุ่มลัดโหลดเคสสาธิตตาม SOP-TTM-003 หัวข้อที่ 1 */}
+          {/* Header Bar */}
           <div className="flex items-start justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold text-[#14261D]">{title}</h2>
               <p className="text-sm text-[#5C7065] mt-0.5">{subtitle}</p>
             </div>
 
+            {/* ปุ่มโหลดเคสสาธิต พร้อม Hover Effect เด่นชัด */}
             <button
               onClick={loadDemoCase}
-              className="flex items-center gap-1.5 bg-[#FDF0D5] hover:bg-[#F9E3B4] border border-[#E5C483] text-[#7A5214] font-semibold text-xs px-3.5 py-2 rounded-lg shadow-sm transition"
+              className="flex items-center gap-1.5 bg-[#FDF0D5] hover:bg-[#FBE4B5] active:scale-95 border border-[#E5C483] text-[#7A5214] font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm hover:shadow transition-all duration-150 cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 text-[#B8862D]" />
               โหลดเคสสาธิต (นางสมศรี 58 ปี)
             </button>
           </div>
 
-          {/* แถบข้อมูลผู้ป่วย (Patient Banner) และ 6-Step Stepper แสดงเฉพาะหน้า S4 - S9 ตาม Figma */}
-          {isClinicalFlow && (
+          {/* แถบข้อมูลผู้ป่วย (Patient Banner) & 6-Step Stepper */}
+          {(isClinicalFlow || currentStep === 'S9') && (
             <>
-              <div className="bg-[#F2F6F3] border border-[#DCE5DF] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 mb-4 text-xs">
+              <div className="bg-[#F2F6F3] border border-[#DCE5DF] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 mb-4 text-xs shadow-xs">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <span className="font-bold text-sm text-[#14261D]">
                     {patientCase.name || 'คุณสมศรี ใจดี'}
@@ -120,10 +128,10 @@ export default function AppShell({
                     {patientCase.gender === 'M' ? 'ชาย' : 'หญิง'} {patientCase.age || 58} ปี · HN{' '}
                     {patientCase.hn || '00-12345'}
                   </span>
-                  <span className="bg-[#FCECD2] text-[#9A6B1F] font-semibold px-2.5 py-0.5 rounded-full">
+                  <span className="bg-[#FCECD2] text-[#9A6B1F] font-bold px-2.5 py-0.5 rounded-full">
                     {patientCase.underlyingDiseases[0] || 'เบาหวานชนิดที่ 2'}
                   </span>
-                  <span className="bg-white border border-[#DCE5DF] text-[#3A4F43] px-2.5 py-0.5 rounded-full">
+                  <span className="bg-white border border-[#DCE5DF] text-[#3A4F43] font-medium px-2.5 py-0.5 rounded-full">
                     ยาประจำ: {patientCase.currentMeds.length > 0 ? patientCase.currentMeds.join(', ') : 'Metformin, Warfarin'}
                   </span>
                 </div>
@@ -141,27 +149,27 @@ export default function AppShell({
                     <React.Fragment key={item.stepId}>
                       <button
                         onClick={() => setCurrentStep(item.stepId)}
-                        className="flex items-center gap-2 text-xs font-medium focus:outline-none"
+                        className="flex items-center gap-2 text-xs font-medium focus:outline-none cursor-pointer group"
                       >
                         <span
-                          className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition ${
+                          className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-150 ${
                             isCompleted
-                              ? 'bg-[#1E4D38] text-white'
+                              ? 'bg-[#1E4D38] text-white group-hover:bg-[#163B2B]'
                               : isCurrent
-                              ? 'bg-[#B8862D] text-white'
-                              : 'bg-[#D5DFD9] text-[#5C7065]'
+                              ? 'bg-[#B8862D] text-white shadow'
+                              : 'bg-[#D5DFD9] text-[#5C7065] group-hover:bg-[#C2D0C8]'
                           }`}
                         >
-                          {isCompleted ? <Check className="w-3.5 h-3.5" /> : item.number}
+                          {isCompleted ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : item.number}
                         </span>
                         <span
-                          className={
+                          className={`transition-colors duration-150 ${
                             isCurrent
                               ? 'font-bold text-[#14261D]'
                               : isCompleted
-                              ? 'text-[#1E4D38]'
-                              : 'text-[#6E8277]'
-                          }
+                              ? 'text-[#1E4D38] group-hover:underline'
+                              : 'text-[#6E8277] group-hover:text-[#14261D]'
+                          }`}
                         >
                           {item.label}
                         </span>
@@ -169,7 +177,7 @@ export default function AppShell({
 
                       {idx < CLINICAL_STEPS.length - 1 && (
                         <div
-                          className={`flex-1 h-0.5 mx-3 ${
+                          className={`flex-1 h-0.5 mx-3 transition-colors duration-150 ${
                             currentIdx > itemOrder ? 'bg-[#1E4D38]' : 'bg-[#D5DFD9]'
                           }`}
                         />
@@ -181,7 +189,7 @@ export default function AppShell({
             </>
           )}
 
-          {/* พื้นที่สำหรับวาง Component ของแต่ละหน้าจอ S2 - S9 */}
+          {/* พื้นที่แสดงหน้าจอของแต่ละ Step */}
           <div>{children}</div>
         </div>
       </main>
