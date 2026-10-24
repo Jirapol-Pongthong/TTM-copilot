@@ -80,7 +80,6 @@ export async function POST(req: NextRequest) {
       source: 'Deterministic Clinical Fallback Engine (Zero-failure Guarantee)',
     });
   } catch (err) {
-    // ป้องกันระบบล่ม 100% ด้วยผลลัพธ์มาตรฐานทางการแพทย์
     return NextResponse.json({
       chiefComplaint: ['ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'],
       duration: '4 วัน',
