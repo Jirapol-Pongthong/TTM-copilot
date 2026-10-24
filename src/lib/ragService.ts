@@ -1,4 +1,3 @@
-// src/lib/ragService.ts
 import knowledgeChunks from '@/data/knowledge_chunks.json';
 
 export interface KnowledgeChunk {

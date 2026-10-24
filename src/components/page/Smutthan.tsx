@@ -188,6 +188,23 @@ export default function Step5Smutthan() {
                 &ldquo;{selectedChunk.content}&rdquo;
               </div>
 
+              {/* ภาพสแกนหน้าตำราจริงจาก public/scans/ */}
+              {[12, 34, 58, 91, 103].includes(selectedChunk.page) && (
+                <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50">
+                  <div className="text-[10px] text-gray-600 font-semibold px-3 py-1.5 bg-gray-100 flex items-center justify-between border-b border-gray-200">
+                    <span>เอกสารสแกนฉบับทางการ (Digital Archive)</span>
+                    <span className="text-[#1E4D38] font-bold">/scans/page_{selectedChunk.page}.jpg</span>
+                  </div>
+                  <div className="max-h-48 overflow-y-auto p-2 flex justify-center bg-gray-200/40">
+                    <img
+                      src={`/scans/page_${selectedChunk.page}.jpg`}
+                      alt={`ภาพสแกนหน้า ${selectedChunk.page}`}
+                      className="rounded-lg shadow-xs max-w-full h-auto object-contain border border-gray-300"
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {selectedChunk.tags.map((tag, i) => (
                   <span key={i} className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">
