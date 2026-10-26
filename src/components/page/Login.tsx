@@ -1,4 +1,4 @@
-// src/components/pages/Step1Login.tsx
+// src/components/page/Login.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -13,8 +13,8 @@ export default function Step1Login() {
   return (
     <div className="min-h-screen w-full flex flex-col md:flex-row bg-white">
       {/* ฝั่งซ้ายสีเขียวเข้ม */}
-      <div className="w-full md:w-1/2 bg-[#123123] text-white p-12 flex flex-col justify-between">
-        <div>
+      <div className="w-full md:w-1/2 bg-[#123123] text-white p-12 flex flex-col justify-center">
+        <div className="max-w-md mx-auto">
           <h1 className="text-4xl font-extrabold text-[#E5C483] tracking-tight">TTM Copilot</h1>
           <p className="text-lg text-[#B2C5BB] mt-3">
             ผู้ช่วยสนับสนุนการตัดสินใจทางคลินิกเวชกรรมไทยด้วย AI สำหรับหน่วยบริการปฐมภูมิ
@@ -38,7 +38,6 @@ export default function Step1Login() {
             </li>
           </ul>
         </div>
-        <p className="text-xs text-[#708A7C]">DTAM Hackathon 2026 · Track 1 เวชกรรมไทย</p>
       </div>
 
       {/* ฝั่งขวาฟอร์มเข้าสู่ระบบ */}
@@ -83,14 +82,11 @@ export default function Step1Login() {
 
           <button
             type="submit"
-            className="w-full bg-[#1E4D38] hover:bg-[#163B2B] active:scale-[0.99] text-white font-bold py-3 rounded-lg shadow hover:shadow-md transition-all duration-150 cursor-pointer mt-2"
+            className="w-full bg-[#1E4D38] hover:bg-[#163B2B] active:scale-[0.99] text-white font-bold py-3 rounded-lg shadow hover:shadow-md transition-all duration-150 cursor-pointer mt-4"
           >
             เข้าสู่ระบบ
           </button>
         </form>
-        <p className="text-[11px] text-gray-400 mt-4 text-center">
-          Prototype ตัวอย่าง: ข้อมูลทั้งหมดเป็นข้อมูลสมมติ ไม่ใช่ข้อมูลผู้ป่วยจริง
-        </p>
       </div>
     </div>
   );

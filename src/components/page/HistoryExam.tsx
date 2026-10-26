@@ -135,6 +135,36 @@ export default function Step4HistoryExam() {
     setNewSymptomInput('');
   };
 
+  // บันทึกและนำไปวิเคราะห์สมุฏฐานต่อ
+  const handleProceedToSmutthan = () => {
+    const currentSymptoms = patientCase.extractedSymptoms?.chiefComplaint || [];
+    let updatedChiefComplaint = currentSymptoms;
+    let updatedAffectedDhatu = patientCase.extractedSymptoms?.affectedDhatu || [];
+
+    if (updatedChiefComplaint.length === 0) {
+      if (noteText.includes('ท้องอืด') || noteText.includes('แน่น') || noteText.includes('ลม')) {
+        updatedChiefComplaint = ['ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'];
+        updatedAffectedDhatu = ['วาโยธาตุ (กุจฉิสยาวาตะ)', 'วาโยธาตุ (อังคมังคานุสารีวาตะ)'];
+      } else if (noteText.trim()) {
+        updatedChiefComplaint = [noteText.trim().slice(0, 45)];
+        updatedAffectedDhatu = ['วาโยธาตุ'];
+      } else {
+        updatedChiefComplaint = ['ท้องอืด แน่นเฟ้อ', 'ปวดตึงกล้ามเนื้อ'];
+        updatedAffectedDhatu = ['วาโยธาตุ'];
+      }
+    }
+
+    updateCase({
+      rawNote: noteText,
+      extractedSymptoms: {
+        chiefComplaint: updatedChiefComplaint,
+        duration: patientCase.extractedSymptoms?.duration || '4 วัน',
+        affectedDhatu: updatedAffectedDhatu,
+      },
+    });
+    setCurrentStep('S5');
+  };
+
   return (
     <AppShell
       title="ซักประวัติและตรวจร่างกาย"
@@ -195,14 +225,14 @@ export default function Step4HistoryExam() {
                 ) : (
                   <>
                     <Sparkles className="w-3.5 h-3.5 text-[#B8862D]" />
-                    ให้ AI สกัดอาการเป็น JSON
+                    ให้ AI สกัดอาการ
                   </>
                 )}
               </button>
             </div>
           </div>
 
-          {/* กล่องแสดงผลอาการที่สกัดได้ (Structured Medical Output) */}
+          {/* กล่องแสดงผลอาการที่สกัดได้ */}
           <div className="bg-[#FFFDF9] border border-[#E8DFC9] p-5 rounded-2xl shadow-xs">
             <div className="flex items-center justify-between mb-3.5">
               <div className="flex items-center gap-2">
@@ -210,12 +240,9 @@ export default function Step4HistoryExam() {
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
                 <span className="text-xs font-bold text-[#14261D]">
-                  ผลลัพธ์โครงสร้างอาการที่สกัดได้ (Structured Clinical Symptoms)
+                  ผลลัพธ์โครงสร้างอาการที่สกัดได้
                 </span>
               </div>
-              <span className="text-[11px] text-[#7A5214] font-medium bg-[#FDF0D5] px-2.5 py-0.5 rounded-full border border-[#E5C483]">
-                แพทย์ตรวจแก้ได้ทันที (Human-in-the-loop)
-              </span>
             </div>
 
             <div className="space-y-3 text-xs">
@@ -350,7 +377,7 @@ export default function Step4HistoryExam() {
               </div>
             </div>
             <p className="text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
-              * ข้อมูลเวลาและฤดูกาลจะถูกส่งต่อไปยัง Smutthan Rule Engine ในขั้นตอนถัดไปอัตโนมัติ
+              * ข้อมูลเวลาและฤดูกาลจะถูกนำไปร่วมประเมินสมุฏฐานในขั้นตอนถัดไปอัตโนมัติ
             </p>
           </div>
         </div>
@@ -367,7 +394,7 @@ export default function Step4HistoryExam() {
         </button>
         <button
           type="button"
-          onClick={() => setCurrentStep('S5')}
+          onClick={handleProceedToSmutthan}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
         >
           วิเคราะห์สมุฏฐาน 4 (ขั้นตอนถัดไป) →

@@ -114,15 +114,6 @@ export default function AppShell({
               <h2 className="text-2xl font-bold text-[#14261D]">{title}</h2>
               <p className="text-sm text-[#5C7065] mt-0.5">{subtitle}</p>
             </div>
-
-            {/* ปุ่มโหลดเคสสาธิต พร้อม Hover Effect เด่นชัด */}
-            <button
-              onClick={loadDemoCase}
-              className="flex items-center gap-1.5 bg-[#FDF0D5] hover:bg-[#FBE4B5] active:scale-95 border border-[#E5C483] text-[#7A5214] font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm hover:shadow transition-all duration-150 cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#B8862D]" />
-              โหลดเคสสาธิต (นางสมศรี 58 ปี)
-            </button>
           </div>
 
           {/* แถบข้อมูลผู้ป่วย (Patient Banner) & 6-Step Stepper */}
@@ -144,7 +135,7 @@ export default function AppShell({
                     ยาประจำ: {patientCase.currentMeds.length > 0 ? patientCase.currentMeds.join(', ') : 'Metformin 500mg, Aspirin 81mg'}
                   </span>
                 </div>
-                <span className="text-[#6E8277] text-[11px] font-medium">DTAM Hackathon Benchmark Case</span>
+                <span className="text-[#6E8277] text-[11px] font-medium">เวชระเบียนผู้ป่วยนอก (OPD Case)</span>
               </div>
 
               {/* 6-Step Clinical Stepper */}

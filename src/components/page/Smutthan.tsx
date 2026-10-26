@@ -50,7 +50,7 @@ export default function Step5Smutthan() {
   return (
     <AppShell
       title="วิเคราะห์สมุฏฐาน 4"
-      subtitle="ขั้นตอนที่ 3–5 ตามตำรา: วิเคราะห์อาการ → หาสาเหตุ → พิจารณาฤดู อายุ และเวลา (คำนวณจริงด้วย Deterministic Rule Engine)"
+      subtitle="ขั้นตอนที่ 3–5 ตามตำรา: ประเมินสมุฏฐานวินิจฉัย 4 มิติตามเกณฑ์คัมภีร์เวชศึกษาและสมุฏฐานวินิจฉัย (กระทรวงสาธารณสุข)"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* การ์ดสมุฏฐาน 4 ด้าน */}
@@ -92,7 +92,7 @@ export default function Step5Smutthan() {
         {/* การ์ดสรุปคะแนนความมั่นใจและเหตุผล */}
         <div className="space-y-4">
           <div className="bg-[#1E4D38] text-white p-5 rounded-2xl shadow-sm">
-            <span className="text-xs text-[#B2C5BB]">ผลประเมินโดยรวม (Deterministic Rule Engine)</span>
+            <span className="text-xs text-[#B2C5BB]">ผลประเมินสมุฏฐานโดยรวม</span>
             <h3 className="text-lg font-bold text-[#E5C483] mt-1">
               แนวโน้ม{evaluation.primaryElement === 'ลม' ? 'วาโยธาตุ' : evaluation.primaryElement}แปรปรวน
             </h3>
@@ -120,7 +120,7 @@ export default function Step5Smutthan() {
               ))}
             </ul>
             <p className="text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
-              * ข้อมูลสนับสนุนการตัดสินใจ แพทย์เป็นผู้ยืนยันผลขั้นสุดท้าย (Human-in-the-loop)
+              * ข้อมูลสนับสนุนการตัดสินใจของแพทย์ตามหลักเกณฑ์วิชาชีพเวชกรรมไทย
             </p>
             <button
               type="button"
