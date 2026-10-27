@@ -40,9 +40,6 @@ export const DRUG_ALIASES: Record<string, string[]> = {
   nsaid: ['nsaid', 'ibuprofen', 'ไอบูโพรเฟน', 'diclofenac', 'ไดโคลฟีแนค', 'naproxen', 'นาพรอกเซน', 'celecoxib', 'arcoxia'],
 };
 
-/**
- * ทำความสะอาดข้อความชื่อยา (ตัดจุด ช่องว่าง หน่วย mg/มก. และแปลงเป็นตัวพิมพ์เล็กทั้งหมด)
- */
 export function normalizeDrugString(input: string): string {
   return input
     .toLowerCase()
@@ -52,7 +49,7 @@ export function normalizeDrugString(input: string): string {
 }
 
 /**
- * ตรวจสอบว่ายาแผนปัจจุบันที่พิมพ์เข้ามา จัดอยู่ในกลุ่มเสี่ยงตีกับสมุนไพรหรือไม่ (ใช้ในหน้า S3 NewCase)
+ * ตรวจสอบว่ายาแผนปัจจุบันที่พิมพ์เข้ามา จัดอยู่ในกลุ่มเสี่ยงตีกับสมุนไพรหรือไม่
  */
 export function evaluateSingleDrugRisk(medInput: string): {
   isRisk: boolean;

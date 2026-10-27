@@ -1,4 +1,3 @@
-// src/components/page/NewCase.tsx
 'use client';
 
 import React, { useState } from 'react';

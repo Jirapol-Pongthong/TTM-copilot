@@ -26,13 +26,39 @@ export interface RetrievalResult {
  * ดึงรายละเอียดการอ้างอิงตำราจากชื่อหนังสือและเลขหน้า
  */
 export function getCitationDetails(bookName: string, pageNumber?: number): KnowledgeChunk | undefined {
-  return (knowledgeChunks as KnowledgeChunk[]).find((chunk) => {
-    const bookMatch = chunk.book.includes(bookName) || bookName.includes(chunk.book);
-    if (pageNumber) {
-      return bookMatch && chunk.page === pageNumber;
-    }
-    return bookMatch;
+  const clean = bookName.replace(/คัมภีร์|ตำรา|แนวทางปฏิบัติ|คู่มือ/g, '').trim();
+  const allChunks = knowledgeChunks as KnowledgeChunk[];
+
+  // 1. Exact match (book & page)
+  let found = allChunks.find((chunk) => {
+    const bMatch =
+      chunk.book.includes(bookName) ||
+      bookName.includes(chunk.book) ||
+      (clean && chunk.book.includes(clean));
+    return bMatch && (pageNumber ? chunk.page === pageNumber : true);
   });
+
+  // 2. Partial book/id/chapter match
+  if (!found && clean) {
+    found = allChunks.find(
+      (chunk) =>
+        chunk.book.includes(clean) ||
+        chunk.id.includes(clean) ||
+        chunk.chapter.includes(clean)
+    );
+  }
+
+  // 3. Fallback: match by page if available
+  if (!found && pageNumber) {
+    found = allChunks.find((chunk) => chunk.page === pageNumber);
+  }
+
+  // Fallback scan image URL if found
+  if (found && !found.image && found.page) {
+    return { ...found, image: `/scans/page_${found.page}.jpg` };
+  }
+
+  return found;
 }
 
 /**

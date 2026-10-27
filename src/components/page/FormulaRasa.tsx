@@ -60,6 +60,7 @@ export default function Step6FormulaRasa() {
         id: 'REF_GENERAL',
         book: bookName,
         page: pageNumber || 1,
+        image: pageNumber ? `/scans/page_${pageNumber}.jpg` : undefined,
         chapter: 'บทอ้างอิงตำรับยาและเภสัชกรรมไทย',
         content: `ข้อมูลอ้างอิงจาก ${bookName} หน้า ${pageNumber || '–'} สอดคล้องตามประกาศบัญชียาหลักแห่งชาติด้านสมุนไพรและคัมภีร์เวชกรรมไทย`,
         tags: ['เภสัชกรรมไทย', 'ตำรับยา', 'รสยา'],
@@ -427,15 +428,17 @@ export default function Step6FormulaRasa() {
               </div>
 
               {/* ภาพสแกนหน้าตำราจริงจาก public/scans/ */}
-              {[12, 34, 58, 91, 103].includes(selectedChunk.page) && (
+              {Boolean(selectedChunk.image || [12, 34, 58, 91, 103].includes(selectedChunk.page)) && (
                 <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50">
                   <div className="text-[10px] text-gray-600 font-semibold px-3 py-1.5 bg-gray-100 flex items-center justify-between border-b border-gray-200">
                     <span>เอกสารสแกนฉบับทางการ (Digital Archive)</span>
-                    <span className="text-[#1E4D38] font-bold">/scans/page_{selectedChunk.page}.jpg</span>
+                    <span className="text-[#1E4D38] font-bold">
+                      {selectedChunk.image || `/scans/page_${selectedChunk.page}.jpg`}
+                    </span>
                   </div>
-                  <div className="max-h-48 overflow-y-auto p-2 flex justify-center bg-gray-200/40">
+                  <div className="max-h-56 overflow-y-auto p-2 flex justify-center bg-gray-200/40">
                     <img
-                      src={`/scans/page_${selectedChunk.page}.jpg`}
+                      src={selectedChunk.image || `/scans/page_${selectedChunk.page}.jpg`}
                       alt={`ภาพสแกนหน้า ${selectedChunk.page}`}
                       className="rounded-lg shadow-xs max-w-full h-auto object-contain border border-gray-300"
                     />

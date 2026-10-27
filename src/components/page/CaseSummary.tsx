@@ -1,4 +1,3 @@
-// src/components/page/CaseSummary.tsx
 'use client';
 
 import React, { useState } from 'react';
