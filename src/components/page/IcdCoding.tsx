@@ -4,7 +4,8 @@
 import React, { useState, useMemo } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
-import { Search, Plus, Check, CheckCircle2, ArrowRight } from 'lucide-react';
+import masterIcdMappings from '@/data/icd10_mapping.json';
+import { Search, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface ICDItem {
   id: string;
@@ -19,132 +20,60 @@ interface ICDItem {
 export default function Step8IcdCoding() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
 
-  // สร้างชุดรหัสแนะนำอัตโนมัติตามอาการและหัตถการของผู้ป่วยรายนี้
+  // สร้างชุดรหัสจากฐานข้อมูล icd10_mapping.json โดยแนะนำอัตโนมัติตามอาการและหัตถการของผู้ป่วย
   const initialCodes = useMemo<ICDItem[]>(() => {
     const symptomsText = [
       ...(patientCase.extractedSymptoms?.chiefComplaint || []),
       patientCase.rawNote || '',
-    ].join(' ');
+    ].join(' ').toLowerCase();
 
-    const items: ICDItem[] = [];
+    const rxText = (patientCase.prescriptions || []).map((p) => p.herbName).join(' ').toLowerCase();
 
-    // 1. ตรวจอาการท้องอืด แน่นเฟ้อ
-    if (
-      symptomsText.includes('ท้องอืด') ||
-      symptomsText.includes('แน่น') ||
-      symptomsText.includes('เฟ้อ') ||
-      symptomsText.includes('กุจฉิ') ||
-      items.length === 0
-    ) {
-      items.push({
-        id: 'icd-gas',
-        description: 'ท้องอืด ท้องเฟ้อ (ลมกุจฉิสยาวาตา)',
-        ttmCode: 'U55.22',
-        icd10tm: 'R14',
-        confidence: 'สูง · ระบบแนะนำ',
-        isRecommended: true,
-        checked: true,
-      });
-    }
+    return masterIcdMappings.map((mapping, idx) => {
+      let isMatch = false;
 
-    // 2. ตรวจอาการปวดเข่า / ข้อเข่าเสื่อม
-    if (symptomsText.includes('เข่า') || symptomsText.includes('ข้อ')) {
-      items.push({
-        id: 'icd-knee',
-        description: 'ลมจับโปงแห้งเข่า (ข้อเข่าเสื่อม / ปวดขัดข้อ)',
-        ttmCode: 'U77.2',
-        icd10tm: 'M17.9',
-        confidence: 'สูง · ระบบแนะนำ',
-        isRecommended: true,
-        checked: true,
-      });
-    }
+      // ตรวจจับความสอดคล้องตามเกณฑ์ทางคลินิก
+      if (mapping.ttmCode === 'U55.22') {
+        isMatch = symptomsText.includes('ท้องอืด') || symptomsText.includes('แน่น') || symptomsText.includes('เฟ้อ') || symptomsText.includes('กุจฉิ') || symptomsText.includes('จุกเสียด');
+      } else if (mapping.ttmCode === 'U55.10') {
+        isMatch = symptomsText.includes('เมื่อย') || symptomsText.includes('คอ') || symptomsText.includes('บ่า') || symptomsText.includes('หลัง') || symptomsText.includes('กล้ามเนื้อ') || symptomsText.includes('ตึง');
+      } else if (mapping.ttmCode === 'U57.31') {
+        isMatch = symptomsText.includes('ไข้') || symptomsText.includes('ตัวร้อน') || symptomsText.includes('ปิตตะ') || (patientCase.vitals?.temp || 0) >= 37.5;
+      } else if (mapping.ttmCode === 'U56.11') {
+        isMatch = symptomsText.includes('หวัด') || symptomsText.includes('คัดจมูก') || symptomsText.includes('ไอ') || symptomsText.includes('เสมหะ') || symptomsText.includes('น้ำมูก');
+      } else if (mapping.ttmCode === 'U55.21') {
+        isMatch = symptomsText.includes('วิงเวียน') || symptomsText.includes('หน้ามืด') || symptomsText.includes('ตาลาย') || symptomsText.includes('ศีรษะหมุน');
+      } else if (mapping.ttmCode === 'U55.30') {
+        isMatch = symptomsText.includes('อัมพฤกษ์') || symptomsText.includes('อ่อนแรง') || symptomsText.includes('ชา');
+      } else if (mapping.ttmCode === 'U58.12') {
+        isMatch = symptomsText.includes('ท้องเสีย') || symptomsText.includes('ถ่ายเหลว') || symptomsText.includes('มูกเลือด') || symptomsText.includes('มวนท้อง');
+      } else if (mapping.ttmCode === 'U55.14') {
+        isMatch = symptomsText.includes('สลักเพชร') || symptomsText.includes('บั้นเอว') || symptomsText.includes('ปวดหลัง') || symptomsText.includes('เอว') || symptomsText.includes('ร้าวลงขา');
+      } else if (mapping.ttmCode === 'U60.1') {
+        isMatch = rxText.includes('ประคบ') || rxText.includes('หัตถการ');
+      } else if (mapping.ttmCode === 'U60.2') {
+        isMatch = rxText.includes('นวด');
+      } else if (mapping.ttmCode === 'U60.3') {
+        isMatch = rxText.includes('อบ');
+      } else if (mapping.ttmCode === 'U60.4') {
+        isMatch = rxText.includes('เผายา') || symptomsText.includes('กุจฉิสยา');
+      }
 
-    // 3. ตรวจอาการปวดเมื่อยคอบ่าหลัง
-    if (
-      symptomsText.includes('เมื่อย') ||
-      symptomsText.includes('คอ') ||
-      symptomsText.includes('บ่า') ||
-      symptomsText.includes('หลัง') ||
-      symptomsText.includes('สลักเพชร')
-    ) {
-      items.push({
-        id: 'icd-muscle',
-        description: 'ปวดเมื่อยตามตัว / กล้ามเนื้อ (อังคมังคานุสารีวาตา)',
-        ttmCode: 'U77.1',
-        icd10tm: 'M79.1',
-        confidence: 'ปานกลาง',
-        isRecommended: true,
-        checked: true,
-      });
-    }
+      // หากเป็นเคสทั่วไปที่ไม่มีอาการเด่น ให้แนะนำ U55.22 เป็นค่ามาตรฐานเริ่มต้น
+      if (idx === 0 && !isMatch && !symptomsText) {
+        isMatch = true;
+      }
 
-    // 4. ตรวจอาการปวดศีรษะ ลมขึ้นเบื้องบน
-    if (symptomsText.includes('หัว') || symptomsText.includes('ศีรษะ') || symptomsText.includes('ขมับ')) {
-      items.push({
-        id: 'icd-head',
-        description: 'ลมปะกัง / ปวดศีรษะจากลมขึ้นเบื้องบน (อุทธังคมาวาตา)',
-        ttmCode: 'U50.1',
-        icd10tm: 'G44.2',
-        confidence: 'สูง · ระบบแนะนำ',
-        isRecommended: true,
-        checked: true,
-      });
-    }
-
-    // 5. ตรวจอาการไข้ / ตัวร้อน
-    if (symptomsText.includes('ไข้') || symptomsText.includes('ตัวร้อน')) {
-      items.push({
-        id: 'icd-fever',
-        description: 'ไข้เพื่อเตโชธาตุกำเริบ (ไข้หวัด / ไข้เปลี่ยนฤดู)',
-        ttmCode: 'U51.0',
-        icd10tm: 'R50.9',
-        confidence: 'สูง · ระบบแนะนำ',
-        isRecommended: true,
-        checked: true,
-      });
-    }
-
-    // 6. ตรวจอาการไอ / เสมหะ
-    if (symptomsText.includes('ไอ') || symptomsText.includes('เสมหะ')) {
-      items.push({
-        id: 'icd-cough',
-        description: 'อาการไอเนื่องจากเสมหะกำเริบ (อาโปธาตุ)',
-        ttmCode: 'U52.1',
-        icd10tm: 'R05',
-        confidence: 'สูง · ระบบแนะนำ',
-        isRecommended: true,
-        checked: true,
-      });
-    }
-
-    // 7. ตรวจหัตถการจากแผนการรักษา
-    const rxText = (patientCase.prescriptions || []).map((p) => p.herbName).join(' ');
-    if (rxText.includes('ประคบ') || rxText.includes('หัตถการ')) {
-      items.push({
-        id: 'icd-procedure-herbal',
-        description: 'หัตถการ: ประคบสมุนไพรเพื่อการรักษา',
-        ttmCode: 'U60.1',
-        icd10tm: 'U60.1',
-        confidence: 'สูง',
-        isRecommended: false,
-        checked: true,
-      });
-    }
-
-    if (rxText.includes('นวด')) {
-      items.push({
-        id: 'icd-procedure-massage',
-        description: 'หัตถการ: นวดรักษาทางการแพทย์แผนไทย',
-        ttmCode: 'U60.2',
-        icd10tm: 'U60.2',
-        confidence: 'สูง',
-        isRecommended: false,
-        checked: true,
-      });
-    }
-
-    return items;
+      return {
+        id: mapping.id,
+        description: `${mapping.ttmName} (${mapping.icd10Name})`,
+        ttmCode: mapping.ttmCode,
+        icd10tm: mapping.icd10tm,
+        confidence: isMatch ? 'สูง · ระบบแนะนำ' : 'ตัวเลือกเพิ่มเติม',
+        isRecommended: isMatch,
+        checked: isMatch,
+      };
+    });
   }, [patientCase]);
 
   const [codesList, setCodesList] = useState<ICDItem[]>(initialCodes);
@@ -189,7 +118,7 @@ export default function Step8IcdCoding() {
   return (
     <AppShell
       title="ลงรหัสโรค / หัตถการ (ICD-10-TM)"
-      subtitle="ระบบจับคู่รหัสการวินิจฉัยแพทย์แผนไทยกับ ICD-10-TM อัตโนมัติ เพื่อให้แพทย์ตรวจสอบและยืนยันก่อนส่งออก HDC"
+      subtitle="ระบบจับคู่รหัสการวินิจฉัยแพทย์แผนไทยกับ ICD-10-TM อัตโนมัติจากฐานข้อมูล Master TTM Clinical Data"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* คอลัมน์ซ้าย (2 ส่วน): ตารางรหัสโรค */}
@@ -202,7 +131,7 @@ export default function Step8IcdCoding() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="ค้นหารหัสโรค (เช่น U55, U77, R14) หรือชื่อโรค..."
+                placeholder="ค้นหารหัสโรค (เช่น U55, U57, K30, R50) หรือชื่อโรค/หัตถการ..."
                 className="w-full border border-gray-200 rounded-lg pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#1E4D38]"
               />
             </div>
@@ -240,7 +169,7 @@ export default function Step8IcdCoding() {
                   <td className="py-3.5 px-4">
                     <span
                       className={`font-bold block ${
-                        item.checked ? 'text-[#14261D]' : 'text-gray-400 line-through'
+                        item.checked ? 'text-[#14261D]' : 'text-gray-400'
                       }`}
                     >
                       {item.description}
@@ -260,7 +189,7 @@ export default function Step8IcdCoding() {
                       className={`px-2 py-0.5 rounded-full font-bold text-[10px] ${
                         item.confidence.includes('สูง')
                           ? 'bg-[#EAF3EE] text-[#1E4D38]'
-                          : 'bg-[#FDF0D5] text-[#9A6B1F]'
+                          : 'bg-gray-100 text-gray-500'
                       }`}
                     >
                       {item.confidence}
@@ -280,8 +209,8 @@ export default function Step8IcdCoding() {
               ระบบเลือกรหัสอย่างไร?
             </h4>
             <p className="text-gray-600 leading-relaxed text-[11px]">
-              ระบบทำการจับคู่อัตโนมัติจาก <strong>บัญชี 642 รหัสมาตรฐานของสถาบันการแพทย์แผนไทย</strong>{' '}
-              ร่วมกับคู่มือรหัสสถิติสุขภาพ ICD-10-TM ฉบับปี 2568 โดยใช้ทั้งศัพท์อาการ (CC) และผลประเมินสมุฏฐาน
+              ระบบทำการจับคู่อัตโนมัติจากฐานข้อมูล <strong>TTM Clinical Master Mapping</strong>{' '}
+              ร่วมกับคู่มือรหัสสถิติสุขภาพ ICD-10-TM ฉบับปี 2568 โดยใช้ทั้งศัพท์อาการ (CC) และแผนการรักษา
             </p>
           </div>
 

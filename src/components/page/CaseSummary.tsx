@@ -4,10 +4,10 @@
 import React, { useState } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
-import { FileDown, Send, CheckCircle2, User, Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { FileDown, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function Step9CaseSummary() {
-  const { setCurrentStep, patientCase } = useCase();
+  const { setCurrentStep, patientCase, completeCurrentCase } = useCase();
   const [isExporting, setIsExporting] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
 
@@ -18,6 +18,13 @@ export default function Step9CaseSummary() {
       : patientCase.rawNote || 'มีอาการไม่สบายตามธาตุสมุฏฐาน';
 
   const smutthanElement = patientCase.smutthanResult?.primaryElement || 'ลม';
+  const ageGroupLabel =
+    (patientCase.age || 58) >= 32
+      ? 'ปัจฉิมวัย'
+      : (patientCase.age || 58) > 16
+      ? 'มัชฌิมวัย'
+      : 'ปฐมวัย';
+
   const smutthanText = `${
     smutthanElement === 'ลม'
       ? 'วาโยธาตุ'
@@ -26,7 +33,7 @@ export default function Step9CaseSummary() {
       : smutthanElement === 'น้ำ'
       ? 'อาโปธาตุ'
       : 'ปถวีธาตุ'
-  } (${smutthanElement}) แปรปรวน · วสันตฤดู · ปัจฉิมวัย`;
+  } (${smutthanElement}) แปรปรวน · วสันตฤดู · ${ageGroupLabel}`;
 
   const currentRx = patientCase.prescriptions?.[0];
   const rxSummary = currentRx
@@ -45,14 +52,21 @@ export default function Step9CaseSummary() {
       ? patientCase.confirmedICD.map((c) => `${c.ttmCode} (${c.icd10tm})`).join(' · ')
       : 'U55.22 (R14) · U77.1 (M79.1) · U60.1 (หัตถการประคบ)';
 
-  // ฟังก์ชันจำลองส่งออกข้อมูล HDC / HIS
+  // ฟังก์ชันส่งออกข้อมูล HDC / HIS และอัปเดตสถานะเป็นตรวจแล้ว
   const handleExportHDC = () => {
     setIsExporting(true);
+    completeCurrentCase();
     setTimeout(() => {
       setIsExporting(false);
       setExportSuccess(true);
       setTimeout(() => setExportSuccess(false), 3500);
     }, 1200);
+  };
+
+  // ปิดเคสและอัปเดตสถานะเป็น 'ตรวจแล้ว' ในหน้ารายการผู้ป่วยวันนี้ (S2)
+  const handleFinishAndReturn = () => {
+    completeCurrentCase();
+    setCurrentStep('S2');
   };
 
   return (
@@ -91,7 +105,8 @@ export default function Step9CaseSummary() {
                 บันทึกเวชกรรมไทย CDSS ประจำเคส
               </span>
               <span className="text-[11px] text-gray-500">
-                ผู้ป่วย: {patientCase.name || 'คุณสมศรี ใจดี'} (HN: {patientCase.hn || 'HN-982341'})
+                ผู้ป่วย: {patientCase.name || 'ไม่ระบุชื่อ'} (HN: {patientCase.hn || '-'}) · อายุ{' '}
+                {patientCase.age || '-'} ปี
               </span>
             </div>
             <span className="bg-emerald-50 text-[#1E4D38] border border-emerald-200 px-3 py-1 rounded-full font-bold text-[11px] flex items-center gap-1">
@@ -112,15 +127,21 @@ export default function Step9CaseSummary() {
               <span className="text-gray-500 font-medium">สัญญาณชีพ & โรคประจำตัว:</span>
               <div className="col-span-3 space-y-1">
                 <p className="text-gray-800">
-                  BP: <strong>{patientCase.vitals?.bp || '132/84 mmHg'}</strong> · Pulse:{' '}
-                  <strong>{patientCase.vitals?.pulse || 78} bpm</strong> · Temp:{' '}
-                  <strong>{patientCase.vitals?.temp || 36.8} °C</strong>
+                  BP: <strong>{patientCase.vitals?.bp || '120/80 mmHg'}</strong> · Pulse:{' '}
+                  <strong>{patientCase.vitals?.pulse || 76} bpm</strong> · Temp:{' '}
+                  <strong>{patientCase.vitals?.temp || 36.6} °C</strong>
                 </p>
                 <p className="text-gray-600">
-                  โรคประจำตัว: {patientCase.underlyingDiseases?.join(', ') || 'เบาหวานชนิดที่ 2'}
+                  โรคประจำตัว:{' '}
+                  {patientCase.underlyingDiseases && patientCase.underlyingDiseases.length > 0
+                    ? patientCase.underlyingDiseases.join(', ')
+                    : 'ปฏิเสธโรคประจำตัว'}
                 </p>
                 <p className="text-gray-600">
-                  ยาแผนปัจจุบัน: {patientCase.currentMeds?.join(', ') || 'Metformin 500mg, Warfarin 3mg'}
+                  ยาแผนปัจจุบัน:{' '}
+                  {patientCase.currentMeds && patientCase.currentMeds.length > 0
+                    ? patientCase.currentMeds.join(', ')
+                    : 'ไม่ได้ใช้ยาประจำ'}
                 </p>
               </div>
             </div>
@@ -133,7 +154,7 @@ export default function Step9CaseSummary() {
                   {smutthanText}
                 </span>
                 <p className="text-gray-500 text-[11px] mt-1">
-                  ความเชื่อมั่น {patientCase.smutthanResult?.confidence || 92}% · อ้างอิงคัมภีร์เวชศึกษา และสมุฏฐานวินิจฉัย
+                  ความเชื่อมั่น {patientCase.smutthanResult?.confidence || 88}% · อ้างอิงคัมภีร์เวชศึกษา และสมุฏฐานวินิจฉัย
                 </p>
               </div>
             </div>
@@ -204,7 +225,7 @@ export default function Step9CaseSummary() {
             {exportSuccess && (
               <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-[11px] font-semibold flex items-center gap-2 animate-fade-in">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                ส่งข้อมูลโครงสร้าง FHIR JSON เข้าสู่ HDC สธ. สำเร็จเรียบร้อย!
+                ส่งข้อมูลโครงสร้าง FHIR JSON เข้าสู่ HDC สธ. และอัปเดตสถานะตรวจแล้วสำเร็จ!
               </div>
             )}
 
@@ -244,7 +265,7 @@ export default function Step9CaseSummary() {
         </button>
         <button
           type="button"
-          onClick={() => setCurrentStep('S2')}
+          onClick={handleFinishAndReturn}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold cursor-pointer shadow-xs transition"
         >
           เสร็จสิ้น ปิดเคสกลับหน้ารายการผู้ป่วย →

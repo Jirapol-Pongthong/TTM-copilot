@@ -16,27 +16,9 @@ export default function Step1Login() {
       <div className="w-full md:w-1/2 bg-[#123123] text-white p-12 flex flex-col justify-center">
         <div className="max-w-md mx-auto">
           <h1 className="text-4xl font-extrabold text-[#E5C483] tracking-tight">TTM Copilot</h1>
-          <p className="text-lg text-[#B2C5BB] mt-3">
+          <p className="text-lg text-[#B2C5BB] mt-3 leading-relaxed">
             ผู้ช่วยสนับสนุนการตัดสินใจทางคลินิกเวชกรรมไทยด้วย AI สำหรับหน่วยบริการปฐมภูมิ
           </p>
-          <ul className="mt-10 space-y-4 text-sm text-[#D5DFD9]">
-            <li className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#E5C483]" />
-              ประเมินสมุฏฐาน 4 พร้อมเหตุผลและอ้างอิงตำรา
-            </li>
-            <li className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#E5C483]" />
-              เสนอรสยา / ตำรับ ให้แพทย์เลือกและปรับเอง
-            </li>
-            <li className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#E5C483]" />
-              ตรวจอันตรกิริยาระหว่างยาแผนปัจจุบันกับสมุนไพร
-            </li>
-            <li className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#E5C483]" />
-              จับคู่รหัสโรค ICD-10-TM ให้แพทย์ยืนยัน
-            </li>
-          </ul>
         </div>
       </div>
 

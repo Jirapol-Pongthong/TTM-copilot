@@ -70,7 +70,7 @@ export default function AppShell({
                   : 'text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white'
               }`}
             >
-              <span>ตรวจรักษา (เคสปัจจุบัน)</span>
+              <span>ตรวจรักษา</span>
               {isClinicalFlow && (
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E5C483] shrink-0" />
               )}

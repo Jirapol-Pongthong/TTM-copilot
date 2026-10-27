@@ -1,91 +1,75 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from '@google/genai';
+import { extractThaiSymptomsDeterministic } from '@/lib/symptomExtractor';
 
 const apiKey = process.env.GEMINI_API_KEY || '';
-const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
+const ai =
+  apiKey && apiKey !== 'ใส่_API_KEY_ของคุณที่นี่'
+    ? new GoogleGenAI({ apiKey })
+    : null;
 
 export async function POST(req: NextRequest) {
+  let textPrompt = '';
   try {
-    const { textPrompt } = await req.json();
+    const body = await req.json();
+    textPrompt = typeof body?.textPrompt === 'string' ? body.textPrompt.trim() : '';
 
-    if (!textPrompt || typeof textPrompt !== 'string') {
+    if (!textPrompt) {
       return NextResponse.json({ error: 'Invalid input prompt' }, { status: 400 });
     }
 
     if (ai) {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: textPrompt,
-        config: {
-          systemInstruction:
-            'คุณคือผู้ช่วยแพทย์แผนไทย สกัดข้อความประวัติผู้ป่วยให้อยู่ในรูป JSON ตาม Schema ที่กำหนด ห้ามแต่งข้อมูลนอกเหนือจากที่ได้รับ',
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              chiefComplaint: {
-                type: Type.ARRAY,
-                items: { type: Type.STRING },
-                description: 'รายการอาการสำคัญ เช่น ท้องอืด, แน่นเฟ้อ, ปวดเมื่อยตามตัว',
+      try {
+        const response = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: textPrompt,
+          config: {
+            systemInstruction:
+              'คุณคือผู้ช่วยแพทย์แผนไทย สกัดข้อความประวัติผู้ป่วยให้อยู่ในรูป JSON ตาม Schema ที่กำหนด ห้ามแต่งข้อมูลอาการที่ไม่ได้อยู่ในข้อความของผู้ป่วยเด็ดขาด',
+            responseMimeType: 'application/json',
+            responseSchema: {
+              type: Type.OBJECT,
+              properties: {
+                chiefComplaint: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING },
+                  description: 'รายการอาการสำคัญที่สกัดได้จากข้อความจริงของผู้ป่วย',
+                },
+                duration: {
+                  type: Type.STRING,
+                  description: 'ระยะเวลาที่มีอาการ เช่น 3 วัน, 4 วัน, 1 สัปดาห์ หรือ ไม่ระบุระยะเวลา',
+                },
+                affectedDhatu: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING },
+                  description: 'แนวโน้มธาตุที่เกี่ยวข้อง เช่น เตโชธาตุ (สันตัปปัคคี), วาโยธาตุ (อุทธังคมาวาตา), อาโปธาตุ (ศอเสมหะ)',
+                },
+                bowelMovement: {
+                  type: Type.STRING,
+                  description: 'การขับถ่าย เช่น ปกติ, ขับถ่ายไม่สะดวก, ถ่ายเหลว',
+                },
               },
-              duration: {
-                type: Type.STRING,
-                description: 'ระยะเวลาที่มีอาการ เช่น 3 วัน, 4 วัน, 1 สัปดาห์',
-              },
-              affectedDhatu: {
-                type: Type.ARRAY,
-                items: { type: Type.STRING },
-                description: 'แนวโน้มธาตุที่เกี่ยวข้อง เช่น วาโยธาตุ, ปิตตะแทรก',
-              },
-              bowelMovement: {
-                type: Type.STRING,
-                description: 'การขับถ่าย เช่น ปกติ, ท้องผูก, ถ่ายเหลว',
-              },
+              required: ['chiefComplaint', 'duration', 'affectedDhatu'],
             },
-            required: ['chiefComplaint', 'duration', 'affectedDhatu'],
           },
-        },
-      });
+        });
 
-      if (response.text) {
-        return NextResponse.json(JSON.parse(response.text));
+        if (response.text) {
+          const parsed = JSON.parse(response.text);
+          if (Array.isArray(parsed.chiefComplaint) && parsed.chiefComplaint.length > 0) {
+            return NextResponse.json(parsed);
+          }
+        }
+      } catch {
+        // หาก API Key ไม่ถูกต้องหรือเครือข่ายขัดข้อง ให้ตกลงมาใช้ Deterministic Thai Clinical NLP Parser ด้านล่าง
       }
     }
 
-    // Safe Fallback: หากไม่มี API Key หรือ API ติดขัด ให้ประมวลผลด้วยตรรกะ Deterministic Regex/Rule
-    const lower = textPrompt.toLowerCase();
-    const symptoms: string[] = [];
-
-    if (lower.includes('ท้องอืด') || lower.includes('แน่นท้อง')) symptoms.push('ท้องอืด แน่นท้องหลังอาหาร');
-    if (lower.includes('เรอเปรี้ยว') || lower.includes('กรดไหลย้อน')) symptoms.push('เรอเปรี้ยว มีลมดัน');
-    if (lower.includes('ปวดเมื่อย') || lower.includes('ปวดตึง') || lower.includes('คอบ่า')) symptoms.push('ปวดตึงกล้ามเนื้อคอบ่าหลัง');
-    if (lower.includes('ขับถ่ายไม่สะดวก') || lower.includes('ท้องผูก')) symptoms.push('ขับถ่ายไม่สะดวก');
-
-    // ถ้าไม่พบคำสำคัญ ให้ดึงประโยคสั้นๆ เป็นอาการ
-    if (symptoms.length === 0) {
-      symptoms.push('ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง');
-    }
-
-    let duration = '4 วัน';
-    const durationMatch = textPrompt.match(/(\d+)\s*(วัน|สัปดาห์|เดือน)/);
-    if (durationMatch) {
-      duration = `${durationMatch[1]} ${durationMatch[2]}`;
-    }
-
-    return NextResponse.json({
-      chiefComplaint: symptoms,
-      duration: duration,
-      affectedDhatu: ['วาโยธาตุ (กุจฉิสยาวาตะ)', 'วาโยธาตุ (อังคมังคานุสารีวาตะ)'],
-      bowelMovement: lower.includes('ปกติ') ? 'ปกติ' : 'ขับถ่ายไม่สะดวก',
-      source: 'Deterministic Clinical Fallback Engine (Zero-failure Guarantee)',
-    });
-  } catch (err) {
-    return NextResponse.json({
-      chiefComplaint: ['ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'],
-      duration: '4 วัน',
-      affectedDhatu: ['วาโยธาตุ'],
-      bowelMovement: 'ขับถ่ายไม่สะดวก',
-      source: 'Safe Fallback Mock',
-    });
+    // ประมวลผลสกัดอาการจริงจากข้อความที่ผู้ใช้พิมพ์ด้วย Deterministic Thai Clinical NLP Parser
+    const extracted = extractThaiSymptomsDeterministic(textPrompt);
+    return NextResponse.json(extracted);
+  } catch {
+    const extracted = extractThaiSymptomsDeterministic(textPrompt);
+    return NextResponse.json(extracted);
   }
 }

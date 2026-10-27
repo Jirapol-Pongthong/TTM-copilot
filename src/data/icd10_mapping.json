@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ICD-001",
+    "ttmCode": "U55.22",
+    "ttmName": "โรคลมกุจฉิสยาวาตะ (ลมในท้อง/กระเพาะ)",
+    "icd10tm": "K30",
+    "icd10Name": "Functional Dyspepsia (โรคกระเพาะอาหารทำงานผิดปกติ)",
+    "fullDescription": "โรคลมกุจฉิสยาวาตะ (ลมในท้อง/กระเพาะ) [U55.22] → Functional Dyspepsia (โรคกระเพาะอาหารทำงานผิดปกติ) (K30)"
+  },
+  {
+    "id": "ICD-002",
+    "ttmCode": "U55.10",
+    "ttmName": "โรคลมอังคมังคานุสารีวาตะ (ลมปวดตึงเนื้อตัว)",
+    "icd10tm": "M79.1",
+    "icd10Name": "Myalgia (อาการปวดกล้ามเนื้อ)",
+    "fullDescription": "โรคลมอังคมังคานุสารีวาตะ (ลมปวดตึงเนื้อตัว) [U55.10] → Myalgia (อาการปวดกล้ามเนื้อ) (M79.1)"
+  },
+  {
+    "id": "ICD-003",
+    "ttmCode": "U57.31",
+    "ttmName": "โรคปิตตะกำเริบ (ไข้เกิดจากความร้อน)",
+    "icd10tm": "R50.9",
+    "icd10Name": "Fever, unspecified (อาการไข้ไม่ระบุสาเหตุ)",
+    "fullDescription": "โรคปิตตะกำเริบ (ไข้เกิดจากความร้อน) [U57.31] → Fever, unspecified (อาการไข้ไม่ระบุสาเหตุ) (R50.9)"
+  },
+  {
+    "id": "ICD-004",
+    "ttmCode": "U56.11",
+    "ttmName": "โรคเสมหะกำเริบ (หวัดคัดจมูก/ไอมีเสมหะ)",
+    "icd10tm": "J00",
+    "icd10Name": "Acute nasopharyngitis [common cold]",
+    "fullDescription": "โรคเสมหะกำเริบ (หวัดคัดจมูก/ไอมีเสมหะ) [U56.11] → Acute nasopharyngitis [common cold] (J00)"
+  },
+  {
+    "id": "ICD-005",
+    "ttmCode": "U55.21",
+    "ttmName": "โรคลมมหาสดมภ์ (ลมวิงเวียน สลบแน่น)",
+    "icd10tm": "R42",
+    "icd10Name": "Dizziness and giddiness (อาการวิงเวียนศีรษะ)",
+    "fullDescription": "โรคลมมหาสดมภ์ (ลมวิงเวียน สลบแน่น) [U55.21] → Dizziness and giddiness (อาการวิงเวียนศีรษะ) (R42)"
+  },
+  {
+    "id": "ICD-006",
+    "ttmCode": "U55.30",
+    "ttmName": "โรคลมอัมพฤกษ์ (ลมแขนขาอ่อนแรง)",
+    "icd10tm": "G81.9",
+    "icd10Name": "Hemiplegia, unspecified (ภาวะอัมพฤกษ์)",
+    "fullDescription": "โรคลมอัมพฤกษ์ (ลมแขนขาอ่อนแรง) [U55.30] → Hemiplegia, unspecified (ภาวะอัมพฤกษ์) (G81.9)"
+  },
+  {
+    "id": "ICD-007",
+    "ttmCode": "U58.12",
+    "ttmName": "โรคอุจจาระธาตุพิการ (ท้องเสียมูกเลือด)",
+    "icd10tm": "A09.9",
+    "icd10Name": "Gastroenteritis and colitis of unspecified origin",
+    "fullDescription": "โรคอุจจาระธาตุพิการ (ท้องเสียมูกเลือด) [U58.12] → Gastroenteritis and colitis of unspecified origin (A09.9)"
+  },
+  {
+    "id": "ICD-008",
+    "ttmCode": "U55.14",
+    "ttmName": "โรคลมกะฏิทาราวาตะ (ปวดสลักเพชร/บั้นเอว)",
+    "icd10tm": "M54.5",
+    "icd10Name": "Low back pain (อาการปวดหลังส่วนล่าง)",
+    "fullDescription": "โรคลมกะฏิทาราวาตะ (ปวดสลักเพชร/บั้นเอว) [U55.14] → Low back pain (อาการปวดหลังส่วนล่าง) (M54.5)"
+  },
+  {
+    "id": "ICD-009",
+    "ttmCode": "U60.1",
+    "ttmName": "การประคบสมุนไพรเพื่อการรักษา",
+    "icd10tm": "U60.1 / Z50.1",
+    "icd10Name": "Other physical therapy (การรักษาด้วยวิธีทางกายภาพ)",
+    "fullDescription": "การประคบสมุนไพรเพื่อการรักษา [U60.1] → Other physical therapy (การรักษาด้วยวิธีทางกายภาพ) (U60.1 / Z50.1)"
+  },
+  {
+    "id": "ICD-010",
+    "ttmCode": "U60.2",
+    "ttmName": "การนวดไทยเพื่อการรักษา (นวดราชสำนัก/เวชกรรม)",
+    "icd10tm": "U60.2 / Z50.8",
+    "icd10Name": "Care involving use of other rehabilitation procedures",
+    "fullDescription": "การนวดไทยเพื่อการรักษา (นวดราชสำนัก/เวชกรรม) [U60.2] → Care involving use of other rehabilitation procedures (U60.2 / Z50.8)"
+  },
+  {
+    "id": "ICD-011",
+    "ttmCode": "U60.3",
+    "ttmName": "การอบสมุนไพรเพื่อการรักษา",
+    "icd10tm": "U60.3 / Z50.1",
+    "icd10Name": "Other physical therapy (การบำบัดด้วยความร้อนสมุนไพร)",
+    "fullDescription": "การอบสมุนไพรเพื่อการรักษา [U60.3] → Other physical therapy (การบำบัดด้วยความร้อนสมุนไพร) (U60.3 / Z50.1)"
+  },
+  {
+    "id": "ICD-012",
+    "ttmCode": "U60.4",
+    "ttmName": "การเผายาท้องเพื่อบำบัดโรคลมกุจฉิสยาวาตะ",
+    "icd10tm": "U60.4 / Z50.8",
+    "icd10Name": "Other specified rehabilitation procedures",
+    "fullDescription": "การเผายาท้องเพื่อบำบัดโรคลมกุจฉิสยาวาตะ [U60.4] → Other specified rehabilitation procedures (U60.4 / Z50.8)"
+  }
+]

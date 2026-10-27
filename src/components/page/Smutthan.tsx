@@ -6,7 +6,7 @@ import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { evaluateSmutthan } from '@/lib/smutthanEngine';
 import { getCitationDetails, KnowledgeChunk } from '@/lib/ragService';
-import { BookOpen, Sparkles, X, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Sparkles, X, CheckCircle2 } from 'lucide-react';
 
 export default function Step5Smutthan() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
@@ -19,16 +19,25 @@ export default function Step5Smutthan() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenCitation = (bookName: string, pageNumber?: number) => {
-    const chunk = getCitationDetails(bookName, pageNumber);
+    // รองรับกรณีส่งข้อความเช่น "อ้างอิง: คัมภีร์ธาตุวิภังค์ (น.25)"
+    let cleanBook = bookName.replace(/^อ้างอิง:\s*/, '').trim();
+    let parsedPage = pageNumber;
+    const pageMatch = cleanBook.match(/\(น\.(\d+)\)/);
+    if (!parsedPage && pageMatch) {
+      parsedPage = parseInt(pageMatch[1], 10);
+    }
+    cleanBook = cleanBook.replace(/\(น\.\d+\).*/, '').trim();
+
+    const chunk = getCitationDetails(cleanBook, parsedPage);
     if (chunk) {
       setSelectedChunk(chunk);
     } else {
       setSelectedChunk({
         id: 'REF_GENERAL',
-        book: bookName,
-        page: pageNumber || 1,
+        book: cleanBook,
+        page: parsedPage || 1,
         chapter: 'บทอ้างอิงตำราเวชกรรมไทย',
-        content: `ข้อมูลอ้างอิงจาก ${bookName} หน้า ${pageNumber || '–'} รองรับการประเมินสมุฏฐานตามหลักเกณฑ์การแพทย์แผนไทยกระทรวงสาธารณสุข`,
+        content: `ข้อมูลอ้างอิงจาก ${cleanBook} หน้า ${parsedPage || '–'} รองรับการประเมินสมุฏฐานตามหลักเกณฑ์การแพทย์แผนไทยกระทรวงสาธารณสุข`,
         tags: ['เวชกรรมไทย', 'สมุฏฐานวินิจฉัย'],
       });
     }
@@ -46,6 +55,15 @@ export default function Step5Smutthan() {
     });
     setCurrentStep('S6');
   };
+
+  const elementFullLabel =
+    evaluation.primaryElement === 'ลม'
+      ? 'วาโยธาตุ (ธาตุลม)'
+      : evaluation.primaryElement === 'ไฟ'
+      ? 'เตโชธาตุ (ธาตุไฟ)'
+      : evaluation.primaryElement === 'น้ำ'
+      ? 'อาโปธาตุ (ธาตุน้ำ)'
+      : 'ปถวีธาตุ (ธาตุดิน)';
 
   return (
     <AppShell
@@ -94,7 +112,7 @@ export default function Step5Smutthan() {
           <div className="bg-[#1E4D38] text-white p-5 rounded-2xl shadow-sm">
             <span className="text-xs text-[#B2C5BB]">ผลประเมินสมุฏฐานโดยรวม</span>
             <h3 className="text-lg font-bold text-[#E5C483] mt-1">
-              แนวโน้ม{evaluation.primaryElement === 'ลม' ? 'วาโยธาตุ' : evaluation.primaryElement}แปรปรวน
+              แนวโน้ม{elementFullLabel}แปรปรวน
             </h3>
             <p className="text-xs text-gray-200 mt-2">
               ความสอดคล้องของปัจจัย {evaluation.matchedCount} จาก 4 มิติสมุฏฐาน
@@ -124,7 +142,12 @@ export default function Step5Smutthan() {
             </p>
             <button
               type="button"
-              onClick={() => handleOpenCitation('คัมภีร์ธาตุบรรจบ', 12)}
+              onClick={() =>
+                handleOpenCitation(
+                  evaluation.citations[0]?.book || 'คัมภีร์ธาตุบรรจบ',
+                  evaluation.citations[0]?.page || 12
+                )
+              }
               className="mt-3.5 w-full py-2 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 flex items-center justify-center gap-1.5 cursor-pointer transition text-xs"
             >
               <BookOpen className="w-3.5 h-3.5 text-[#1E4D38]" /> เปิดดูคลังตำราอ้างอิง ({evaluation.citations.length} รายการ)
@@ -173,6 +196,30 @@ export default function Step5Smutthan() {
                 <X className="w-4 h-4" />
               </button>
             </div>
+
+            {/* แถบสลับดูรายการอ้างอิงทั้งหมดของเคสนี้ */}
+            {evaluation.citations.length > 1 && (
+              <div className="flex flex-wrap gap-1.5 mt-3 pb-2 border-b border-gray-100">
+                {evaluation.citations.map((cit, idx) => {
+                  const isActive =
+                    selectedChunk.book.includes(cit.book) && selectedChunk.page === cit.page;
+                  return (
+                    <button
+                      key={`${cit.book}-${cit.page}-${idx}`}
+                      type="button"
+                      onClick={() => handleOpenCitation(cit.book, cit.page)}
+                      className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold cursor-pointer transition ${
+                        isActive
+                          ? 'bg-[#1E4D38] text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      {cit.book} (น.{cit.page})
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
             <div className="mt-4 space-y-3 text-xs">
               <div className="flex items-center justify-between">

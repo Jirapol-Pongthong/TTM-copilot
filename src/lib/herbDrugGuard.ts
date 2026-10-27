@@ -1,4 +1,19 @@
-import interactions from '@/data/interactions.json';
+// src/lib/herbDrugGuard.ts
+import rawInteractions from '@/data/interactions.json';
+
+export interface InteractionRule {
+  id: string;
+  herb: string;
+  herbKeywords?: string[];
+  drug: string;
+  drugKeywords?: string[];
+  severity: 'CRITICAL' | 'MODERATE' | 'SAFE';
+  riskLabel?: string;
+  effect: string;
+  action: string;
+}
+
+const interactions = rawInteractions as InteractionRule[];
 
 export interface InteractionCheckResult {
   hasConflict: boolean;
@@ -7,27 +22,188 @@ export interface InteractionCheckResult {
   matchedDrug: string;
   effect: string;
   recommendedAction: string;
+  isSafeAlternative?: boolean;
 }
 
+// ฐานข้อมูลคำพ้องชื่อยาแผนปัจจุบัน (รองรับตัวพิมพ์เล็ก/ใหญ่, ไม่มีจุด, ไม่มี mg, และชื่อภาษาไทย)
+export const DRUG_ALIASES: Record<string, string[]> = {
+  warfarin: ['warfarin', 'wafarin', 'วาร์ฟาริน', 'วาฟาริน', 'coumadin', 'คูมาดิน', 'ละลายลิ่มเลือด', 'ต้านการแข็งตัว'],
+  aspirin: ['aspirin', 'asa', 'แอสไพริน', 'ต้านเกล็ดเลือด', 'cardiprin', 'คาร์ดิพริน'],
+  clopidogrel: ['clopidogrel', 'โคลพิโดเกรล', 'plavix', 'พลาวิกซ์'],
+  metformin: ['metformin', 'เมทฟอร์มิน', 'เมตฟอร์มิน', 'glucophage', 'กลูโคฟาจ', 'ยาลดน้ำตาล'],
+  glipizide: ['glipizide', 'กลิพิไซด์', 'กริพิไซด์', 'minidiab'],
+  insulin: ['insulin', 'อินซูลิน', 'ยาฉีดเบาหวาน'],
+  enalapril: ['enalapril', 'อีนาลาพริล', 'losartan', 'โลซาร์แทน', 'ยาลดความดัน'],
+  paracetamol: ['paracetamol', 'พาราเซตามอล', 'พารา', 'tylenol', 'ไทลินอล'],
+  statin: ['atorvastatin', 'simvastatin', 'สแตติน', 'ยาลดไขมัน', 'lipitor', 'zocor'],
+  betablocker: ['propranolol', 'atenolol', 'โพรพราโนลอล', 'อะทีโนลอล', 'เบต้าบล็อกเกอร์'],
+  nsaid: ['nsaid', 'ibuprofen', 'ไอบูโพรเฟน', 'diclofenac', 'ไดโคลฟีแนค', 'naproxen', 'นาพรอกเซน', 'celecoxib', 'arcoxia'],
+};
+
+/**
+ * ทำความสะอาดข้อความชื่อยา (ตัดจุด ช่องว่าง หน่วย mg/มก. และแปลงเป็นตัวพิมพ์เล็กทั้งหมด)
+ */
+export function normalizeDrugString(input: string): string {
+  return input
+    .toLowerCase()
+    .replace(/\./g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * ตรวจสอบว่ายาแผนปัจจุบันที่พิมพ์เข้ามา จัดอยู่ในกลุ่มเสี่ยงตีกับสมุนไพรหรือไม่ (ใช้ในหน้า S3 NewCase)
+ */
+export function evaluateSingleDrugRisk(medInput: string): {
+  isRisk: boolean;
+  level: 'NONE' | 'MODERATE' | 'CRITICAL';
+  canonicalDrug: string;
+  badgeText: string;
+} {
+  const norm = normalizeDrugString(medInput);
+
+  if (DRUG_ALIASES.warfarin.some((alias) => norm.includes(alias)) || DRUG_ALIASES.clopidogrel.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'CRITICAL',
+      canonicalDrug: 'Warfarin / Clopidogrel',
+      badgeText: 'เสี่ยงตีกับสมุนไพร (ต้านการแข็งตัวของเลือด/เกล็ดเลือด)',
+    };
+  }
+
+  if (DRUG_ALIASES.aspirin.some((alias) => norm.includes(alias)) || DRUG_ALIASES.nsaid.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'CRITICAL',
+      canonicalDrug: 'Aspirin / NSAIDs',
+      badgeText: 'เสี่ยงตีกับสมุนไพร (ระวังเลือดออกทางเดินอาหาร)',
+    };
+  }
+
+  if (DRUG_ALIASES.betablocker.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'CRITICAL',
+      canonicalDrug: 'Propranolol / Atenolol',
+      badgeText: 'ระวังสมุนไพรรสเผ็ดร้อนกระตุ้นการเต้นหัวใจ',
+    };
+  }
+
+  if (DRUG_ALIASES.metformin.some((alias) => norm.includes(alias)) || DRUG_ALIASES.glipizide.some((alias) => norm.includes(alias)) || DRUG_ALIASES.insulin.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'MODERATE',
+      canonicalDrug: 'ยาลดน้ำตาล / Insulin',
+      badgeText: 'เฝ้าระวังระดับน้ำตาลเมื่อใช้คู่สมุนไพรรสขมหรือปรับธาตุ',
+    };
+  }
+
+  if (DRUG_ALIASES.statin.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'MODERATE',
+      canonicalDrug: 'Atorvastatin / Simvastatin',
+      badgeText: 'เฝ้าระวังเมื่อใช้คู่ขมิ้นชันขนาดสูง (CYP3A4)',
+    };
+  }
+
+  if (DRUG_ALIASES.enalapril.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'MODERATE',
+      canonicalDrug: 'Enalapril / Losartan',
+      badgeText: 'เฝ้าระวังความดันโลหิตและเกลือแร่',
+    };
+  }
+
+  if (DRUG_ALIASES.paracetamol.some((alias) => norm.includes(alias))) {
+    return {
+      isRisk: true,
+      level: 'MODERATE',
+      canonicalDrug: 'Paracetamol',
+      badgeText: 'เลี่ยงใช้คู่สมุนไพรรสขมจัดที่มีผลต่อตับ เช่น บอระเพ็ด',
+    };
+  }
+
+  return {
+    isRisk: false,
+    level: 'NONE',
+    canonicalDrug: medInput,
+    badgeText: '',
+  };
+}
+
+/**
+ * ตรวจสอบอันตรกิริยาระหว่างสมุนไพรที่เลือกกับรายการยาประจำตัวทั้งหมดของผู้ป่วย (ใช้ในหน้า S6 & S7)
+ */
 export function checkHerbDrugInteraction(
   selectedHerbName: string,
   currentMeds: string[]
 ): InteractionCheckResult {
-  const medsJoined = currentMeds.join(' ').toLowerCase();
+  const normSelectedHerb = selectedHerbName.toLowerCase();
 
   for (const rule of interactions) {
-    const herbMatched = selectedHerbName.includes(rule.herb);
-    const drugMatched = medsJoined.includes(rule.drug.toLowerCase());
+    // 1. ตรวจสอบว่าสมุนไพรที่เลือกตรงกับกฎนี้หรือไม่
+    const herbKeywords = rule.herbKeywords && rule.herbKeywords.length > 0
+      ? rule.herbKeywords
+      : [rule.herb];
 
-    if (herbMatched && drugMatched) {
-      return {
-        hasConflict: true,
-        riskLevel: rule.severity === 'CRITICAL' ? 'CRITICAL' : 'MODERATE',
-        matchedHerb: selectedHerbName,
-        matchedDrug: rule.drug,
-        effect: rule.effect,
-        recommendedAction: rule.action,
-      };
+    const herbMatched = herbKeywords.some((kw) => {
+      const cleanKw = kw.toLowerCase().replace(/ยา/g, '').trim();
+      return normSelectedHerb.includes(cleanKw) || cleanKw.includes(normSelectedHerb);
+    });
+
+    if (!herbMatched) continue;
+
+    // 2. ตรวจสอบว่ายาประจำตัวของผู้ป่วยตรงกับกฎนี้หรือไม่
+    const drugKeywords = rule.drugKeywords && rule.drugKeywords.length > 0
+      ? rule.drugKeywords
+      : [rule.drug];
+
+    for (const userMed of currentMeds) {
+      const normUserMed = normalizeDrugString(userMed);
+
+      let drugMatched = drugKeywords.some((dkw) => {
+        const cleanDkw = dkw.toLowerCase().trim();
+        return normUserMed.includes(cleanDkw);
+      });
+
+      // ตรวจเทียบผ่าน DRUG_ALIASES
+      if (!drugMatched) {
+        for (const [canonical, aliases] of Object.entries(DRUG_ALIASES)) {
+          const ruleMentionsAlias = drugKeywords.some((dkw) =>
+            dkw.toLowerCase().includes(canonical) || aliases.some((a) => dkw.toLowerCase().includes(a))
+          );
+          if (ruleMentionsAlias && aliases.some((a) => normUserMed.includes(a))) {
+            drugMatched = true;
+            break;
+          }
+        }
+      }
+
+      if (drugMatched) {
+        if (rule.severity === 'SAFE') {
+          return {
+            hasConflict: false,
+            riskLevel: 'NONE',
+            matchedHerb: selectedHerbName,
+            matchedDrug: userMed,
+            effect: rule.effect,
+            recommendedAction: rule.action,
+            isSafeAlternative: true,
+          };
+        }
+
+        return {
+          hasConflict: true,
+          riskLevel: rule.severity === 'CRITICAL' ? 'CRITICAL' : 'MODERATE',
+          matchedHerb: selectedHerbName,
+          matchedDrug: userMed, // แสดงชื่อยาจริงตามที่แพทย์คีย์เข้ามา
+          effect: rule.effect,
+          recommendedAction: rule.action,
+          isSafeAlternative: false,
+        };
+      }
     }
   }
 
@@ -36,7 +212,8 @@ export function checkHerbDrugInteraction(
     riskLevel: 'NONE',
     matchedHerb: selectedHerbName,
     matchedDrug: '-',
-    effect: 'ไม่พบอันตรกิริยาระหว่างสมุนไพรที่เลือกกับยาประจำตัวของผู้ป่วยในฐานข้อมูลมาตรฐาน',
+    effect: 'ไม่พบอันตรกิริยาระหว่างสมุนไพรที่เลือกกับยาประจำตัวของผู้ป่วยในฐานข้อมูลมาตรฐาน TTM Clinical',
     recommendedAction: 'สามารถสั่งจ่ายได้ตามขนาดมาตรฐานทางการแพทย์แผนไทย',
+    isSafeAlternative: true,
   };
 }

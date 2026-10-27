@@ -1,25 +1,72 @@
 // src/components/page/HistoryExam.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
-import { Sparkles, Mic, Plus, X, Loader2, Check } from 'lucide-react';
+import { extractThaiSymptomsDeterministic } from '@/lib/symptomExtractor';
+import { Sparkles, Mic, MicOff, Plus, X, Loader2, Check, RotateCcw } from 'lucide-react';
+
+/**
+ * ทำความสะอาดข้อความภาษาไทยที่ได้จาก Web Speech API ของ Chrome
+ * - ยุบช่องว่างที่คั่นระหว่างคำไทยติดกัน เช่น "ปวด ท้อง แน่น ท้อง ปวด หัว" -> "ปวดท้อง แน่นท้อง ปวดหัว"
+ * - ตัดคำซ้ำติดกันที่เกิดจากการพูดซ้ำจังหวะสั้นๆ
+ */
+function normalizeThaiSpeechTranscript(rawSpeech: string): string {
+  return rawSpeech
+    .replace(/\s+/g, ' ')
+    .replace(/ปวด\s+ท้อง/g, 'ปวดท้อง')
+    .replace(/แน่น\s+ท้อง/g, 'แน่นท้อง')
+    .replace(/ท้อง\s+อืด/g, 'ท้องอืด')
+    .replace(/แน่น\s+เฟ้อ/g, 'แน่นเฟ้อ')
+    .replace(/ปวด\s+หัว/g, 'ปวดหัว')
+    .replace(/ปวด\s+ศีรษะ/g, 'ปวดศีรษะ')
+    .replace(/เวียน\s+หัว/g, 'เวียนหัว')
+    .replace(/ตัว\s+ร้อน/g, 'ตัวร้อน')
+    .replace(/มี\s+ไข้/g, 'มีไข้')
+    .replace(/เป็น\s+ไข้/g, 'เป็นไข้')
+    .replace(/เจ็บ\s+คอ/g, 'เจ็บคอ')
+    .replace(/ปวด\s+เมื่อย/g, 'ปวดเมื่อย')
+    .replace(/ปวด\s+ตึง/g, 'ปวดตึง')
+    .replace(/คอ\s+บ่า/g, 'คอบ่า')
+    .replace(/ปวด\s+หลัง/g, 'ปวดหลัง')
+    .replace(/ปวด\s+ก้น/g, 'ปวดก้น')
+    .replace(/ปวด\s+เข่า/g, 'ปวดเข่า')
+    .replace(/ท้อง\s+ผูก/g, 'ท้องผูก')
+    .replace(/ท้อง\s+เสีย/g, 'ท้องเสีย')
+    .replace(/เรอ\s+เปรี้ยว/g, 'เรอเปรี้ยว')
+    .trim();
+}
 
 export default function Step4HistoryExam() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
 
-  const [noteText, setNoteText] = useState(
-    patientCase.rawNote ||
-      'คนไข้มีอาการท้องอืด แน่นเฟ้อหลังอาหาร มีลมดันขึ้น เรอเปรี้ยว ร่วมกับปวดตึงกล้ามเนื้อคอบ่าสะบักและหลังส่วนล่างเรื้อรังมา 4 วัน ขับถ่ายไม่สะดวก'
-  );
+  // เริ่มต้นจาก rawNote ของเคสจริง (ถ้าเปิดเคสใหม่จะเป็นค่าว่าง ไม่บังคับข้อความตั้งต้น)
+  const [noteText, setNoteText] = useState(patientCase.rawNote || '');
   const [isExtracting, setIsExtracting] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [newSymptomInput, setNewSymptomInput] = useState('');
   const [extractSuccess, setExtractSuccess] = useState(false);
 
-  // ฟังก์ชันเรียก Gemini LLM API เพื่อสกัดอาการแบบ Structured JSON
+  // เก็บ Instance ของ SpeechRecognition และข้อความตั้งต้นก่อนกดอัดเสียง เพื่อป้องกันการต่อข้อความซ้ำซ้อน (Cumulative Duplication)
+  const recognitionRef = useRef<any>(null);
+  const baseTextBeforeSpeechRef = useRef<string>('');
+
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // ignore
+        }
+      }
+    };
+  }, []);
+
+  // ฟังก์ชันเรียก API เพื่อสกัดอาการจากข้อความที่พิมพ์จริง
   const handleExtractSymptoms = async () => {
+    if (!noteText.trim()) return;
     setIsExtracting(true);
     setExtractSuccess(false);
 
@@ -33,24 +80,31 @@ export default function Step4HistoryExam() {
       if (!res.ok) throw new Error('Failed to extract');
 
       const data = await res.json();
+      const fallback = extractThaiSymptomsDeterministic(noteText);
       updateCase({
         rawNote: noteText,
         extractedSymptoms: {
-          chiefComplaint: data.chiefComplaint || ['ท้องอืด แน่นเฟ้อ', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'],
-          duration: data.duration || '4 วัน',
-          affectedDhatu: data.affectedDhatu || ['วาโยธาตุ'],
+          chiefComplaint:
+            Array.isArray(data.chiefComplaint) && data.chiefComplaint.length > 0
+              ? data.chiefComplaint
+              : fallback.chiefComplaint,
+          duration: data.duration || fallback.duration,
+          affectedDhatu:
+            Array.isArray(data.affectedDhatu) && data.affectedDhatu.length > 0
+              ? data.affectedDhatu
+              : fallback.affectedDhatu,
         },
       });
       setExtractSuccess(true);
       setTimeout(() => setExtractSuccess(false), 2500);
     } catch {
-      // Safe Fallback: หากออฟไลน์
+      const fallback = extractThaiSymptomsDeterministic(noteText);
       updateCase({
         rawNote: noteText,
         extractedSymptoms: {
-          chiefComplaint: ['ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'],
-          duration: '4 วัน',
-          affectedDhatu: ['วาโยธาตุ (กุจฉิสยาวาตะ)', 'วาโยธาตุ (อังคมังคานุสารีวาตะ)'],
+          chiefComplaint: fallback.chiefComplaint,
+          duration: fallback.duration,
+          affectedDhatu: fallback.affectedDhatu,
         },
       });
       setExtractSuccess(true);
@@ -60,9 +114,16 @@ export default function Step4HistoryExam() {
     }
   };
 
-  // จำลองหรือใช้งาน Web Speech API บันทึกเสียงพูด
+  // บันทึกเสียงพูดด้วย Web Speech API แบบเสถียร (ไม่เบิ้ลคำซ้ำ และกดหยุดไมค์ได้จริง)
   const handleToggleSpeech = () => {
     if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // ignore
+        }
+      }
       setIsListening(false);
       return;
     }
@@ -77,21 +138,55 @@ export default function Step4HistoryExam() {
 
       if (RecognitionClass) {
         try {
-          const recognition = new RecognitionClass();
-          recognition.lang = 'th-TH';
-          recognition.continuous = false;
-          recognition.interimResults = false;
-
-          recognition.onstart = () => setIsListening(true);
-          recognition.onresult = (event: any) => {
-            const transcript = event.results?.[0]?.[0]?.transcript || '';
-            if (transcript) {
-              setNoteText((prev) => (prev ? `${prev} ${transcript}` : transcript));
+          // หยุดตัวเก่าถ้าค้างอยู่
+          if (recognitionRef.current) {
+            try {
+              recognitionRef.current.abort();
+            } catch {
+              // ignore
             }
+          }
+
+          const recognition = new RecognitionClass();
+          recognitionRef.current = recognition;
+          baseTextBeforeSpeechRef.current = noteText.trim();
+
+          recognition.lang = 'th-TH';
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.maxAlternatives = 1;
+
+          recognition.onstart = () => {
+            setIsListening(true);
+          };
+
+          recognition.onresult = (event: any) => {
+            // อ่านเฉพาะประโยคในรอบการพูดนี้จาก event.results ทั้งชุด แล้วเขียนทับต่อจาก baseTextBeforeSpeechRef
+            // ป้องกันปัญหาการนำผลลัพธ์ระหว่างพูด (Interim/Cumulative) มาบวกซ้ำไปเรื่อยๆ
+            const pieces: string[] = [];
+            for (let i = 0; i < event.results.length; i++) {
+              const piece = event.results[i]?.[0]?.transcript?.trim();
+              if (piece) {
+                pieces.push(piece);
+              }
+            }
+
+            const sessionRaw = pieces.join(' ');
+            const normalizedSession = normalizeThaiSpeechTranscript(sessionRaw);
+            const prefix = baseTextBeforeSpeechRef.current;
+
+            if (normalizedSession) {
+              setNoteText(prefix ? `${prefix} ${normalizedSession}` : normalizedSession);
+            }
+          };
+
+          recognition.onerror = () => {
             setIsListening(false);
           };
-          recognition.onerror = () => setIsListening(false);
-          recognition.onend = () => setIsListening(false);
+
+          recognition.onend = () => {
+            setIsListening(false);
+          };
 
           recognition.start();
           return;
@@ -100,15 +195,6 @@ export default function Step4HistoryExam() {
         }
       }
     }
-
-    // จำลองการพูดเมื่อเบราว์เซอร์ไม่รองรับ
-    setIsListening(true);
-    setTimeout(() => {
-      setNoteText(
-        'คนไข้มีอาการท้องอืด แน่นเฟ้อหลังอาหาร มีลมดันขึ้น เรอเปรี้ยว ร่วมกับปวดตึงกล้ามเนื้อคอบ่าสะบักและหลังส่วนล่างเรื้อรังมา 4 วัน ขับถ่ายไม่สะดวก'
-      );
-      setIsListening(false);
-    }, 1500);
   };
 
   // ลบอาการ
@@ -137,31 +223,34 @@ export default function Step4HistoryExam() {
 
   // บันทึกและนำไปวิเคราะห์สมุฏฐานต่อ
   const handleProceedToSmutthan = () => {
-    const currentSymptoms = patientCase.extractedSymptoms?.chiefComplaint || [];
-    let updatedChiefComplaint = currentSymptoms;
-    let updatedAffectedDhatu = patientCase.extractedSymptoms?.affectedDhatu || [];
-
-    if (updatedChiefComplaint.length === 0) {
-      if (noteText.includes('ท้องอืด') || noteText.includes('แน่น') || noteText.includes('ลม')) {
-        updatedChiefComplaint = ['ท้องอืด แน่นเฟ้อหลังอาหาร', 'ปวดตึงกล้ามเนื้อคอบ่าหลัง'];
-        updatedAffectedDhatu = ['วาโยธาตุ (กุจฉิสยาวาตะ)', 'วาโยธาตุ (อังคมังคานุสารีวาตะ)'];
-      } else if (noteText.trim()) {
-        updatedChiefComplaint = [noteText.trim().slice(0, 45)];
-        updatedAffectedDhatu = ['วาโยธาตุ'];
-      } else {
-        updatedChiefComplaint = ['ท้องอืด แน่นเฟ้อ', 'ปวดตึงกล้ามเนื้อ'];
-        updatedAffectedDhatu = ['วาโยธาตุ'];
+    if (isListening && recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {
+        // ignore
       }
+      setIsListening(false);
     }
 
-    updateCase({
-      rawNote: noteText,
-      extractedSymptoms: {
-        chiefComplaint: updatedChiefComplaint,
-        duration: patientCase.extractedSymptoms?.duration || '4 วัน',
-        affectedDhatu: updatedAffectedDhatu,
-      },
-    });
+    const currentSymptoms = patientCase.extractedSymptoms?.chiefComplaint || [];
+    const noteChanged = noteText.trim() !== (patientCase.rawNote || '').trim();
+
+    if ((currentSymptoms.length === 0 || noteChanged) && noteText.trim()) {
+      const parsed = extractThaiSymptomsDeterministic(noteText);
+      updateCase({
+        rawNote: noteText,
+        extractedSymptoms: {
+          chiefComplaint: parsed.chiefComplaint,
+          duration: parsed.duration,
+          affectedDhatu: parsed.affectedDhatu,
+        },
+      });
+    } else {
+      updateCase({
+        rawNote: noteText,
+      });
+    }
+
     setCurrentStep('S5');
   };
 
@@ -184,8 +273,11 @@ export default function Step4HistoryExam() {
             <textarea
               rows={4}
               value={noteText}
-              onChange={(e) => setNoteText(e.target.value)}
-              placeholder="พิมพ์ข้อความที่ซักประวัติคนไข้ เช่น ท้องอืด แน่นท้อง ปวดเมื่อยตามตัว เป็นมากี่วัน..."
+              onChange={(e) => {
+                setNoteText(e.target.value);
+                baseTextBeforeSpeechRef.current = e.target.value.trim();
+              }}
+              placeholder="พิมพ์ข้อความที่ซักประวัติคนไข้ เช่น ปวดหัวตัวร้อน 4 วันแล้ว, ปวดท้อง แน่นท้อง, ปวดตึงคอบ่า..."
               className="w-full border border-gray-200 rounded-xl p-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#1E4D38] transition leading-relaxed bg-[#FDFDFD]"
             />
 
@@ -200,22 +292,45 @@ export default function Step4HistoryExam() {
                       : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
                 >
-                  <Mic className="w-3.5 h-3.5" />
-                  {isListening ? 'กำลังฟังเสียง...' : 'พูดบันทึกเสียง'}
+                  {isListening ? (
+                    <>
+                      <MicOff className="w-3.5 h-3.5" />
+                      กำลังฟังเสียง... (คลิกเพื่อหยุด)
+                    </>
+                  ) : (
+                    <>
+                      <Mic className="w-3.5 h-3.5" />
+                      พูดบันทึกเสียง
+                    </>
+                  )}
                 </button>
+                {noteText && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNoteText('');
+                      baseTextBeforeSpeechRef.current = '';
+                    }}
+                    className="text-[11px] text-gray-500 hover:text-red-600 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-red-200 flex items-center gap-1 transition cursor-pointer"
+                    title="ล้างข้อความทั้งหมด"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    ล้างข้อความ
+                  </button>
+                )}
                 <span className="text-[11px] text-gray-400">ภาษาไทย (th-TH)</span>
               </div>
 
               <button
                 type="button"
                 onClick={handleExtractSymptoms}
-                disabled={isExtracting}
+                disabled={isExtracting || !noteText.trim()}
                 className="bg-[#FDF0D5] hover:bg-[#FBE4B5] active:scale-95 border border-[#E5C483] text-[#7A5214] text-xs px-4 py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer disabled:opacity-50"
               >
                 {isExtracting ? (
                   <>
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-[#B8862D]" />
-                    กำลังสกัดโครงสร้างด้วย Gemini...
+                    กำลังสกัดโครงสร้างอาการ...
                   </>
                 ) : extractSuccess ? (
                   <>
@@ -269,7 +384,7 @@ export default function Step4HistoryExam() {
                       </span>
                     ))
                   ) : (
-                    <span className="text-gray-400 italic">ยังไม่มีข้อมูลอาการ (กดปุ่มสกัดอาการด้านบน)</span>
+                    <span className="text-gray-400 italic">ยังไม่มีข้อมูลอาการ (พิมพ์อาการแล้วกดปุ่ม &ldquo;ให้ AI สกัดอาการ&rdquo;)</span>
                   )}
 
                   {/* ช่องพิมพ์เพิ่มอาการ */}
@@ -299,7 +414,7 @@ export default function Step4HistoryExam() {
               <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
                 <span className="text-gray-500 font-medium w-28 shrink-0">ระยะเวลาที่เป็น:</span>
                 <span className="bg-white border border-gray-200 px-3 py-0.5 rounded-full font-semibold text-[#14261D]">
-                  {patientCase.extractedSymptoms.duration || '4 วัน'}
+                  {patientCase.extractedSymptoms.duration || '-'}
                 </span>
               </div>
 
@@ -308,6 +423,7 @@ export default function Step4HistoryExam() {
                 <span className="text-gray-500 font-medium w-28 shrink-0">ธาตุต้องสงสัย:</span>
                 <div className="flex flex-wrap gap-1.5">
                   {patientCase.extractedSymptoms.affectedDhatu &&
+                  patientCase.extractedSymptoms.affectedDhatu.length > 0 ? (
                     patientCase.extractedSymptoms.affectedDhatu.map((dhatu, idx) => (
                       <span
                         key={idx}
@@ -315,7 +431,10 @@ export default function Step4HistoryExam() {
                       >
                         {dhatu}
                       </span>
-                    ))}
+                    ))
+                  ) : (
+                    <span className="text-gray-400 italic">-</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -332,25 +451,19 @@ export default function Step4HistoryExam() {
               <div className="flex justify-between items-center">
                 <span>ความดันโลหิต (BP)</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
-                  {patientCase.vitals?.bp || '132/84 mmHg'}
+                  {patientCase.vitals?.bp || '120/80 mmHg'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span>ชีพจร (Pulse)</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
-                  {patientCase.vitals?.pulse || 78} ครั้ง/นาที
+                  {patientCase.vitals?.pulse || 76} ครั้ง/นาที
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span>อุณหภูมิ (Temp)</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
-                  {patientCase.vitals?.temp || 36.8} °C
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>ระดับน้ำตาลปลายนิ้ว</span>
-                <span className="font-bold text-orange-700 bg-orange-50 px-2 py-0.5 rounded">
-                  142 mg/dL
+                  {patientCase.vitals?.temp || 36.6} °C
                 </span>
               </div>
             </div>
@@ -363,7 +476,7 @@ export default function Step4HistoryExam() {
             <div className="space-y-2.5 text-gray-600">
               <div className="flex justify-between items-center">
                 <span>เวลาเข้ารับบริการ</span>
-                <span className="font-bold text-[#14261D]">10:30 น. (โลหิต-ปิตตะ)</span>
+                <span className="font-bold text-[#14261D]">{patientCase.visitTime || '10:30'} น. (โลหิต-ปิตตะ)</span>
               </div>
               <div className="flex justify-between items-center">
                 <span>อุตุสมุฏฐาน (ฤดู)</span>

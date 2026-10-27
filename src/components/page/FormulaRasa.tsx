@@ -1,13 +1,13 @@
 // src/components/page/FormulaRasa.tsx
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import formulas from '@/data/formulas.json';
 import { checkHerbDrugInteraction } from '@/lib/herbDrugGuard';
 import { getCitationDetails, KnowledgeChunk } from '@/lib/ragService';
-import { Search, Sparkles, HelpCircle, Check, Info, BookOpen, X, CheckCircle2 } from 'lucide-react';
+import { Search, Sparkles, Check, Info, BookOpen, X, CheckCircle2 } from 'lucide-react';
 
 interface TasteInfo {
   name: string;
@@ -34,9 +34,18 @@ export default function Step6FormulaRasa() {
   // ดึงธาตุหลักที่ได้รับการวินิจฉัยจากหน้า S5 (หรือ default เป็น ลม)
   const primaryElement = patientCase.smutthanResult?.primaryElement || 'ลม';
 
-  const [selectedId, setSelectedId] = useState<string>(formulas[0].id);
-  const selectedFormula = formulas.find((f) => f.id === selectedId) || formulas[0];
+  const defaultFormulaForElement = useMemo(() => {
+    return formulas.find((f) => f.targetElement === primaryElement) || formulas[0];
+  }, [primaryElement]);
+
+  const [selectedId, setSelectedId] = useState<string>(defaultFormulaForElement.id);
+  const selectedFormula = formulas.find((f) => f.id === selectedId) || defaultFormulaForElement;
   const [dosage, setDosage] = useState<string>(selectedFormula.defaultDosage);
+
+  useEffect(() => {
+    setSelectedId(defaultFormulaForElement.id);
+    setDosage(defaultFormulaForElement.defaultDosage);
+  }, [defaultFormulaForElement]);
 
   // Modal สำหรับเปิดดูหลักฐานตำราอ้างอิงจริง (RAG Citation Modal)
   const [selectedChunk, setSelectedChunk] = useState<KnowledgeChunk | null>(null);
@@ -108,9 +117,9 @@ export default function Step6FormulaRasa() {
     setCurrentStep('S7');
   };
 
-  // กรองรายการยาตามการค้นหาและตัวกรอง
+  // กรองรายการยาตามการค้นหาและตัวกรอง พร้อมเรียงลำดับตำรับที่ตรงสมุฏฐานขึ้นก่อนเสมอ
   const filteredFormulas = useMemo(() => {
-    return formulas.filter((item) => {
+    const filtered = formulas.filter((item) => {
       // Filter Category
       if (filterCategory === 'MATCH' && item.targetElement !== primaryElement) return false;
       if (filterCategory === 'ORAL' && item.herbName.includes('หัตถการ')) return false;
@@ -125,6 +134,12 @@ export default function Step6FormulaRasa() {
         item.rasa.toLowerCase().includes(q) ||
         item.category.toLowerCase().includes(q)
       );
+    });
+
+    return [...filtered].sort((a, b) => {
+      const aMatch = a.targetElement === primaryElement ? 1 : 0;
+      const bMatch = b.targetElement === primaryElement ? 1 : 0;
+      return bMatch - aMatch;
     });
   }, [formulaSearch, filterCategory, primaryElement]);
 

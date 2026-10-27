@@ -2,7 +2,13 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import { PatientCase, StepId, DEMO_SOMSRI_CASE, DEMO_SOMCHAI_CASE } from '@/types/clinicalCase';
+import {
+  PatientCase,
+  PatientQueueItem,
+  StepId,
+  DEMO_SOMSRI_CASE,
+  DEMO_SOMCHAI_CASE,
+} from '@/types/clinicalCase';
 
 interface CaseContextType {
   currentStep: StepId;
@@ -12,7 +18,97 @@ interface CaseContextType {
   loadDemoCase: (caseType?: 'somsri' | 'somchai') => void;
   loadCase: (customCase: PatientCase) => void;
   startNewCase: () => void;
+  patientQueue: PatientQueueItem[];
+  upsertPatientInQueue: (caseData: PatientCase, status?: 'รอตรวจ' | 'ตรวจแล้ว') => void;
+  completeCurrentCase: () => void;
 }
+
+const INITIAL_QUEUE: PatientQueueItem[] = [
+  {
+    id: 'DEMO-PT-001',
+    hn: 'HN-982341',
+    time: '10:30',
+    name: 'คุณสมศรี ใจดี',
+    age: 58,
+    gender: 'หญิง',
+    symptoms: 'ท้องอืด แน่นท้อง ปวดเมื่อยตามตัว 4 วัน',
+    status: 'รอตรวจ',
+    demoType: 'somsri',
+    caseSnapshot: DEMO_SOMSRI_CASE,
+  },
+  {
+    id: 'DEMO-PT-002',
+    hn: 'HN-445892',
+    time: '10:50',
+    name: 'นายสมชาย รักไทย',
+    age: 65,
+    gender: 'ชาย',
+    symptoms: 'ปวดขัดข้อเข่าเรื้อรัง 2 ข้าง ลุกยืนลำบาก (ข้อเข่าเสื่อม OA Knee)',
+    status: 'รอตรวจ',
+    demoType: 'somchai',
+    caseSnapshot: DEMO_SOMCHAI_CASE,
+  },
+  {
+    id: 'DEMO-PT-003',
+    hn: 'HN-312905',
+    time: '09:15',
+    name: 'นางมาลี สุขเกษม',
+    age: 49,
+    gender: 'หญิง',
+    symptoms: 'ปวดตึงคอบ่าสะบัก ปวดศีรษะข้างเดียว (ลมขึ้นเบื้องบน / ลมปะกัง)',
+    status: 'ตรวจแล้ว',
+    historyDetail: {
+      chiefComplaint: 'ปวดตึงคอบ่าสะบักร้าวขึ้นศีรษะข้างขวา ตาพร่า มึนศีรษะ เรื้อรัง 5 วัน',
+      underlyingDiseases: ['ไมเกรน (Migraine)', 'ความดันโลหิตสูง (HT)'],
+      currentMeds: ['Enalapril 5mg 1 tab od pc', 'Paracetamol 500mg prn'],
+      smutthan: 'วาโยธาตุ (อุทธังคมาวาตา) กำเริบเนื่องจากความเครียดและการนั่งทำงานนาน',
+      prescriptions: [
+        {
+          name: 'ยาหอมนวโกฐ (แคปซูล)',
+          dosage: '2 แคปซูล วันละ 3 ครั้ง ละลายน้ำอุ่น ก่อนอาหาร 5 วัน',
+          rasa: 'รสสุขุม / หอมร้อน (แก้ลมกองละเอียด)',
+        },
+        {
+          name: 'หัตถการ: นวดราชสำนักแก้อาการลมปะกังและประคบสมุนไพร',
+          dosage: 'นวดจุดสัญญาณศีรษะและคอบ่า 45 นาที สัปดาห์ละ 1 ครั้ง',
+          rasa: 'หัตถการภายนอก (ไม่ใช้ยากิน)',
+        },
+      ],
+      icdCodes: ['U50.1 (G44.2) ลมปะกัง / ปวดศีรษะจากลมขึ้นเบื้องบน', 'U60.2 นวดรักษาทางการแพทย์แผนไทย'],
+      examTime: '09:15 น. (เสร็จสมบูรณ์)',
+    },
+  },
+  {
+    id: 'DEMO-PT-004',
+    hn: 'HN-772183',
+    time: '09:45',
+    name: 'นายประสิทธิ์ มั่นคง',
+    age: 52,
+    gender: 'ชาย',
+    symptoms: 'ไข้หวัด ครั่นเนื้อครั่นตัว มีน้ำมูก ไอมีเสมหะ (เตโช-อาโป)',
+    status: 'ตรวจแล้ว',
+    historyDetail: {
+      chiefComplaint: 'มีไข้ ตัวร้อน ครั่นเนื้อครั่นตัว ไอมีเสมหะขาวขุ่น เจ็บคอ 2 วันหลังโดนฝน',
+      underlyingDiseases: ['ภูมิแพ้อากาศ (Allergic Rhinitis)'],
+      currentMeds: ['Cetirizine 10mg 1 tab hs'],
+      smutthan: 'เตโชธาตุ (สันตัปปัคคี) กำเริบ ร่วมกับ อาโปธาตุ (เสมหะสมุฏฐาน)',
+      prescriptions: [
+        {
+          name: 'ยาจันทน์ลีลา (แคปซูล)',
+          dosage: '2 แคปซูล วันละ 3 ครั้ง ก่อนอาหาร หรือเวลามีไข้ทุก 4–6 ชม. 3 วัน',
+          rasa: 'รสขม / เย็น (แก้ไข้ ดับพิษร้อน)',
+        },
+        {
+          name: 'ยาประสะมะแว้ง (เม็ดอม)',
+          dosage: 'อมครั้งละ 1–2 เม็ด เมื่อมีอาการไอหรือระคายคอ วันละ 4 ครั้ง',
+          rasa: 'รสเปรี้ยว / ขมฝาด (กัดฟอกเสมหะ)',
+        },
+      ],
+      icdCodes: ['U51.0 (R50.9) ไข้เพื่อเตโชธาตุกำเริบ (ไข้หวัดเปลี่ยนฤดู)', 'U52.1 (R05) อาการไอจากเสมหะ'],
+      examTime: '09:45 น. (เสร็จสมบูรณ์)',
+    },
+  },
+];
 
 const EMPTY_CASE: PatientCase = {
   id: 'NEW-CASE-001',
@@ -43,12 +139,102 @@ const CaseContext = createContext<CaseContextType | undefined>(undefined);
 export function CaseProvider({ children }: { children: React.ReactNode }) {
   const [currentStep, setCurrentStep] = useState<StepId>('S1');
   const [patientCase, setPatientCase] = useState<PatientCase>(DEMO_SOMSRI_CASE);
+  const [patientQueue, setPatientQueue] = useState<PatientQueueItem[]>(INITIAL_QUEUE);
 
-  const updateCase = (partial: Partial<PatientCase>) => {
-    setPatientCase((prev) => ({ ...prev, ...partial }));
+  // ซิงค์ข้อมูลเคสเข้าสู่ตารางผู้ป่วยวันนี้ (patientQueue)
+  const syncQueueWithCase = (mergedCase: PatientCase, forceStatus?: 'รอตรวจ' | 'ตรวจแล้ว') => {
+    if (!mergedCase.name || !mergedCase.name.trim()) return;
+
+    const symptomSummary =
+      mergedCase.extractedSymptoms?.chiefComplaint?.length > 0
+        ? mergedCase.extractedSymptoms.chiefComplaint.join(', ')
+        : mergedCase.rawNote?.trim() || 'เปิดเคสใหม่ (รอซักประวัติอาการสำคัญ)';
+
+    const primaryEl = mergedCase.smutthanResult?.primaryElement || 'ลม';
+    const smutthanText = `${
+      primaryEl === 'ไฟ'
+        ? 'เตโชธาตุ (ไฟ)'
+        : primaryEl === 'น้ำ'
+        ? 'อาโปธาตุ (น้ำ)'
+        : primaryEl === 'ดิน'
+        ? 'ปถวีธาตุ (ดิน)'
+        : 'วาโยธาตุ (ลม)'
+    } แปรปรวน (ความเชื่อมั่น ${mergedCase.smutthanResult?.confidence || 88}%)`;
+
+    setPatientQueue((prev) => {
+      const existingIdx = prev.findIndex((item) => item.id === mergedCase.id || item.hn === mergedCase.hn);
+      const currentStatus = forceStatus || (existingIdx >= 0 ? prev[existingIdx].status : 'รอตรวจ');
+
+      const updatedItem: PatientQueueItem = {
+        id: mergedCase.id,
+        hn: mergedCase.hn,
+        time: mergedCase.visitTime || '11:00',
+        name: mergedCase.name,
+        age: mergedCase.age,
+        gender: mergedCase.gender === 'M' ? 'ชาย' : 'หญิง',
+        symptoms: symptomSummary,
+        status: currentStatus,
+        caseSnapshot: mergedCase,
+        historyDetail:
+          currentStatus === 'ตรวจแล้ว'
+            ? {
+                chiefComplaint: symptomSummary,
+                underlyingDiseases: mergedCase.underlyingDiseases || [],
+                currentMeds: mergedCase.currentMeds || [],
+                smutthan: smutthanText,
+                prescriptions:
+                  mergedCase.prescriptions?.length > 0
+                    ? mergedCase.prescriptions.map((rx) => ({
+                        name: rx.herbName,
+                        dosage: rx.dosage,
+                        rasa: rx.rasa || 'รสยาตามสมุฏฐาน',
+                      }))
+                    : [
+                        {
+                          name: 'ยาสมุนไพรในบัญชียาหลักแห่งชาติ',
+                          dosage: 'ตามแผนการรักษาของแพทย์แผนไทย',
+                          rasa: 'รสยาตรงสมุฏฐาน',
+                        },
+                      ],
+                icdCodes:
+                  mergedCase.confirmedICD && mergedCase.confirmedICD.length > 0
+                    ? mergedCase.confirmedICD.map((c) => `${c.ttmCode} (${c.icd10tm}) ${c.description}`)
+                    : ['U50.1 / U51.0 การวินิจฉัยโรคทางการแพทย์แผนไทย'],
+                examTime: `${mergedCase.visitTime || '11:00'} น. (เสร็จสมบูรณ์)`,
+              }
+            : existingIdx >= 0
+            ? prev[existingIdx].historyDetail
+            : undefined,
+      };
+
+      if (existingIdx >= 0) {
+        const next = [...prev];
+        next[existingIdx] = updatedItem;
+        return next;
+      }
+      // เพิ่มเคสใหม่ไว้บนสุดของตารางผู้ป่วยวันนี้
+      return [updatedItem, ...prev];
+    });
   };
 
-  // โหลดเคสกำหนดเอง
+  const updateCase = (partial: Partial<PatientCase>) => {
+    setPatientCase((prev) => {
+      const merged = { ...prev, ...partial };
+      syncQueueWithCase(merged);
+      return merged;
+    });
+  };
+
+  const upsertPatientInQueue = (caseData: PatientCase, status?: 'รอตรวจ' | 'ตรวจแล้ว') => {
+    setPatientCase(caseData);
+    syncQueueWithCase(caseData, status);
+  };
+
+  const completeCurrentCase = () => {
+    syncQueueWithCase(patientCase, 'ตรวจแล้ว');
+  };
+
+  // โหลดเคสกำหนดเองจากตาราง
   const loadCase = (customCase: PatientCase) => {
     setPatientCase(customCase);
     setCurrentStep('S3');
@@ -64,13 +250,21 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
     setCurrentStep('S3');
   };
 
-  // เริ่มเปิดเคสใหม่
+  // เริ่มเปิดเคสใหม่ (เคลียร์ข้อมูลเก่าและอาการเก่าทั้งหมด)
   const startNewCase = () => {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
     setPatientCase({
       ...EMPTY_CASE,
       id: `PT-${Date.now().toString().slice(-4)}`,
       hn: `HN-${Math.floor(100000 + Math.random() * 900000)}`,
       name: '',
+      visitTime: `${hh}:${mm}`,
+      rawNote: '',
+      extractedSymptoms: { chiefComplaint: [], duration: '', affectedDhatu: [] },
+      prescriptions: [],
+      confirmedICD: [],
     });
     setCurrentStep('S3');
   };
@@ -85,6 +279,9 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
         loadDemoCase,
         loadCase,
         startNewCase,
+        patientQueue,
+        upsertPatientInQueue,
+        completeCurrentCase,
       }}
     >
       {children}

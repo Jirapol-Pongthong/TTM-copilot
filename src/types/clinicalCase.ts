@@ -54,11 +54,39 @@ export interface PatientCase {
   }[];
 }
 
+export interface PatientHistoryDetail {
+  chiefComplaint: string;
+  underlyingDiseases: string[];
+  currentMeds: string[];
+  smutthan: string;
+  prescriptions: {
+    name: string;
+    dosage: string;
+    rasa: string;
+  }[];
+  icdCodes: string[];
+  examTime: string;
+}
+
+export interface PatientQueueItem {
+  id: string;
+  hn: string;
+  time: string;
+  name: string;
+  age: number;
+  gender: 'ชาย' | 'หญิง';
+  symptoms: string;
+  status: 'รอตรวจ' | 'ตรวจแล้ว';
+  demoType?: 'somsri' | 'somchai';
+  caseSnapshot?: PatientCase;
+  historyDetail?: PatientHistoryDetail;
+}
+
 // ข้อมูลเคสสาธิตมาตรฐาน 1: นางสมศรี ใจดี (DEMO-PT-001) - อาการทางวาโยธาตุ ท้องอืด แน่นเฟ้อ ปวดเมื่อย
 export const DEMO_SOMSRI_CASE: PatientCase = {
   id: 'DEMO-PT-001',
   hn: 'HN-982341',
-  name: 'นางสมศรี ใจดี',
+  name: 'คุณสมศรี ใจดี',
   age: 58,
   gender: 'F',
   visitTime: '10:30',
