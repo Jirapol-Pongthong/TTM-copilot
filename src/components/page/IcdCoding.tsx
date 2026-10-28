@@ -57,6 +57,12 @@ export default function Step8IcdCoding() {
         isMatch = rxText.includes('อบ');
       } else if (mapping.ttmCode === 'U60.4') {
         isMatch = rxText.includes('เผายา') || symptomsText.includes('กุจฉิสยา');
+      } else {
+        // ค้นหาอัตโนมัติจากชื่อโรคและรหัสทั้ง 98 รายการ
+        const keywords = [...mapping.ttmName.split(/[\s()/→]+/), ...mapping.icd10Name.split(/[\s()/→]+/)]
+          .map((k) => k.trim().toLowerCase())
+          .filter((k) => k.length >= 3 && !['โรค', 'การ', 'เพื่อ', 'บำบัด', 'other', 'with', 'care'].includes(k));
+        isMatch = keywords.some((kw) => symptomsText.includes(kw) || rxText.includes(kw));
       }
 
       // หากเป็นเคสทั่วไปที่ไม่มีอาการเด่น ให้แนะนำ U55.22 เป็นค่ามาตรฐานเริ่มต้น

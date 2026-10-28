@@ -1,109 +1,313 @@
 [
   {
     "id": "INT-001",
-    "herb": "เกดร่าย/เถาวัลย์เปรียง",
-    "herbKeywords": [
-      "เกดร่าย",
-      "เถาวัลย์เปรียง"
-    ],
-    "drug": "Aspirin 81 mg / Warfarin",
-    "drugKeywords": [
-      "Aspirin 81 mg",
-      "Warfarin"
-    ],
-    "severity": "CRITICAL",
-    "riskLabel": "CRITICAL (แดง)",
-    "effect": "เสริมฤทธิ์ต้านเกล็ดเลือด เสี่ยงเลือดออกในทางเดินอาหารรุนแรง",
-    "action": "ห้ามจ่ายร่วมกัน สลับเป็นยาทางเลือกที่ปลอดภัยหรือหัตถการแทน"
-  },
-  {
-    "id": "INT-002",
-    "herb": "ยาประคบสมุนไพร / ยาพอกไพลภายนอก",
-    "herbKeywords": [
-      "ยาประคบสมุนไพร",
-      "ยาพอกไพลภายนอก"
-    ],
-    "drug": "Aspirin 81 mg / Warfarin",
-    "drugKeywords": [
-      "Aspirin 81 mg",
-      "Warfarin"
-    ],
-    "severity": "SAFE",
-    "riskLabel": "SAFE (เขียว)",
-    "effect": "เป็นการใช้ภายนอก ดูดซึมเข้ากระแสเลือดน้อยมาก ไม่กระทบระบบการแข็งตัวของเลือด",
-    "action": "สามารถใช้ได้อย่างปลอดภัย ใช้ลดปวดกล้ามเนื้อแทนการกินยาเถาวัลย์เปรียง"
-  },
-  {
-    "id": "INT-003",
     "herb": "ฟ้าทะลายโจร",
     "herbKeywords": [
       "ฟ้าทะลายโจร"
     ],
-    "drug": "Metformin / Glipizide",
+    "drug": "Rivaroxaban / Apixaban (DOACs)",
     "drugKeywords": [
-      "Metformin",
-      "Glipizide"
+      "Rivaroxaban",
+      "Apixaban",
+      "DOACs"
     ],
     "severity": "MODERATE",
     "riskLabel": "WARNING (ส้ม)",
-    "effect": "Andrographolide เสริมฤทธิ์ลดน้ำตาลในเลือด เสี่ยงน้ำตาลตก",
-    "action": "ปรับลดขนาดหรือติดตามระดับน้ำตาลในเลือด (FBS) ใกล้ชิด"
+    "effect": "ยับยั้ง P-gp และ CYP3A4 อ่อนๆ อาจเพิ่มระดับยาละลายลิ่มเลือดในเลือด",
+    "action": "ติดตามรอยเขียวช้ำและเลือดกำเดาไหล"
   },
   {
-    "id": "INT-004",
+    "id": "INT-002",
     "herb": "ยาจันทน์ลีลา",
     "herbKeywords": [
       "ยาจันทน์ลีลา"
     ],
-    "drug": "Metformin / Glipizide",
+    "drug": "Rivaroxaban / Apixaban",
     "drugKeywords": [
-      "Metformin",
-      "Glipizide"
+      "Rivaroxaban",
+      "Apixaban"
     ],
     "severity": "SAFE",
     "riskLabel": "SAFE (เขียว)",
-    "effect": "ตำรับยารสขมเย็นไม่มีสารกระตุ้นการหลั่งอินซูลิน ไม่กระทบระดับน้ำตาลในเลือด",
-    "action": "สามารถใช้ได้อย่างปลอดภัย ใช้แก้ไข้ตัวร้อนแทนฟ้าทะลายโจรในผู้ป่วยเบาหวาน"
+    "effect": "ไม่มีผลต่อ P-gp/CYP3A4 ไม่กระทบระดับยา DOACs",
+    "action": "ใช้แก้ไข้ตัวร้อนได้อย่างปลอดภัย"
   },
   {
-    "id": "INT-005",
-    "herb": "กระเทียมสกัด / ขิง",
+    "id": "INT-003",
+    "herb": "แปะก๊วยสกัด / โสม",
     "herbKeywords": [
-      "กระเทียมสกัด",
-      "ขิง"
+      "แปะก๊วยสกัด",
+      "โสม"
     ],
-    "drug": "Warfarin / Clopidogrel",
+    "drug": "Dabigatran",
     "drugKeywords": [
-      "Warfarin",
+      "Dabigatran"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ต้านเกล็ดเลือดเสริมกัน เสี่ยงเลือดออกในสมองและทางเดินอาหารรุนแรง",
+    "action": "ห้ามใช้ร่วมกันโดยเด็ดขาด"
+  },
+  {
+    "id": "INT-004",
+    "herb": "ขิงสกัดเข้มข้น",
+    "herbKeywords": [
+      "ขิงสกัดเข้มข้น"
+    ],
+    "drug": "Clopidogrel",
+    "drugKeywords": [
       "Clopidogrel"
     ],
     "severity": "CRITICAL",
     "riskLabel": "CRITICAL (แดง)",
-    "effect": "ยับยั้งการเกาะกลุ่มของเกล็ดเลือด ทำให้ค่า INR สูงขึ้น เลือดหยุดยาก",
-    "action": "ห้ามจ่ายร่วมกัน เลี่ยงยาสมุนไพรตำรับที่มีขิง/กระเทียมเข้มข้น"
+    "effect": "ยับยั้งการเกาะกลุ่มของเกล็ดเลือดซ้ำซ้อน เลือดหยุดยาก",
+    "action": "เลี่ยงขิงสกัด ใช้ยาธาตุบรรจบขับลมแทน"
   },
   {
-    "id": "INT-006",
+    "id": "INT-005",
     "herb": "ยาธาตุบรรจบ",
     "herbKeywords": [
       "ยาธาตุบรรจบ"
     ],
-    "drug": "Warfarin / Clopidogrel",
+    "drug": "Clopidogrel",
     "drugKeywords": [
-      "Warfarin",
       "Clopidogrel"
     ],
     "severity": "SAFE",
     "riskLabel": "SAFE (เขียว)",
-    "effect": "ส่วนประกอบหลักไม่มีสารยับยั้งเกล็ดเลือดในระดับที่เป็นนัยสำคัญทางคลินิก",
-    "action": "สามารถใช้ได้อย่างปลอดภัย ใช้ขับลม แก้ท้องอืดในขนาดรักษามาตรฐาน"
+    "effect": "ไม่มีส่วนผสมต้านเกล็ดเลือดเข้มข้น",
+    "action": "ใช้แก้ท้องอืด จุกเสียด ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-006",
+    "herb": "ตังกุย / โสมคน",
+    "herbKeywords": [
+      "ตังกุย",
+      "โสมคน"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "มีสาร Coumarin ธรรมชาติ เสริมฤทธิ์ Warfarin ทำให้ INR สูงเกิน เสี่ยงเลือดออกไม่หยุด",
+    "action": "ห้ามจ่ายยารับประทานที่มีตังกุย"
   },
   {
     "id": "INT-007",
-    "herb": "มะขามป้อม / ตรีผลา",
+    "herb": "ยาประคบสมุนไพรภายนอก",
     "herbKeywords": [
-      "มะขามป้อม",
-      "ตรีผลา"
+      "ยาประคบสมุนไพรภายนอก"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ออกฤทธิ์เฉพาะที่ผ่านผิวกาย ไม่กระทบค่า INR",
+    "action": "ใช้บรรเทาปวดกล้ามเนื้อได้ปลอดภัย"
+  },
+  {
+    "id": "INT-008",
+    "herb": "กระเทียมสกัดเข้มข้น",
+    "herbKeywords": [
+      "กระเทียมสกัดเข้มข้น"
+    ],
+    "drug": "Aspirin 81 mg",
+    "drugKeywords": [
+      "Aspirin 81 mg"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้ง Thromboxane A2 ซ้ำซ้อน เสี่ยงแผลและเลือดออกในกระเพาะอาหาร",
+    "action": "งดกระเทียมสกัดแคปซูล"
+  },
+  {
+    "id": "INT-009",
+    "herb": "ยาขมิ้นชัน",
+    "herbKeywords": [
+      "ยาขมิ้นชัน"
+    ],
+    "drug": "Aspirin 81 mg",
+    "drugKeywords": [
+      "Aspirin 81 mg"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "Curcumin ช่วยสมานเยื่อบุกระเพาะ ไม่ต้านเกล็ดเลือดรุนแรง",
+    "action": "ใช้แก้จุกเสียดแน่นท้องได้ปลอดภัย"
+  },
+  {
+    "id": "INT-010",
+    "herb": "กระเทียมสกัด / ขิงเข้มข้น",
+    "herbKeywords": [
+      "กระเทียมสกัด",
+      "ขิงเข้มข้น"
+    ],
+    "drug": "Cilostazol",
+    "drugKeywords": [
+      "Cilostazol"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้งการเกาะกลุ่มเกล็ดเลือดและยับยั้ง PDE3 ซ้ำซ้อน เสี่ยงเลือดออกรุนแรง",
+    "action": "ห้ามใช้ร่วมกับ Cilostazol"
+  },
+  {
+    "id": "INT-011",
+    "herb": "แปะก๊วยสกัด",
+    "herbKeywords": [
+      "แปะก๊วยสกัด"
+    ],
+    "drug": "Enoxaparin / Fondaparinux (LMWH)",
+    "drugKeywords": [
+      "Enoxaparin",
+      "Fondaparinux",
+      "LMWH"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เพิ่มความเสี่ยงเลือดออกชั้นใต้ผิวหนังและอวัยวะภายใน",
+    "action": "งดแปะก๊วยระหว่างใช้ยาฉีดละลายลิ่มเลือด"
+  },
+  {
+    "id": "INT-012",
+    "herb": "กระเทียมสกัด",
+    "herbKeywords": [
+      "กระเทียมสกัด"
+    ],
+    "drug": "Ticagrelor / Prasugrel",
+    "drugKeywords": [
+      "Ticagrelor",
+      "Prasugrel"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ต้านเกล็ดเลือดเสริมกันอย่างรุนแรง เสี่ยงเลือดออกในลำไส้และสมอง",
+    "action": "ห้ามใช้กระเทียมสกัดร่วมกับ Ticagrelor/Prasugrel"
+  },
+  {
+    "id": "INT-013",
+    "herb": "มะระขี้นกสกัด",
+    "herbKeywords": [
+      "มะระขี้นกสกัด"
+    ],
+    "drug": "Empagliflozin / Dapagliflozin (SGLT2i)",
+    "drugKeywords": [
+      "Empagliflozin",
+      "Dapagliflozin",
+      "SGLT2i"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "Charantin เสริมฤทธิ์ขับน้ำตาลทางปัสสาวะและลดน้ำตาล เสี่ยง Hypoglycemia",
+    "action": "ติดตามระดับน้ำตาลหลังอาหาร PPBG"
+  },
+  {
+    "id": "INT-014",
+    "herb": "ยาหอมนวโกฐ",
+    "herbKeywords": [
+      "ยาหอมนวโกฐ"
+    ],
+    "drug": "Empagliflozin / Dapagliflozin",
+    "drugKeywords": [
+      "Empagliflozin",
+      "Dapagliflozin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่รบกวนการทำงานของไตและการขับน้ำตาล",
+    "action": "ใช้แก้วิงเวียนหน้ามืดในผู้ป่วยเบาหวานได้ปลอดภัย"
+  },
+  {
+    "id": "INT-015",
+    "herb": "หญ้าหวาน / ชาใบหม่อน",
+    "herbKeywords": [
+      "หญ้าหวาน",
+      "ชาใบหม่อน"
+    ],
+    "drug": "Sitagliptin / Linagliptin (DPP-4i)",
+    "drugKeywords": [
+      "Sitagliptin",
+      "Linagliptin",
+      "DPP-4i"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "กระตุ้นการหลั่งอินซูลินเสริมกัน อาจทำให้ระดับน้ำตาลตกเร็วเกินไป",
+    "action": "ปรับลดการดื่มชาสมุนไพรเข้มข้น"
+  },
+  {
+    "id": "INT-016",
+    "herb": "ยาเขียวหอม",
+    "herbKeywords": [
+      "ยาเขียวหอม"
+    ],
+    "drug": "Sitagliptin / Linagliptin",
+    "drugKeywords": [
+      "Sitagliptin",
+      "Linagliptin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ดับพิษร้อนโดยไม่กระทบฮอร์โมนอินซูลิน",
+    "action": "ใช้แก้ไข้ในผู้ป่วยเบาหวานได้ปลอดภัย"
+  },
+  {
+    "id": "INT-017",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Glibenclamide / Glipizide",
+    "drugKeywords": [
+      "Glibenclamide",
+      "Glipizide"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "Andrographolide กระตุ้นตับอ่อนหลั่งอินซูลิน เสี่ยงน้ำตาลตกเฉียบพลัน",
+    "action": "เฝ้าระวังอาการใจสั่น มือสั่น เหงื่อออก"
+  },
+  {
+    "id": "INT-018",
+    "herb": "ยาจันทน์ลีลา",
+    "herbKeywords": [
+      "ยาจันทน์ลีลา"
+    ],
+    "drug": "Glibenclamide / Glipizide",
+    "drugKeywords": [
+      "Glibenclamide",
+      "Glipizide"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีสารกระตุ้นตับอ่อน ไม่ทำให้น้ำตาลตก",
+    "action": "ใช้แก้ไข้ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-019",
+    "herb": "กว้าวเครือ / บัวบกสกัด",
+    "herbKeywords": [
+      "กว้าวเครือ",
+      "บัวบกสกัด"
+    ],
+    "drug": "Pioglitazone",
+    "drugKeywords": [
+      "Pioglitazone"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มภาระการเมแทบอลิซึมที่ตับร่วมกับ Pioglitazone",
+    "action": "ติดตามค่าตับ LFTs ทุก 3 เดือน"
+  },
+  {
+    "id": "INT-020",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
     ],
     "drug": "Insulin Injection",
     "drugKeywords": [
@@ -111,44 +315,463 @@
     ],
     "severity": "MODERATE",
     "riskLabel": "WARNING (ส้ม)",
-    "effect": "วิตามินซีและสารแทนนินอาจเสริมฤทธิ์ลดน้ำตาลในเลือด",
-    "action": "เฝ้าระวังอาการวิงเวียน ใจสั่น จากภาวะน้ำตาลต่ำ"
+    "effect": "ระบายและลดการดูดซึมน้ำตาลในลำไส้ เสริมฤทธิ์อินซูลินเฉียบพลัน",
+    "action": "ระวังฉีดอินซูลินช่วงถ่ายระบายหนัก"
   },
   {
-    "id": "INT-008",
-    "herb": "ยามหาหิงคุ์ / ชุมเห็ดเทศ",
+    "id": "INT-021",
+    "herb": "ยาพอกไพลภายนอก",
     "herbKeywords": [
-      "ยามหาหิงคุ์",
-      "ชุมเห็ดเทศ"
+      "ยาพอกไพลภายนอก"
     ],
-    "drug": "Enalapril / Losartan",
+    "drug": "Insulin Injection",
     "drugKeywords": [
-      "Enalapril",
-      "Losartan"
-    ],
-    "severity": "MODERATE",
-    "riskLabel": "WARNING (ส้ม)",
-    "effect": "เร่งการขับปัสสาวะ อาจทำให้ความดันโลหิตตกและโพแทสเซียมเสียสมดุล",
-    "action": "ติดตามระดับความดันโลหิตและเกลือแร่อย่างใกล้ชิด"
-  },
-  {
-    "id": "INT-009",
-    "herb": "ขมิ้นชัน (ขนาดรักษาปกติ)",
-    "herbKeywords": [
-      "ขมิ้นชัน (ขนาดรักษาปกติ)"
-    ],
-    "drug": "Enalapril / Losartan",
-    "drugKeywords": [
-      "Enalapril",
-      "Losartan"
+      "Insulin Injection"
     ],
     "severity": "SAFE",
     "riskLabel": "SAFE (เขียว)",
-    "effect": "ไม่มีผลต่อระบบเรนิน-แองจิโอเทนซิน หรือการขับเกลือแร่ของไต",
-    "action": "สามารถใช้ได้อย่างปลอดภัย สำหรับรักษาอาการจุกเสียดแน่นท้อง"
+    "effect": "หัตถการภายนอก ไม่กระทบอินซูลิน",
+    "action": "ใช้ลดปวดกล้ามเนื้อได้ปลอดภัย"
   },
   {
-    "id": "INT-010",
+    "id": "INT-022",
+    "herb": "มะระขี้นกสกัด",
+    "herbKeywords": [
+      "มะระขี้นกสกัด"
+    ],
+    "drug": "Semaglutide / Dulaglutide (GLP-1 RA)",
+    "drugKeywords": [
+      "Semaglutide",
+      "Dulaglutide",
+      "GLP-1 RA"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ชะลอการบีบตัวของกระเพาะอาหารซ้ำซ้อน อาจทำให้คลื่นไส้อาเจียนและน้ำตาลตก",
+    "action": "ติดตามอาการทางระบบทางเดินอาหาร"
+  },
+  {
+    "id": "INT-023",
+    "herb": "มะระขี้นก / หญ้าหนวดแมว",
+    "herbKeywords": [
+      "มะระขี้นก",
+      "หญ้าหนวดแมว"
+    ],
+    "drug": "Metformin",
+    "drugKeywords": [
+      "Metformin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด เสี่ยงภาวะน้ำตาลต่ำช่วงดึก",
+    "action": "ตรวจวัดระดับน้ำตาลปลายนิ้ว DTX"
+  },
+  {
+    "id": "INT-024",
+    "herb": "ยาขมิ้นชัน",
+    "herbKeywords": [
+      "ยาขมิ้นชัน"
+    ],
+    "drug": "Metformin",
+    "drugKeywords": [
+      "Metformin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "สมานแผลกระเพาะ ไม่กระทบระดับน้ำตาล",
+    "action": "ใช้แก้จุกเสียดได้ปลอดภัย"
+  },
+  {
+    "id": "INT-025",
+    "herb": "ลูกยอ / น้ำลูกยอ",
+    "herbKeywords": [
+      "ลูกยอ",
+      "น้ำลูกยอ"
+    ],
+    "drug": "Enalapril / Perindopril (ACEi)",
+    "drugKeywords": [
+      "Enalapril",
+      "Perindopril",
+      "ACEi"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "น้ำลูกยอโพแทสเซียมสูงมาก ทำให้ Hyperkalemia เสี่ยงหัวใจหยุดเต้น",
+    "action": "ห้ามดื่มน้ำลูกยอในผู้ป่วยทาน ACEi/ARBs"
+  },
+  {
+    "id": "INT-026",
+    "herb": "ยาขมิ้นชัน",
+    "herbKeywords": [
+      "ยาขมิ้นชัน"
+    ],
+    "drug": "Enalapril / Perindopril",
+    "drugKeywords": [
+      "Enalapril",
+      "Perindopril"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีผลต่อระดับโพแทสเซียมหรือไต",
+    "action": "ใช้บรรเทาจุกแน่นท้องได้ปลอดภัย"
+  },
+  {
+    "id": "INT-027",
+    "herb": "ลูกยอ / น้ำลูกยอ",
+    "herbKeywords": [
+      "ลูกยอ",
+      "น้ำลูกยอ"
+    ],
+    "drug": "Sacubitril / Valsartan (ARNI)",
+    "drugKeywords": [
+      "Sacubitril",
+      "Valsartan",
+      "ARNI"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "โพแทสเซียมสูงมาก เสริมฤทธิ์ยารักษาหัวใจล้มเหลว เสี่ยง Hyperkalemia รุนแรงเสียชีวิต",
+    "action": "ห้ามดื่มน้ำลูกยอในผู้ป่วยใช้ยา ARNI"
+  },
+  {
+    "id": "INT-028",
+    "herb": "สมุนไพรหญ้าหนวดแมว",
+    "herbKeywords": [
+      "สมุนไพรหญ้าหนวดแมว"
+    ],
+    "drug": "Losartan / Valsartan (ARBs)",
+    "drugKeywords": [
+      "Losartan",
+      "Valsartan",
+      "ARBs"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ขับปัสสาวะแรง เสี่ยงความดันตกและสูญเสียเกลือแร่",
+    "action": "ติดตามความดันและเกลือแร่อิเล็กโทรไลต์"
+  },
+  {
+    "id": "INT-029",
+    "herb": "ยาธาตุจันทน์",
+    "herbKeywords": [
+      "ยาธาตุจันทน์"
+    ],
+    "drug": "Losartan / Valsartan",
+    "drugKeywords": [
+      "Losartan",
+      "Valsartan"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสสุขุมหอม ไม่ขับปัสสาวะ ไม่กระทบความดัน",
+    "action": "ใช้แก้ปวดมวนท้องได้ปลอดภัย"
+  },
+  {
+    "id": "INT-030",
+    "herb": "ปักคี้ / โสมคน",
+    "herbKeywords": [
+      "ปักคี้",
+      "โสมคน"
+    ],
+    "drug": "Amlodipine / Nifedipine (CCB)",
+    "drugKeywords": [
+      "Amlodipine",
+      "Nifedipine",
+      "CCB"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "โสมเพิ่มความดันชั่วขณะ ต้านฤทธิ์ยาลดความดัน Amlodipine",
+    "action": "งดใช้โสมในผู้ป่วยความดันยังไม่นิ่ง"
+  },
+  {
+    "id": "INT-031",
+    "herb": "ยาหอมเทพจิตร",
+    "herbKeywords": [
+      "ยาหอมเทพจิตร"
+    ],
+    "drug": "Amlodipine / Nifedipine",
+    "drugKeywords": [
+      "Amlodipine",
+      "Nifedipine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ปรับสมดุลความดันและผ่อนคลาย ไม่ต้านยา",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-032",
+    "herb": "พริกไทยดำสกัด",
+    "herbKeywords": [
+      "พริกไทยดำสกัด"
+    ],
+    "drug": "Diltiazem / Verapamil",
+    "drugKeywords": [
+      "Diltiazem",
+      "Verapamil"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ยับยั้ง CYP3A4 เพิ่มระดับยา ทำให้หัวใจเต้นช้าเกินไป (Bradycardia)",
+    "action": "วัดอัตราการเต้นของหัวใจ"
+  },
+  {
+    "id": "INT-033",
+    "herb": "ยาหอมทิพโอสถ",
+    "herbKeywords": [
+      "ยาหอมทิพโอสถ"
+    ],
+    "drug": "Diltiazem / Verapamil",
+    "drugKeywords": [
+      "Diltiazem",
+      "Verapamil"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่รบกวน CYP3A4",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-034",
+    "herb": "ยาปราบชมพูทวีป",
+    "herbKeywords": [
+      "ยาปราบชมพูทวีป"
+    ],
+    "drug": "Propranolol / Bisoprolol / Atenolol",
+    "drugKeywords": [
+      "Propranolol",
+      "Bisoprolol",
+      "Atenolol"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เครื่องยารสเผ็ดร้อนกระตุ้นหัวใจ ต้านฤทธิ์ Beta-blockers รุนแรง",
+    "action": "ห้ามใช้ร่วมกัน สลับใช้ยาหอมสุขุมแทน"
+  },
+  {
+    "id": "INT-035",
+    "herb": "ยาหอมทิพโอสถ",
+    "herbKeywords": [
+      "ยาหอมทิพโอสถ"
+    ],
+    "drug": "Propranolol / Bisoprolol",
+    "drugKeywords": [
+      "Propranolol",
+      "Bisoprolol"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสหอมเย็นสุขุม คลายลมโดยไม่เพิ่มอัตราการเต้นหัวใจ",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-036",
+    "herb": "มะขามแขก / ยาถ่ายกษัยเส้น",
+    "herbKeywords": [
+      "มะขามแขก",
+      "ยาถ่ายกษัยเส้น"
+    ],
+    "drug": "Digoxin",
+    "drugKeywords": [
+      "Digoxin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ท้องเสีย สูญเสียโพแทสเซียม เสี่ยง Digoxin Toxicity หัวใจเต้นผิดจังหวะรุนแรง",
+    "action": "ห้ามใช้ยาระบายกระตุ้นลำไส้ในผู้ป่วยใช้ Digoxin"
+  },
+  {
+    "id": "INT-037",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
+    ],
+    "drug": "Digoxin",
+    "drugKeywords": [
+      "Digoxin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ระบายอ่อนๆ ไม่ทำให้สูญเสียเกลือแรรุนแรง",
+    "action": "ใช้ปรับระบบขับถ่ายได้ปลอดภัย"
+  },
+  {
+    "id": "INT-038",
+    "herb": "กระชายดำ / กว้าวเครือแดง",
+    "herbKeywords": [
+      "กระชายดำ",
+      "กว้าวเครือแดง"
+    ],
+    "drug": "Isosorbide Mononitrate / Nitroglycerin",
+    "drugKeywords": [
+      "Isosorbide Mononitrate",
+      "Nitroglycerin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ขยายหลอดเลือดรุนแรง เสริมกันทำให้ความดันตกวูบ ช็อกได้",
+    "action": "ห้ามใช้ร่วมกับยานายเตรดโดยเด็ดขาด"
+  },
+  {
+    "id": "INT-039",
+    "herb": "ชามะตูม / ชาเก๊กฮวย",
+    "herbKeywords": [
+      "ชามะตูม",
+      "ชาเก๊กฮวย"
+    ],
+    "drug": "Amiodarone",
+    "drugKeywords": [
+      "Amiodarone"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ฟลาโวนอยด์อาจยับยั้ง CYP3A4 เพิ่มระดับ Amiodarone เสี่ยงพิษต่อหัวใจ",
+    "action": "หลีกเลี่ยงชาสมุนไพรเข้มข้นร่วมกับ Amiodarone"
+  },
+  {
+    "id": "INT-040",
+    "herb": "มะขามแขก",
+    "herbKeywords": [
+      "มะขามแขก"
+    ],
+    "drug": "Hydrochlorothiazide (HCTZ) / Furosemide",
+    "drugKeywords": [
+      "Hydrochlorothiazide",
+      "HCTZ",
+      "Furosemide"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "กระตุ้นการถ่ายและขับโพแทสเซียม เสี่ยง Hypokalemia กล้ามเนื้ออ่อนแรง",
+    "action": "ห้ามใช้มะขามแขกร่วมกับยาขับปัสสาวะแรง"
+  },
+  {
+    "id": "INT-041",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
+    ],
+    "drug": "Furosemide",
+    "drugKeywords": [
+      "Furosemide"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ระบายอ่อนๆ ไม่ขับเกลือแร่ออกรุนแรง",
+    "action": "ใช้ปรับสมดุลขับถ่ายได้ปลอดภัย"
+  },
+  {
+    "id": "INT-042",
+    "herb": "สารสกัดพริกไทยดำ (Bioperine)",
+    "herbKeywords": [
+      "สารสกัดพริกไทยดำ (Bioperine)"
+    ],
+    "drug": "Simvastatin / Atorvastatin",
+    "drugKeywords": [
+      "Simvastatin",
+      "Atorvastatin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ยับยั้ง CYP3A4 เพิ่มระดับ Statin ในเลือด เสี่ยงปวดกล้ามเนื้อรุนแรง Myopathy",
+    "action": "ติดตามอาการปวดเกร็งกล้ามเนื้อ"
+  },
+  {
+    "id": "INT-043",
+    "herb": "ยาธาตุบรรจบ",
+    "herbKeywords": [
+      "ยาธาตุบรรจบ"
+    ],
+    "drug": "Simvastatin / Atorvastatin",
+    "drugKeywords": [
+      "Simvastatin",
+      "Atorvastatin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีพริกไทยดำเข้มข้นระดับยับยั้ง CYP3A4",
+    "action": "ใช้แก้ท้องอืดเฟ้อได้ปลอดภัย"
+  },
+  {
+    "id": "INT-044",
+    "herb": "ขมิ้นชันขนาดสูง (>2",
+    "herbKeywords": [
+      "ขมิ้นชันขนาดสูง (>2"
+    ],
+    "drug": "000 mg/day)",
+    "drugKeywords": [
+      "day"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "WARNING (ส้ม)",
+    "action": "แข่งขันการจับโปรตีนขนส่งยาในตับ อาจเพิ่มระดับ Rosuvastatin ในเลือด"
+  },
+  {
+    "id": "INT-045",
+    "herb": "ยาเหลืองปิดสมุทร",
+    "herbKeywords": [
+      "ยาเหลืองปิดสมุทร"
+    ],
+    "drug": "Rosuvastatin",
+    "drugKeywords": [
+      "Rosuvastatin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสฝาดสุขุม ไม่กระทบกระบวนการเมแทบอลิซึม Rosuvastatin",
+    "action": "ใช้แก้ท้องเสียได้ปลอดภัย"
+  },
+  {
+    "id": "INT-046",
+    "herb": "บัวบกสกัดขนาดสูง",
+    "herbKeywords": [
+      "บัวบกสกัดขนาดสูง"
+    ],
+    "drug": "Atorvastatin",
+    "drugKeywords": [
+      "Atorvastatin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "อาจเพิ่มภาระการทำงานของตับ เสี่ยงค่า ALT/AST สูงขึ้น",
+    "action": "เจาะตรวจค่าตับ LFTs"
+  },
+  {
+    "id": "INT-047",
+    "herb": "ยาเขียวหอม",
+    "herbKeywords": [
+      "ยาเขียวหอม"
+    ],
+    "drug": "Atorvastatin",
+    "drugKeywords": [
+      "Atorvastatin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่เพิ่มภาระตับ",
+    "action": "ใช้แก้ไข้ตัวร้อนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-048",
+    "herb": "สมอไทย / มะขามป้อม",
+    "herbKeywords": [
+      "สมอไทย",
+      "มะขามป้อม"
+    ],
+    "drug": "Fenofibrate / Ezetimibe",
+    "drugKeywords": [
+      "Fenofibrate",
+      "Ezetimibe"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ช่วยส่งเสริมการลดไขมันโดยไม่ออกฤทธิ์ต้านยา",
+    "action": "รับประทานร่วมกันได้ปลอดภัย"
+  },
+  {
+    "id": "INT-049",
     "herb": "บรเพ็ด",
     "herbKeywords": [
       "บรเพ็ด"
@@ -159,11 +782,11 @@
     ],
     "severity": "CRITICAL",
     "riskLabel": "CRITICAL (แดง)",
-    "effect": "บรเพ็ดมีสารอัลคาลอยด์ที่มีความเป็นพิษต่อตับ เพิ่มความเสี่ยงตับอักเสบ",
-    "action": "ห้ามจ่ายร่วมกัน ให้สลับไปใช้ยาทางเลือกที่ปลอดภัย"
+    "effect": "บรเพ็ดมีสาร Alkaloid เพิ่มความเป็นพิษต่อตับ (Hepatotoxicity) ร่วมกับ Paracetamol",
+    "action": "ห้ามจ่ายร่วมกัน ให้ใช้ยาเขียวหอมแทน"
   },
   {
-    "id": "INT-011",
+    "id": "INT-050",
     "herb": "ยาเขียวหอม",
     "herbKeywords": [
       "ยาเขียวหอม"
@@ -174,56 +797,903 @@
     ],
     "severity": "SAFE",
     "riskLabel": "SAFE (เขียว)",
-    "effect": "ออกฤทธิ์คลายความร้อนผ่านเครื่องยารสหอมเย็น ไม่ผ่านการเมแทบอลิซึมตับในทางที่เป็นพิษ",
-    "action": "สามารถใช้ได้อย่างปลอดภัย ใช้แก้ไข้ดับพิษร้อนแทนการจ่ายบรเพ็ดร่วมกับพาราเซตามอล"
+    "effect": "ดับพิษร้อนผ่านเครื่องยารสหอมเย็น ไม่ผ่านกระบวนการตับที่เป็นพิษ",
+    "action": "ใช้แก้ไข้ร่วมกับ Paracetamol ได้ปลอดภัย"
   },
   {
-    "id": "INT-012",
-    "herb": "ขมิ้นชัน (ขนาดสูง)",
+    "id": "INT-051",
+    "herb": "ยากาฬวิสไลน์เปรียง / เถาวัลย์เปรียง",
     "herbKeywords": [
-      "ขมิ้นชัน (ขนาดสูง)"
+      "ยากาฬวิสไลน์เปรียง",
+      "เถาวัลย์เปรียง"
     ],
-    "drug": "Atorvastatin / Simvastatin",
+    "drug": "Ibuprofen / Naproxen / Diclofenac",
     "drugKeywords": [
-      "Atorvastatin",
-      "Simvastatin"
+      "Ibuprofen",
+      "Naproxen",
+      "Diclofenac"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้ง COX-2 เสริมกัน เสี่ยงเกิดแผล เลือดออกกระเพาะอาหารรุนแรง",
+    "action": "ห้ามจ่ายร่วมกัน ใช้หัตถการนวด/ประคบแทน"
+  },
+  {
+    "id": "INT-052",
+    "herb": "ยาขมิ้นชัน",
+    "herbKeywords": [
+      "ยาขมิ้นชัน"
+    ],
+    "drug": "Ibuprofen / Naproxen",
+    "drugKeywords": [
+      "Ibuprofen",
+      "Naproxen"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ขมิ้นชันช่วยกระตุ้นเยื่อเมือกปกป้องกระเพาะ ลดการระคายเคืองจาก NSAIDs",
+    "action": "ใช้แก้จุกเสียดในผู้ป่วยทาน NSAIDs ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-053",
+    "herb": "ยากาฬวิสไลน์เปรียง",
+    "herbKeywords": [
+      "ยากาฬวิสไลน์เปรียง"
+    ],
+    "drug": "Celecoxib / Etoricoxib",
+    "drugKeywords": [
+      "Celecoxib",
+      "Etoricoxib"
     ],
     "severity": "MODERATE",
     "riskLabel": "WARNING (ส้ม)",
-    "effect": "Curcumin ยับยั้งเอนไซม์ CYP3A4 ทำให้ระดับยาลดไขมันในเลือดสูงขึ้น",
-    "action": "เฝ้าระวังอาการปวดกล้ามเนื้อ (Myopathy) และตรวจค่าตับ"
+    "effect": "เพิ่มความเสี่ยงต่อผลข้างเคียงต่อไตและความดันโลหิตสูงขึ้น",
+    "action": "หลีกเลี่ยงใช้ติดกันเกิน 5-7 วัน"
   },
   {
-    "id": "INT-013",
+    "id": "INT-054",
+    "herb": "ยาประคบสมุนไพร / ยาพอกไพล",
+    "herbKeywords": [
+      "ยาประคบสมุนไพร",
+      "ยาพอกไพล"
+    ],
+    "drug": "Celecoxib / Etoricoxib",
+    "drugKeywords": [
+      "Celecoxib",
+      "Etoricoxib"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ลดปวดกล้ามเนื้อภายนอก ไม่เพิ่มภาระต่อไต",
+    "action": "ใช้บำบัดร่วมกับ Celecoxib ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-055",
+    "herb": "กัญชา / THC สกัด",
+    "herbKeywords": [
+      "กัญชา",
+      "THC สกัด"
+    ],
+    "drug": "Tramadol / Morphine",
+    "drugKeywords": [
+      "Tramadol",
+      "Morphine"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "กดระบบประสาทส่วนกลางซ้ำซ้อน เสี่ยงหยุดหายใจ ชัก หรือสับสนรุนแรง",
+    "action": "ห้ามใช้ร่วมกันโดยเด็ดขาด"
+  },
+  {
+    "id": "INT-056",
+    "herb": "มะขามแขก / ยาถ่ายกษัยเส้น",
+    "herbKeywords": [
+      "มะขามแขก",
+      "ยาถ่ายกษัยเส้น"
+    ],
+    "drug": "Allopurinol / Febuxostat",
+    "drugKeywords": [
+      "Allopurinol",
+      "Febuxostat"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ถ่ายระบายรุนแรงทำให้ขาดน้ำ ยูริกเข้มข้นขึ้น เสี่ยงเกาต์กำเริบเฉียบพลัน",
+    "action": "เลี่ยงยาระบายรุนแรง เปลี่ยนเป็นตรีผลา"
+  },
+  {
+    "id": "INT-057",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
+    ],
+    "drug": "Allopurinol / Febuxostat",
+    "drugKeywords": [
+      "Allopurinol",
+      "Febuxostat"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ปรับสมดุลขับถ่ายอ่อนโยน มีฤทธิ์ต้านอนุมูลอิสระ",
+    "action": "ใช้ปรับระบบขับถ่ายในผู้ป่วยเกาต์ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-058",
+    "herb": "ยาพอกข้อเข่าสูตรเย็น",
+    "herbKeywords": [
+      "ยาพอกข้อเข่าสูตรเย็น"
+    ],
+    "drug": "Colchicine",
+    "drugKeywords": [
+      "Colchicine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ประคบ/พอกลดปวดบวมภายนอก ไม่เพิ่มผลข้างเคียง ท้องเสีย จาก Colchicine",
+    "action": "ใช้บรรเทาปวดข้อเกาต์ภายนอกได้ปลอดภัย"
+  },
+  {
+    "id": "INT-059",
+    "herb": "ชากัญชา / สารสกัด THC-CBD",
+    "herbKeywords": [
+      "ชากัญชา",
+      "สารสกัด THC-CBD"
+    ],
+    "drug": "Diazepam / Lorazepam / Alprazolam",
+    "drugKeywords": [
+      "Diazepam",
+      "Lorazepam",
+      "Alprazolam"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เสริมฤทธิ์กดระบบประสาท ง่วงซึมรุนแรง เสียการทรงตัว หยุดหายใจ",
+    "action": "ห้ามรับประทานร่วมกันเด็ดขาด"
+  },
+  {
+    "id": "INT-060",
+    "herb": "ยาหอมนวโกฐ / ยาหอมเทพจิตร",
+    "herbKeywords": [
+      "ยาหอมนวโกฐ",
+      "ยาหอมเทพจิตร"
+    ],
+    "drug": "Diazepam / Lorazepam",
+    "drugKeywords": [
+      "Diazepam",
+      "Lorazepam"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสหอมเย็นสุขุม ช่วยผ่อนคลายโดยไม่กดระบบประสาทรุนแรง",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-061",
+    "herb": "สมุนไพรบัวบก / ขุคลี",
+    "herbKeywords": [
+      "สมุนไพรบัวบก",
+      "ขุคลี"
+    ],
+    "drug": "Fluoxetine / Sertraline / Escitalopram (SSRIs)",
+    "drugKeywords": [
+      "Fluoxetine",
+      "Sertraline",
+      "Escitalopram",
+      "SSRIs"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "อาจส่งผลต่อ Serotonin ในสมอง เสี่ยง Serotonin Syndrome (ใจสั่น สับสน ความดันผันผวน)",
+    "action": "เฝ้าระวังอาการสับสน กระตุก"
+  },
+  {
+    "id": "INT-062",
+    "herb": "ยาประสระไพล",
+    "herbKeywords": [
+      "ยาประสระไพล"
+    ],
+    "drug": "Fluoxetine / Sertraline",
+    "drugKeywords": [
+      "Fluoxetine",
+      "Sertraline"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีผลต่อระบบสารสื่อประสาท Serotonin",
+    "action": "ใช้แก้ปวดประจำเดือนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-063",
+    "herb": "สมุนไพรขี้เหล็ก (ใบ/ดอก)",
+    "herbKeywords": [
+      "สมุนไพรขี้เหล็ก (ใบ",
+      "ดอก)"
+    ],
+    "drug": "Amitriptyline / Nortriptyline (TCAs)",
+    "drugKeywords": [
+      "Amitriptyline",
+      "Nortriptyline",
+      "TCAs"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "Barakol ในขี้เหล็กเสริมฤทธิ์ง่วงซึม และเพิ่มพิษต่อตับหากใช้เกินขนาด",
+    "action": "งดยาต้มขี้เหล็กเข้มข้นร่วมกับยาซึมเศร้า"
+  },
+  {
+    "id": "INT-064",
+    "herb": "พริกไทยดำสกัด (Bioperine)",
+    "herbKeywords": [
+      "พริกไทยดำสกัด (Bioperine)"
+    ],
+    "drug": "Phenytoin / Carbamazepine",
+    "drugKeywords": [
+      "Phenytoin",
+      "Carbamazepine"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มการดูดซึมและระดับยากันชัก อาจเกิดพิษยากันชัก (เดินเซ ตากระตุก)",
+    "action": "ติดตามระดับยากันชักในเลือด TDM"
+  },
+  {
+    "id": "INT-065",
+    "herb": "ยาธาตุบรรจบ",
+    "herbKeywords": [
+      "ยาธาตุบรรจบ"
+    ],
+    "drug": "Phenytoin / Carbamazepine",
+    "drugKeywords": [
+      "Phenytoin",
+      "Carbamazepine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่รบกวนระดับยากันชักในกระแสเลือด",
+    "action": "ใช้แก้ท้องอืดได้ปลอดภัย"
+  },
+  {
+    "id": "INT-066",
+    "herb": "กัญชา (CBD สูง)",
+    "herbKeywords": [
+      "กัญชา (CBD สูง)"
+    ],
+    "drug": "Valproic Acid",
+    "drugKeywords": [
+      "Valproic Acid"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มระดับเอนไซม์ตับ ALT/AST ผิดปกติ เสี่ยงตับอักเสบ",
+    "action": "ติดตามค่าการทำงานของตับ LFTs"
+  },
+  {
+    "id": "INT-067",
+    "herb": "ยาธาตุจันทน์",
+    "herbKeywords": [
+      "ยาธาตุจันทน์"
+    ],
+    "drug": "Valproic Acid",
+    "drugKeywords": [
+      "Valproic Acid"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีผลพิษต่อตับร่วม",
+    "action": "ใช้แก้ปวดมวนท้องได้ปลอดภัย"
+  },
+  {
+    "id": "INT-068",
+    "herb": "โสมคน",
+    "herbKeywords": [
+      "โสมคน"
+    ],
+    "drug": "Phenelzine / Tranylcypromine (MAOIs)",
+    "drugKeywords": [
+      "Phenelzine",
+      "Tranylcypromine",
+      "MAOIs"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เสี่ยง Hypertensive Crisis (ความดันสูงวิกฤต) และนอนไม่หลับรุนแรง",
+    "action": "ห้ามใช้โสมร่วมกับยา MAOIs"
+  },
+  {
+    "id": "INT-069",
+    "herb": "ยาหอมเทพจิตร",
+    "herbKeywords": [
+      "ยาหอมเทพจิตร"
+    ],
+    "drug": "Phenelzine",
+    "drugKeywords": [
+      "Phenelzine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสหอมเย็นช่วยคลายเครียด ไม่กระตุ้นความดัน",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-070",
+    "herb": "กัญชา (THC/CBD)",
+    "herbKeywords": [
+      "กัญชา (THC",
+      "CBD)"
+    ],
+    "drug": "Lithium Carbonate",
+    "drugKeywords": [
+      "Lithium Carbonate"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เสริมฤทธิ์ต่อระบบประสาท เสี่ยงภาวะสับสน สั่น เดินเซ และ Lithium Toxicity",
+    "action": "ห้ามใช้กัญชาร่วมกับ Lithium เด็ดขาด"
+  },
+  {
+    "id": "INT-071",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
+    ],
+    "drug": "Lithium Carbonate",
+    "drugKeywords": [
+      "Lithium Carbonate"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "การถ่ายระบายทำให้เสียสมดุลน้ำ กระทบระดับ Lithium ในเลือด",
+    "action": "ติดตามระดับ Lithium ในเลือด"
+  },
+  {
+    "id": "INT-072",
+    "herb": "ยาหอมนวโกฐ",
+    "herbKeywords": [
+      "ยาหอมนวโกฐ"
+    ],
+    "drug": "Lithium Carbonate",
+    "drugKeywords": [
+      "Lithium Carbonate"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสสุขุมหอมเย็น ไม่กระทบระดับยา Lithium",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-073",
+    "herb": "สมุนไพรหญ้าหมอน้อย / หางกระรอก",
+    "herbKeywords": [
+      "สมุนไพรหญ้าหมอน้อย",
+      "หางกระรอก"
+    ],
+    "drug": "Levodopa + Carbidopa",
+    "drugKeywords": [
+      "Levodopa + Carbidopa"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "อาจรบกวนการดูดซึมยารักษาพาร์กินสันในลำไส้เล็ก",
+    "action": "ทานเว้นระยะห่างกันอย่างน้อย 2 ชั่วโมง"
+  },
+  {
+    "id": "INT-074",
+    "herb": "ชามะนาว / ส้มป่อย / รสเปรี้ยว",
+    "herbKeywords": [
+      "ชามะนาว",
+      "ส้มป่อย",
+      "รสเปรี้ยว"
+    ],
+    "drug": "Antacids (Al/Mg Hydroxide)",
+    "drugKeywords": [
+      "Antacids",
+      "Al",
+      "Mg Hydroxide"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "กรดซิตริกทำลายฤทธิ์สะเทินกรด และเพิ่มการดูดซึมอลูมิเนียมเข้าสู่ร่างกาย",
+    "action": "รับประทานห่างกันอย่างน้อย 2 ชั่วโมง"
+  },
+  {
+    "id": "INT-075",
+    "herb": "ยาเขียวหอม",
+    "herbKeywords": [
+      "ยาเขียวหอม"
+    ],
+    "drug": "Antacids",
+    "drugKeywords": [
+      "Antacids"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสหอมเย็นเป็นกลาง ไม่ทำปฏิกิริยากรด-ด่าง",
+    "action": "ใช้แก้ไข้ตัวร้อนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-076",
+    "herb": "สมุนไพรขมิ้นชัน",
+    "herbKeywords": [
+      "สมุนไพรขมิ้นชัน"
+    ],
+    "drug": "Omeprazole / Pantoprazole / Esomeprazole (PPIs)",
+    "drugKeywords": [
+      "Omeprazole",
+      "Pantoprazole",
+      "Esomeprazole",
+      "PPIs"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "เสริมกันสมานแผลในกระเพาะ โดยขมิ้นชันไม่รบกวนการยับยั้งกรด",
+    "action": "ใช้รักษาโรคกระเพาะร่วมกันได้ปลอดภัย"
+  },
+  {
+    "id": "INT-077",
+    "herb": "ยาปราบสมุทร",
+    "herbKeywords": [
+      "ยาปราบสมุทร"
+    ],
+    "drug": "Omeprazole / Pantoprazole",
+    "drugKeywords": [
+      "Omeprazole",
+      "Pantoprazole"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสฝาดเปรี้ยวสมานลำไส้ ไม่ส่งผลต่อการดูดซึม PPIs",
+    "action": "ใช้แก้ท้องเสียชนิดไม่ติดเชื้อได้ปลอดภัย"
+  },
+  {
+    "id": "INT-078",
+    "herb": "ยาประสระกานพลู",
+    "herbKeywords": [
+      "ยาประสระกานพลู"
+    ],
+    "drug": "Domperidone / Metoclopramide",
+    "drugKeywords": [
+      "Domperidone",
+      "Metoclopramide"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "กานพลูและ Domperidone กระตุ้นการบีบตัวของกระเพาะ เสี่ยงปวดเกร็งท้อง",
+    "action": "รับประทานเว้นระยะห่างกัน 1-2 ชั่วโมง"
+  },
+  {
+    "id": "INT-079",
+    "herb": "รางจืด / เซนต์จอห์นเวิร์ต",
+    "herbKeywords": [
+      "รางจืด",
+      "เซนต์จอห์นเวิร์ต"
+    ],
+    "drug": "Tacrolimus / Cyclosporine",
+    "drugKeywords": [
+      "Tacrolimus",
+      "Cyclosporine"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เร่งการกำจัดยา ทำให้ระดับยากดภูมิในเลือดตก เสี่ยงปฏิเสธอวัยวะปลูกถ่าย",
+    "action": "ห้ามรับประทานรางจืดในผู้ป่วยปลูกถ่ายอวัยวะ"
+  },
+  {
+    "id": "INT-080",
+    "herb": "ยาประคบสมุนไพรภายนอก",
+    "herbKeywords": [
+      "ยาประคบสมุนไพรภายนอก"
+    ],
+    "drug": "Tacrolimus / Cyclosporine",
+    "drugKeywords": [
+      "Tacrolimus",
+      "Cyclosporine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "การใช้ภายนอก ไม่ส่งผลต่อระดับยากดภูมิในกระแสเลือด",
+    "action": "ใช้ลดปวดกล้ามเนื้อได้ปลอดภัย"
+  },
+  {
+    "id": "INT-081",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Methotrexate",
+    "drugKeywords": [
+      "Methotrexate"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มความเสี่ยงเป็นพิษต่อตับ (Hepatotoxicity) ร่วมกับ Methotrexate",
+    "action": "หลีกเลี่ยงใช้ฟ้าทะลายโจรเกิน 7 วัน"
+  },
+  {
+    "id": "INT-082",
+    "herb": "ยาจันทน์ลีลา",
+    "herbKeywords": [
+      "ยาจันทน์ลีลา"
+    ],
+    "drug": "Methotrexate",
+    "drugKeywords": [
+      "Methotrexate"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่ผ่านกระบวนการตับหนัก",
+    "action": "ใช้แก้ไข้ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-083",
+    "herb": "กว้าวเครือขาว / ฮอร์โมนสูง",
+    "herbKeywords": [
+      "กว้าวเครือขาว",
+      "ฮอร์โมนสูง"
+    ],
+    "drug": "Tamoxifen / Letrozole",
+    "drugKeywords": [
+      "Tamoxifen",
+      "Letrozole"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "Phytoestrogen ในกว้าวเครือขาวต้านฤทธิ์ยา Tamoxifen เสี่ยงมะเร็งเต้านมกลับเป็นซ้ำ",
+    "action": "ห้ามใช้ในผู้ป่วยมะเร็งเต้านมทาน Tamoxifen"
+  },
+  {
+    "id": "INT-084",
+    "herb": "ยามหาพิกัดตรีผลา",
+    "herbKeywords": [
+      "ยามหาพิกัดตรีผลา"
+    ],
+    "drug": "Tamoxifen",
+    "drugKeywords": [
+      "Tamoxifen"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มี Phytoestrogen ไม่กระทบการรักษาต้านฮอร์โมน",
+    "action": "ใช้ปรับระบบขับถ่ายได้ปลอดภัย"
+  },
+  {
+    "id": "INT-085",
+    "herb": "สารสกัดบัวบก / ขมิ้นชัน",
+    "herbKeywords": [
+      "สารสกัดบัวบก",
+      "ขมิ้นชัน"
+    ],
+    "drug": "Pembrolizumab / Nivolumab (Immune Checkpoint Inhibitors)",
+    "drugKeywords": [
+      "Pembrolizumab",
+      "Nivolumab",
+      "Immune Checkpoint Inhibitors"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ฤทธิ์ปรับภูมิคุ้มกัน Immunomodulatory อาจต้านหรือเสริมยารักษามะเร็ง",
+    "action": "เฝ้าระวังผลข้างเคียงภูมิคุ้มกันและเจาะค่าตับ"
+  },
+  {
+    "id": "INT-086",
+    "herb": "ยาเขียวหอม",
+    "herbKeywords": [
+      "ยาเขียวหอม"
+    ],
+    "drug": "Pembrolizumab / Nivolumab",
+    "drugKeywords": [
+      "Pembrolizumab",
+      "Nivolumab"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ดับพิษร้อน ไม่กดหรือกระตุ้นภูมิคุ้มกันรุนแรง",
+    "action": "ใช้แก้ไข้ในผู้ป่วยมะเร็งได้ปลอดภัย"
+  },
+  {
+    "id": "INT-087",
+    "herb": "ชาเชียวสกัดเข้มข้น / โสม",
+    "herbKeywords": [
+      "ชาเชียวสกัดเข้มข้น",
+      "โสม"
+    ],
+    "drug": "Adalimumab / Infliximab (Anti-TNF Biologics)",
+    "drugKeywords": [
+      "Adalimumab",
+      "Infliximab",
+      "Anti-TNF Biologics"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "สารสกัดมีผลต่อ Cytokines อาจต้านหรือเสริมฤทธิ์ยาชีววัตถุรักษารูมาตอยด์",
+    "action": "เฝ้าระวังอาการปวดข้อกำเริบ"
+  },
+  {
+    "id": "INT-088",
+    "herb": "ยาประคบสมุนไพร / ยาพอกไพล",
+    "herbKeywords": [
+      "ยาประคบสมุนไพร",
+      "ยาพอกไพล"
+    ],
+    "drug": "Adalimumab / Infliximab",
+    "drugKeywords": [
+      "Adalimumab",
+      "Infliximab"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "บำบัดภายนอก ไม่รบกวนยาชีววัตถุในกระแสเลือด",
+    "action": "ใช้ลดปวดข้อ/กล้ามเนื้อได้ปลอดภัย"
+  },
+  {
+    "id": "INT-089",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Ritonavir / Lopinavir / Efavirenz (Antiretrovirals)",
+    "drugKeywords": [
+      "Ritonavir",
+      "Lopinavir",
+      "Efavirenz",
+      "Antiretrovirals"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "Andrographolide ยับยั้ง CYP3A4/P-gp อาจทำให้ระดับยาต้านไวรัสผันผวน",
+    "action": "ติดตามระดับ Viral Load และ CD4"
+  },
+  {
+    "id": "INT-090",
+    "herb": "ยาจันทน์ลีลา",
+    "herbKeywords": [
+      "ยาจันทน์ลีลา"
+    ],
+    "drug": "Ritonavir / Lopinavir",
+    "drugKeywords": [
+      "Ritonavir",
+      "Lopinavir"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่มีผลต่อ CYP3A4/P-gp นัยสำคัญ",
+    "action": "ใช้แก้ไข้ตัวร้อนในผู้ป่วย HIV ได้ปลอดภัย"
+  },
+  {
+    "id": "INT-091",
+    "herb": "สมุนไพรรางจืด (ต้ม/ชง)",
+    "herbKeywords": [
+      "สมุนไพรรางจืด (ต้ม",
+      "ชง)"
+    ],
+    "drug": "Rifampicin / Ciprofloxacin / ยาปฏิชีวนะทุกชนิด",
+    "drugKeywords": [
+      "Rifampicin",
+      "Ciprofloxacin",
+      "ยาปฏิชีวนะทุกชนิด"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "รางจืดเร่งการขับยารักษาโรคออกจากร่างกาย ทำให้ระดับยาปฏิชีวนะตก รักษานานไม่หาย",
+    "action": "ห้ามทานรางจืดพร้อมยาปฏิชีวนะ เว้น 4-6 ชม."
+  },
+  {
+    "id": "INT-092",
+    "herb": "ยาเขียวหอม",
+    "herbKeywords": [
+      "ยาเขียวหอม"
+    ],
+    "drug": "Rifampicin / Ciprofloxacin",
+    "drugKeywords": [
+      "Rifampicin",
+      "Ciprofloxacin"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ดับพิษไข้ โดยไม่เร่งการขับยาปฏิชีวนะออกจากร่างกาย",
+    "action": "ใช้แก้ไข้ร่วมกับยาปฏิชีวนะได้ปลอดภัย"
+  },
+  {
+    "id": "INT-093",
+    "herb": "สารสกัดพริกไทยดำ",
+    "herbKeywords": [
+      "สารสกัดพริกไทยดำ"
+    ],
+    "drug": "Ketoconazole / Itraconazole",
+    "drugKeywords": [
+      "Ketoconazole",
+      "Itraconazole"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มการดูดซึมและระดับยาฆ่าเชื้อราในเลือด อาจเกิดพิษต่อตับ",
+    "action": "ติดตามการทำงานของตับ LFTs"
+  },
+  {
+    "id": "INT-094",
+    "herb": "ยาขมิ้นชัน",
+    "herbKeywords": [
+      "ยาขมิ้นชัน"
+    ],
+    "drug": "Ketoconazole / Itraconazole",
+    "drugKeywords": [
+      "Ketoconazole",
+      "Itraconazole"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "สมานทางเดินอาหารโดยไม่เพิ่มระดับยาฆ่าเชื้อรา",
+    "action": "ใช้แก้จุกเสียดได้ปลอดภัย"
+  },
+  {
+    "id": "INT-095",
+    "herb": "นม / สมุนไพรแคลเซียมสูง (ยอ/กระดูกไก่ดำ)",
+    "herbKeywords": [
+      "นม",
+      "สมุนไพรแคลเซียมสูง (ยอ",
+      "กระดูกไก่ดำ)"
+    ],
+    "drug": "Ciprofloxacin / Tetracycline / Doxycycline",
+    "drugKeywords": [
+      "Ciprofloxacin",
+      "Tetracycline",
+      "Doxycycline"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "แคลเซียมจับตัวกับยาปฏิชีวนะเกิดสารประกอบไม่ละลายน้ำ ยาไม่ดูดซึม",
+    "action": "รับประทานห่างกันอย่างน้อย 2 ชั่วโมง"
+  },
+  {
+    "id": "INT-096",
+    "herb": "กาแฟสกัด / ชาเขียวเข้มข้น",
+    "herbKeywords": [
+      "กาแฟสกัด",
+      "ชาเขียวเข้มข้น"
+    ],
+    "drug": "Theophylline",
+    "drugKeywords": [
+      "Theophylline"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "Caffeine เสริมฤทธิ์กระตุ้นหัวใจของ Theophylline เสี่ยงใจสั่น ใจเต้นผิดจังหวะ",
+    "action": "งดชาเขียว/กาแฟเข้มข้นระหว่างใช้ Theophylline"
+  },
+  {
+    "id": "INT-097",
+    "herb": "ยาแก้ไอขมิ้นอ้อย",
+    "herbKeywords": [
+      "ยาแก้ไอขมิ้นอ้อย"
+    ],
+    "drug": "Theophylline",
+    "drugKeywords": [
+      "Theophylline"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "รสเปรี้ยวขมฝาด ขับเสมหะโดยไม่กระตุ้นหัวใจ",
+    "action": "ใช้บรรเทาไอเรื้อรังได้ปลอดภัย"
+  },
+  {
+    "id": "INT-098",
     "herb": "ยาปราบชมพูทวีป",
     "herbKeywords": [
       "ยาปราบชมพูทวีป"
     ],
-    "drug": "Propranolol / Atenolol",
+    "drug": "Salbutamol Inhaler / Formoterol",
     "drugKeywords": [
-      "Propranolol",
-      "Atenolol"
+      "Formoterol"
     ],
-    "severity": "CRITICAL",
-    "riskLabel": "CRITICAL (แดง)",
-    "effect": "สมุนไพรรสเผ็ดร้อนกระตุ้นการเต้นของหัวใจ ต้านฤทธิ์ยาบล็อกเกอร์",
-    "action": "ห้ามจ่ายร่วมกัน สลับใช้ยาหอมเทพจิตรหรือยาปรับธาตุรสสุขุมแทน"
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เครื่องยารสเผ็ดร้อนกระตุ้นหัวใจเต้นเร็วร่วมกับยาขยายหลอดลม",
+    "action": "เฝ้าระวังอาการใจสั่น ชีพจรเต้นเร็ว"
   },
   {
-    "id": "INT-014",
-    "herb": "ยาหอมเทพจิตร / ยาหอมนวโกฐ",
+    "id": "INT-099",
+    "herb": "ยาแก้ไอจามพิกัดตรีสาร",
     "herbKeywords": [
-      "ยาหอมเทพจิตร",
-      "ยาหอมนวโกฐ"
+      "ยาแก้ไอจามพิกัดตรีสาร"
     ],
-    "drug": "Propranolol / Atenolol",
+    "drug": "Salbutamol Inhaler",
     "drugKeywords": [
-      "Propranolol",
-      "Atenolol"
+      "Salbutamol Inhaler"
     ],
     "severity": "SAFE",
     "riskLabel": "SAFE (เขียว)",
-    "effect": "รสหอมเย็นสุขุมช่วยแก้วิงเวียน คลายลม โดยไม่กระตุ้นอัตราการเต้นของหัวใจรุนแรง",
-    "action": "สามารถใช้ได้อย่างปลอดภัย ในผู้ป่วยที่ได้รับยาเบต้าบล็อกเกอร์เพื่อแก้วิงเวียน"
+    "effect": "ขับเสมหะและบรรเทาคันคอ ไม่ออกฤทธิ์กระตุ้นหัวใจรุนแรง",
+    "action": "ใช้บรรเทาไอร่วมได้ปลอดภัย"
+  },
+  {
+    "id": "INT-100",
+    "herb": "รางจืด",
+    "herbKeywords": [
+      "รางจืด"
+    ],
+    "drug": "Levothyroxine",
+    "drugKeywords": [
+      "Levothyroxine"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เร่งการขับยาฮอร์โมนไทรอยด์ ทำให้ระดับไทรอยด์ในเลือดตก",
+    "action": "ห้ามทานรางจืดพร้อมยาไทรอยด์"
+  },
+  {
+    "id": "INT-101",
+    "herb": "ยาหอมเทพจิตร",
+    "herbKeywords": [
+      "ยาหอมเทพจิตร"
+    ],
+    "drug": "Levothyroxine",
+    "drugKeywords": [
+      "Levothyroxine"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่กระทบระดับฮอร์โมนไทรอยด์",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-102",
+    "herb": "ชาเขียวสกัดเข้มข้น (EGCG)",
+    "herbKeywords": [
+      "ชาเขียวสกัดเข้มข้น (EGCG)"
+    ],
+    "drug": "Nadolol",
+    "drugKeywords": [
+      "Nadolol"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้งตัวขนส่งยา OATP1A2 ทำให้ยาลดความดัน Nadolol ดูดซึมไม่ได้ ผลการรักษาล้มเหลว",
+    "action": "ห้ามดื่มชาเขียวสกัดพร้อมยา Nadolol"
+  },
+  {
+    "id": "INT-103",
+    "herb": "ยาหอมนวโกฐ",
+    "herbKeywords": [
+      "ยาหอมนวโกฐ"
+    ],
+    "drug": "Nadolol",
+    "drugKeywords": [
+      "Nadolol"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่รบกวนตัวขนส่งยา OATP1A2",
+    "action": "ใช้แก้วิงเวียนได้ปลอดภัย"
+  },
+  {
+    "id": "INT-104",
+    "herb": "กระชายดำ",
+    "herbKeywords": [
+      "กระชายดำ"
+    ],
+    "drug": "Sildenafil / Tadalafil (PDE5i)",
+    "drugKeywords": [
+      "Sildenafil",
+      "Tadalafil",
+      "PDE5i"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "หลอดเลือดขยายตัวรุนแรง ความดันโลหิตตก เสี่ยงช็อก",
+    "action": "ห้ามใช้ร่วมกันโดยเด็ดขาด"
+  },
+  {
+    "id": "INT-105",
+    "herb": "ยาบำรุงโลหิต",
+    "herbKeywords": [
+      "ยาบำรุงโลหิต"
+    ],
+    "drug": "Sildenafil",
+    "drugKeywords": [
+      "Sildenafil"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "บำรุงธาตุโดยไม่ขยายหลอดเลือดรุนแรง",
+    "action": "ใช้บำรุงร่างกายได้ปลอดภัย"
   }
 ]

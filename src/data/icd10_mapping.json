@@ -20,8 +20,8 @@
     "ttmCode": "U57.31",
     "ttmName": "โรคปิตตะกำเริบ (ไข้เกิดจากความร้อน)",
     "icd10tm": "R50.9",
-    "icd10Name": "Fever, unspecified (อาการไข้ไม่ระบุสาเหตุ)",
-    "fullDescription": "โรคปิตตะกำเริบ (ไข้เกิดจากความร้อน) [U57.31] → Fever, unspecified (อาการไข้ไม่ระบุสาเหตุ) (R50.9)"
+    "icd10Name": "Fever",
+    "fullDescription": "โรคปิตตะกำเริบ (ไข้เกิดจากความร้อน) [U57.31] → Fever (R50.9)"
   },
   {
     "id": "ICD-004",
@@ -44,8 +44,8 @@
     "ttmCode": "U55.30",
     "ttmName": "โรคลมอัมพฤกษ์ (ลมแขนขาอ่อนแรง)",
     "icd10tm": "G81.9",
-    "icd10Name": "Hemiplegia, unspecified (ภาวะอัมพฤกษ์)",
-    "fullDescription": "โรคลมอัมพฤกษ์ (ลมแขนขาอ่อนแรง) [U55.30] → Hemiplegia, unspecified (ภาวะอัมพฤกษ์) (G81.9)"
+    "icd10Name": "Hemiplegia",
+    "fullDescription": "โรคลมอัมพฤกษ์ (ลมแขนขาอ่อนแรง) [U55.30] → Hemiplegia (G81.9)"
   },
   {
     "id": "ICD-007",
@@ -94,5 +94,693 @@
     "icd10tm": "U60.4 / Z50.8",
     "icd10Name": "Other specified rehabilitation procedures",
     "fullDescription": "การเผายาท้องเพื่อบำบัดโรคลมกุจฉิสยาวาตะ [U60.4] → Other specified rehabilitation procedures (U60.4 / Z50.8)"
+  },
+  {
+    "id": "ICD-013",
+    "ttmCode": "U55.11",
+    "ttmName": "โรคลมปักฆาต (ลมปวดตึงคอบ่าไหล่/ไหล่ติด)",
+    "icd10tm": "M75.0",
+    "icd10Name": "Adhesive capsulitis of shoulder (ภาวะข้อไหล่ติด)",
+    "fullDescription": "โรคลมปักฆาต (ลมปวดตึงคอบ่าไหล่/ไหล่ติด) [U55.11] → Adhesive capsulitis of shoulder (ภาวะข้อไหล่ติด) (M75.0)"
+  },
+  {
+    "id": "ICD-014",
+    "ttmCode": "U55.12",
+    "ttmName": "โรคลมราชยักษ์ (อาการปวดตึงต้นคอ/คอตกหมอน)",
+    "icd10tm": "M54.2",
+    "icd10Name": "Cervicalgia (อาการปวดคอ)",
+    "fullDescription": "โรคลมราชยักษ์ (อาการปวดตึงต้นคอ/คอตกหมอน) [U55.12] → Cervicalgia (อาการปวดคอ) (M54.2)"
+  },
+  {
+    "id": "ICD-015",
+    "ttmCode": "U55.15",
+    "ttmName": "โรคลมจับกษัย (ปวดเมื่อยเอวและหัวเข่า)",
+    "icd10tm": "M17.9",
+    "icd10Name": "Osteoarthritis of knee",
+    "fullDescription": "โรคลมจับกษัย (ปวดเมื่อยเอวและหัวเข่า) [U55.15] → Osteoarthritis of knee (M17.9)"
+  },
+  {
+    "id": "ICD-016",
+    "ttmCode": "U57.10",
+    "ttmName": "โรคไฟธาตุหย่อน (อาหารไม่ย่อย/ท้องอืดเรื้อรัง)",
+    "icd10tm": "K30",
+    "icd10Name": "Functional Dyspepsia (การย่อยอาหารบกพร่อง)",
+    "fullDescription": "โรคไฟธาตุหย่อน (อาหารไม่ย่อย/ท้องอืดเรื้อรัง) [U57.10] → Functional Dyspepsia (การย่อยอาหารบกพร่อง) (K30)"
+  },
+  {
+    "id": "ICD-017",
+    "ttmCode": "U56.20",
+    "ttmName": "โรคศิโรเสมหะ (เสมหะคั่งในศีรษะ/ไซนัส)",
+    "icd10tm": "J32.9",
+    "icd10Name": "Chronic sinusitis",
+    "fullDescription": "โรคศิโรเสมหะ (เสมหะคั่งในศีรษะ/ไซนัส) [U56.20] → Chronic sinusitis (J32.9)"
+  },
+  {
+    "id": "ICD-018",
+    "ttmCode": "U58.10",
+    "ttmName": "โรคธาตุพิการเรื้อรัง (ท้องผูกสลับท้องเสีย)",
+    "icd10tm": "K58.9",
+    "icd10Name": "Irritable bowel syndrome (ลำไส้แปรปรวน)",
+    "fullDescription": "โรคธาตุพิการเรื้อรัง (ท้องผูกสลับท้องเสีย) [U58.10] → Irritable bowel syndrome (ลำไส้แปรปรวน) (K58.9)"
+  },
+  {
+    "id": "ICD-019",
+    "ttmCode": "U55.40",
+    "ttmName": "โรคลมหทัยวาตะ (อาการใจสั่น หวิวๆ นอนไม่หลับ)",
+    "icd10tm": "R00.2",
+    "icd10Name": "Palpitations (อาการใจสั่น)",
+    "fullDescription": "โรคลมหทัยวาตะ (อาการใจสั่น หวิวๆ นอนไม่หลับ) [U55.40] → Palpitations (อาการใจสั่น) (R00.2)"
+  },
+  {
+    "id": "ICD-020",
+    "ttmCode": "U59.10",
+    "ttmName": "โรคกษัยโลหิตสตรี (ปวดประจำเดือน/เลือดลมไม่ปกติ)",
+    "icd10tm": "N94.6",
+    "icd10Name": "Dysmenorrhea",
+    "fullDescription": "โรคกษัยโลหิตสตรี (ปวดประจำเดือน/เลือดลมไม่ปกติ) [U59.10] → Dysmenorrhea (N94.6)"
+  },
+  {
+    "id": "ICD-021",
+    "ttmCode": "U60.5",
+    "ttmName": "การพอกยาเพื่อการรักษาอักเสบเฉพาะที่",
+    "icd10tm": "U60.5 / Z50.8",
+    "icd10Name": "Local herbal application / rehabilitation",
+    "fullDescription": "การพอกยาเพื่อการรักษาอักเสบเฉพาะที่ [U60.5] → Local herbal application / rehabilitation (U60.5 / Z50.8)"
+  },
+  {
+    "id": "ICD-022",
+    "ttmCode": "U60.6",
+    "ttmName": "การกวาดคอเด็กด้วยยาสมุนไพร",
+    "icd10tm": "U60.6 / Z50.8",
+    "icd10Name": "Pediatric throat herbal application",
+    "fullDescription": "การกวาดคอเด็กด้วยยาสมุนไพร [U60.6] → Pediatric throat herbal application (U60.6 / Z50.8)"
+  },
+  {
+    "id": "ICD-023",
+    "ttmCode": "U60.7",
+    "ttmName": "การนั่งแช่น้ำต้มสมุนไพร (บำบัดริดสีดวง/หลังคลอด)",
+    "icd10tm": "U60.7 / Z50.1",
+    "icd10Name": "Sitz bath therapy with herbal decoction",
+    "fullDescription": "การนั่งแช่น้ำต้มสมุนไพร (บำบัดริดสีดวง/หลังคลอด) [U60.7] → Sitz bath therapy with herbal decoction (U60.7 / Z50.1)"
+  },
+  {
+    "id": "ICD-024",
+    "ttmCode": "U55.16",
+    "ttmName": "โรคลมปลายปัตคาต (ลมจับเส้นประสาทปวดร้าว)",
+    "icd10tm": "M79.2",
+    "icd10Name": "Neuralgia and neuritis",
+    "fullDescription": "โรคลมปลายปัตคาต (ลมจับเส้นประสาทปวดร้าว) [U55.16] → Neuralgia and neuritis (M79.2)"
+  },
+  {
+    "id": "ICD-025",
+    "ttmCode": "U57.20",
+    "ttmName": "โรคสันตัปปัคคีกำเริบ (ไข้ร้อนใน/ตัวร้อนฉ่า)",
+    "icd10tm": "R50.8",
+    "icd10Name": "Other specified fever (ไข้ตัวร้อนจัด)",
+    "fullDescription": "โรคสันตัปปัคคีกำเริบ (ไข้ร้อนใน/ตัวร้อนฉ่า) [U57.20] → Other specified fever (ไข้ตัวร้อนจัด) (R50.8)"
+  },
+  {
+    "id": "ICD-026",
+    "ttmCode": "U55.17",
+    "ttmName": "โรคลมปิณฑิวาตะ (ลมจับตะคริวน่อง/ขาเกร็ง)",
+    "icd10tm": "M62.8",
+    "icd10Name": "Other specified muscle disorders (ตะคริวกล้ามเนื้อ)",
+    "fullDescription": "โรคลมปิณฑิวาตะ (ลมจับตะคริวน่อง/ขาเกร็ง) [U55.17] → Other specified muscle disorders (ตะคริวกล้ามเนื้อ) (M62.8)"
+  },
+  {
+    "id": "ICD-027",
+    "ttmCode": "U58.20",
+    "ttmName": "โรคอุทรวาตะ (ลมดันสะอึก จุกอก)",
+    "icd10tm": "R06.6",
+    "icd10Name": "Hiccough (อาการสะอึก)",
+    "fullDescription": "โรคอุทรวาตะ (ลมดันสะอึก จุกอก) [U58.20] → Hiccough (อาการสะอึก) (R06.6)"
+  },
+  {
+    "id": "ICD-028",
+    "ttmCode": "U59.20",
+    "ttmName": "โรคปัสสาวะวาตะ (ปัสสาวะขัด ปวดแสบร้อน)",
+    "icd10tm": "R30.0",
+    "icd10Name": "Dysuria (ปัสสาวะเจ็บขัด)",
+    "fullDescription": "โรคปัสสาวะวาตะ (ปัสสาวะขัด ปวดแสบร้อน) [U59.20] → Dysuria (ปัสสาวะเจ็บขัด) (R30.0)"
+  },
+  {
+    "id": "ICD-029",
+    "ttmCode": "U56.30",
+    "ttmName": "โรคคีวะเสมหะ (เสมหะแห้งเหนียวค้างคอ)",
+    "icd10tm": "J31.2",
+    "icd10Name": "Chronic pharyngitis (คออักเสบเรื้อรัง)",
+    "fullDescription": "โรคคีวะเสมหะ (เสมหะแห้งเหนียวค้างคอ) [U56.30] → Chronic pharyngitis (คออักเสบเรื้อรัง) (J31.2)"
+  },
+  {
+    "id": "ICD-030",
+    "ttmCode": "U60.8",
+    "ttmName": "การกวาดคอและพอกยาทรวงอกในเด็ก",
+    "icd10tm": "U60.8 / Z50.8",
+    "icd10Name": "Pediatric chest and throat application",
+    "fullDescription": "การกวาดคอและพอกยาทรวงอกในเด็ก [U60.8] → Pediatric chest and throat application (U60.8 / Z50.8)"
+  },
+  {
+    "id": "ICD-031",
+    "ttmCode": "U55.13",
+    "ttmName": "โรคลมปลายปัตคาตสัญญาณ 1 (ปวดตึงสะบัก/คอ)",
+    "icd10tm": "M75.8",
+    "icd10Name": "Other shoulder lesions",
+    "fullDescription": "โรคลมปลายปัตคาตสัญญาณ 1 (ปวดตึงสะบัก/คอ) [U55.13] → Other shoulder lesions (M75.8)"
+  },
+  {
+    "id": "ICD-032",
+    "ttmCode": "U55.18",
+    "ttmName": "โรคลมปลายปัตคาตสัญญาณ 2 (ปวดตึงหลัง/บั้นเอว)",
+    "icd10tm": "M54.4",
+    "icd10Name": "Lumbago with sciatica",
+    "fullDescription": "โรคลมปลายปัตคาตสัญญาณ 2 (ปวดตึงหลัง/บั้นเอว) [U55.18] → Lumbago with sciatica (M54.4)"
+  },
+  {
+    "id": "ICD-033",
+    "ttmCode": "U55.19",
+    "ttmName": "โรคลมปลายปัตคาตสัญญาณ 3 (ปวดขัดสะโพก/สลักเพชร)",
+    "icd10tm": "M54.3",
+    "icd10Name": "Sciatica",
+    "fullDescription": "โรคลมปลายปัตคาตสัญญาณ 3 (ปวดขัดสะโพก/สลักเพชร) [U55.19] → Sciatica (M54.3)"
+  },
+  {
+    "id": "ICD-034",
+    "ttmCode": "U55.20",
+    "ttmName": "โรคลมปลายปัตคาตสัญญาณ 4 (ปวดตึงต้นขา/น่อง)",
+    "icd10tm": "M79.6",
+    "icd10Name": "Pain in limb",
+    "fullDescription": "โรคลมปลายปัตคาตสัญญาณ 4 (ปวดตึงต้นขา/น่อง) [U55.20] → Pain in limb (M79.6)"
+  },
+  {
+    "id": "ICD-035",
+    "ttmCode": "U55.23",
+    "ttmName": "โรคลมเถาเถาดันวาตะ (มีก้อนลมในท้อง/เกร็ง)",
+    "icd10tm": "K63.8",
+    "icd10Name": "Other specified diseases of intestine",
+    "fullDescription": "โรคลมเถาเถาดันวาตะ (มีก้อนลมในท้อง/เกร็ง) [U55.23] → Other specified diseases of intestine (K63.8)"
+  },
+  {
+    "id": "ICD-036",
+    "ttmCode": "U56.12",
+    "ttmName": "โรคศิโรเสมหะกำเริบ (ปวดศีรษะจากเสมหะ/น้ำมูก)",
+    "icd10tm": "J32.8",
+    "icd10Name": "Other chronic sinusitis",
+    "fullDescription": "โรคศิโรเสมหะกำเริบ (ปวดศีรษะจากเสมหะ/น้ำมูก) [U56.12] → Other chronic sinusitis (J32.8)"
+  },
+  {
+    "id": "ICD-037",
+    "ttmCode": "U56.13",
+    "ttmName": "โรคจิวหาเสมหะ (เสมหะเกาะลิ้น/ลิ้นชา)",
+    "icd10tm": "K14.8",
+    "icd10Name": "Other diseases of tongue",
+    "fullDescription": "โรคจิวหาเสมหะ (เสมหะเกาะลิ้น/ลิ้นชา) [U56.13] → Other diseases of tongue (K14.8)"
+  },
+  {
+    "id": "ICD-038",
+    "ttmCode": "U56.14",
+    "ttmName": "โรคทนตเสมหะ (เสมหะโคนฟัน/เหง็กบวม)",
+    "icd10tm": "K05.3",
+    "icd10Name": "Chronic periodontitis",
+    "fullDescription": "โรคทนตเสมหะ (เสมหะโคนฟัน/เหง็กบวม) [U56.14] → Chronic periodontitis (K05.3)"
+  },
+  {
+    "id": "ICD-039",
+    "ttmCode": "U57.11",
+    "ttmName": "โรคอพัทธปิตตะกำเริบ (แสบร้อนทรวงอก/กรดย้อน)",
+    "icd10tm": "K21.9",
+    "icd10Name": "Gastro-esophageal reflux disease without esophagitis",
+    "fullDescription": "โรคอพัทธปิตตะกำเริบ (แสบร้อนทรวงอก/กรดย้อน) [U57.11] → Gastro-esophageal reflux disease without esophagitis (K21.9)"
+  },
+  {
+    "id": "ICD-040",
+    "ttmCode": "U57.12",
+    "ttmName": "โรคจักษุปิตตะ (ปวดตา ตาแดง ความร้อนขึ้นตา)",
+    "icd10tm": "H10.9",
+    "icd10Name": "Conjunctivitis",
+    "fullDescription": "โรคจักษุปิตตะ (ปวดตา ตาแดง ความร้อนขึ้นตา) [U57.12] → Conjunctivitis (H10.9)"
+  },
+  {
+    "id": "ICD-041",
+    "ttmCode": "U58.11",
+    "ttmName": "โรคศกิรดิเสมหะ (อุจจาระเป็นมูก/ถ่ายเหลว)",
+    "icd10tm": "A09.0",
+    "icd10Name": "Other and unspecified gastroenteritis of infectious origin",
+    "fullDescription": "โรคศกิรดิเสมหะ (อุจจาระเป็นมูก/ถ่ายเหลว) [U58.11] → Other and unspecified gastroenteritis of infectious origin (A09.0)"
+  },
+  {
+    "id": "ICD-042",
+    "ttmCode": "U58.21",
+    "ttmName": "โรคปัสสาวะอาโป (ปัสสาวะขุ่น/ติดเชื้อระบบ urine)",
+    "icd10tm": "N39.0",
+    "icd10Name": "Urinary tract infection",
+    "fullDescription": "โรคปัสสาวะอาโป (ปัสสาวะขุ่น/ติดเชื้อระบบ urine) [U58.21] → Urinary tract infection (N39.0)"
+  },
+  {
+    "id": "ICD-043",
+    "ttmCode": "U59.11",
+    "ttmName": "โรคปะกังวาตะ (ปวดศีรษะไมเกรน/ปวดจี๊ดๆ)",
+    "icd10tm": "G43.9",
+    "icd10Name": "Migraine",
+    "fullDescription": "โรคปะกังวาตะ (ปวดศีรษะไมเกรน/ปวดจี๊ดๆ) [U59.11] → Migraine (G43.9)"
+  },
+  {
+    "id": "ICD-044",
+    "ttmCode": "U59.21",
+    "ttmName": "โรคกษัยจุกแน่น (จุกเสียดแน่นท้องเรื้อรัง)",
+    "icd10tm": "K30",
+    "icd10Name": "Functional Dyspepsia",
+    "fullDescription": "โรคกษัยจุกแน่น (จุกเสียดแน่นท้องเรื้อรัง) [U59.21] → Functional Dyspepsia (K30)"
+  },
+  {
+    "id": "ICD-045",
+    "ttmCode": "U60.9",
+    "ttmName": "การเผายาท้องบำบัดโรคลมกุจฉิสยาวาตะ",
+    "icd10tm": "U60.9 / Z50.8",
+    "icd10Name": "Other specified rehabilitation procedures",
+    "fullDescription": "การเผายาท้องบำบัดโรคลมกุจฉิสยาวาตะ [U60.9] → Other specified rehabilitation procedures (U60.9 / Z50.8)"
+  },
+  {
+    "id": "ICD-046",
+    "ttmCode": "U60.10",
+    "ttmName": "การแช่มือแช่เท้าด้วยน้ำต้มสมุนไพร",
+    "icd10tm": "U60.10 / Z50.1",
+    "icd10Name": "Other physical therapy",
+    "fullDescription": "การแช่มือแช่เท้าด้วยน้ำต้มสมุนไพร [U60.10] → Other physical therapy (U60.10 / Z50.1)"
+  },
+  {
+    "id": "ICD-047",
+    "ttmCode": "U60.11",
+    "ttmName": "การพอกหัวเข่าด้วยยาสมุนไพร",
+    "icd10tm": "U60.11 / Z50.8",
+    "icd10Name": "Local herbal application",
+    "fullDescription": "การพอกหัวเข่าด้วยยาสมุนไพร [U60.11] → Local herbal application (U60.11 / Z50.8)"
+  },
+  {
+    "id": "ICD-048",
+    "ttmCode": "U60.12",
+    "ttmName": "การนวดไทยแบบราชสำนักรักษาโรคไหล่ติด",
+    "icd10tm": "U60.12 / Z50.8",
+    "icd10Name": "Royal Thai Massage for adhesive capsulitis",
+    "fullDescription": "การนวดไทยแบบราชสำนักรักษาโรคไหล่ติด [U60.12] → Royal Thai Massage for adhesive capsulitis (U60.12 / Z50.8)"
+  },
+  {
+    "id": "ICD-049",
+    "ttmCode": "U60.13",
+    "ttmName": "การนวดไทยแบบเชตวันรักษาปวดหลัง",
+    "icd10tm": "U60.13 / Z50.8",
+    "icd10Name": "Thai traditional massage for low back pain",
+    "fullDescription": "การนวดไทยแบบเชตวันรักษาปวดหลัง [U60.13] → Thai traditional massage for low back pain (U60.13 / Z50.8)"
+  },
+  {
+    "id": "ICD-050",
+    "ttmCode": "U60.14",
+    "ttmName": "การสืบค้นและปรับสมดุลธาตุด้วยการกวาดยา",
+    "icd10tm": "U60.14 / Z50.8",
+    "icd10Name": "Pediatric herbal application therapy",
+    "fullDescription": "การสืบค้นและปรับสมดุลธาตุด้วยการกวาดยา [U60.14] → Pediatric herbal application therapy (U60.14 / Z50.8)"
+  },
+  {
+    "id": "ICD-051",
+    "ttmCode": "U55.24",
+    "ttmName": "โรคลมอัมพาต (อัมพาตครึ่งซีก/กล้ามเนื้ออ่อนแรงรุนแรง)",
+    "icd10tm": "G81.1",
+    "icd10Name": "Spastic hemiplegia",
+    "fullDescription": "โรคลมอัมพาต (อัมพาตครึ่งซีก/กล้ามเนื้ออ่อนแรงรุนแรง) [U55.24] → Spastic hemiplegia (G81.1)"
+  },
+  {
+    "id": "ICD-052",
+    "ttmCode": "U55.25",
+    "ttmName": "โรคลมบาดทะยัก (กล้ามเนื้อเกร็งชักกระตุก)",
+    "icd10tm": "A35",
+    "icd10Name": "Other tetanus",
+    "fullDescription": "โรคลมบาดทะยัก (กล้ามเนื้อเกร็งชักกระตุก) [U55.25] → Other tetanus (A35)"
+  },
+  {
+    "id": "ICD-053",
+    "ttmCode": "U55.26",
+    "ttmName": "โรคลมตะคริว (เกร็งกล้ามเนื้อเฉียบพลัน)",
+    "icd10tm": "R25.2",
+    "icd10Name": "Cramps and spasm",
+    "fullDescription": "โรคลมตะคริว (เกร็งกล้ามเนื้อเฉียบพลัน) [U55.26] → Cramps and spasm (R25.2)"
+  },
+  {
+    "id": "ICD-054",
+    "ttmCode": "U55.27",
+    "ttmName": "โรคลมขัดข้อ (ปวดบวมข้อต่อกล้ามเนื้อ)",
+    "icd10tm": "M19.9",
+    "icd10Name": "Osteoarthritis",
+    "fullDescription": "โรคลมขัดข้อ (ปวดบวมข้อต่อกล้ามเนื้อ) [U55.27] → Osteoarthritis (M19.9)"
+  },
+  {
+    "id": "ICD-055",
+    "ttmCode": "U55.28",
+    "ttmName": "โรคลมยอดอก (แน่นจุกอกแทงร้าวไปหลัง)",
+    "icd10tm": "R07.9",
+    "icd10Name": "Chest pain",
+    "fullDescription": "โรคลมยอดอก (แน่นจุกอกแทงร้าวไปหลัง) [U55.28] → Chest pain (R07.9)"
+  },
+  {
+    "id": "ICD-056",
+    "ttmCode": "U56.15",
+    "ttmName": "โรคปัสสาสเสมหะ (เสมหะคั่งในปอดและทางเดินหายใจ)",
+    "icd10tm": "J98.8",
+    "icd10Name": "Other specified respiratory disorders",
+    "fullDescription": "โรคปัสสาสเสมหะ (เสมหะคั่งในปอดและทางเดินหายใจ) [U56.15] → Other specified respiratory disorders (J98.8)"
+  },
+  {
+    "id": "ICD-057",
+    "ttmCode": "U56.16",
+    "ttmName": "โรคโลหิตเสมหะ (ไอเป็นเลือด/เสมหะมีเลือดปน)",
+    "icd10tm": "R04.2",
+    "icd10Name": "Hemoptysis",
+    "fullDescription": "โรคโลหิตเสมหะ (ไอเป็นเลือด/เสมหะมีเลือดปน) [U56.16] → Hemoptysis (R04.2)"
+  },
+  {
+    "id": "ICD-058",
+    "ttmCode": "U57.13",
+    "ttmName": "โรคพัทธปิตตะกำเริบ (ดีซ่าน/ตาเหลืองตัวเหลือง)",
+    "icd10tm": "R17",
+    "icd10Name": "Unspecified jaundice",
+    "fullDescription": "โรคพัทธปิตตะกำเริบ (ดีซ่าน/ตาเหลืองตัวเหลือง) [U57.13] → Unspecified jaundice (R17)"
+  },
+  {
+    "id": "ICD-059",
+    "ttmCode": "U57.14",
+    "ttmName": "โรคกำนัลปิตตะ (ความร้อนสะสมในตับและถุงน้ำดี)",
+    "icd10tm": "K83.9",
+    "icd10Name": "Disease of biliary tract",
+    "fullDescription": "โรคกำนัลปิตตะ (ความร้อนสะสมในตับและถุงน้ำดี) [U57.14] → Disease of biliary tract (K83.9)"
+  },
+  {
+    "id": "ICD-060",
+    "ttmCode": "U57.15",
+    "ttmName": "โรคสันตัปปัคคีหย่อน (ร่างกายเย็น อุณหภูมิต่ำ)",
+    "icd10tm": "R68.8",
+    "icd10Name": "Other specified general symptoms and signs",
+    "fullDescription": "โรคสันตัปปัคคีหย่อน (ร่างกายเย็น อุณหภูมิต่ำ) [U57.15] → Other specified general symptoms and signs (R68.8)"
+  },
+  {
+    "id": "ICD-061",
+    "ttmCode": "U58.13",
+    "ttmName": "โรคกษัยจุก (จุกแน่นชายโครง/ตับโต)",
+    "icd10tm": "R16.0",
+    "icd10Name": "Hepatomegaly",
+    "fullDescription": "โรคกษัยจุก (จุกแน่นชายโครง/ตับโต) [U58.13] → Hepatomegaly (R16.0)"
+  },
+  {
+    "id": "ICD-062",
+    "ttmCode": "U58.14",
+    "ttmName": "โรคกษัยปราบ (ปวดเมื่อยเส้นเอ็นทั่วร่างกายเรื้อรัง)",
+    "icd10tm": "M79.0",
+    "icd10Name": "Rheumatism",
+    "fullDescription": "โรคกษัยปราบ (ปวดเมื่อยเส้นเอ็นทั่วร่างกายเรื้อรัง) [U58.14] → Rheumatism (M79.0)"
+  },
+  {
+    "id": "ICD-063",
+    "ttmCode": "U58.15",
+    "ttmName": "โรคกษัยลม (ท้องอืดผายลมบ่อยเรื้อรัง)",
+    "icd10tm": "R14",
+    "icd10Name": "Flatulence and related conditions",
+    "fullDescription": "โรคกษัยลม (ท้องอืดผายลมบ่อยเรื้อรัง) [U58.15] → Flatulence and related conditions (R14)"
+  },
+  {
+    "id": "ICD-064",
+    "ttmCode": "U58.16",
+    "ttmName": "โรคกษัยน้ำ (บวมน้ำตามมือเท้าและหน้า)",
+    "icd10tm": "R60.9",
+    "icd10Name": "Edema",
+    "fullDescription": "โรคกษัยน้ำ (บวมน้ำตามมือเท้าและหน้า) [U58.16] → Edema (R60.9)"
+  },
+  {
+    "id": "ICD-065",
+    "ttmCode": "U58.17",
+    "ttmName": "โรคกษัยไฟ (ตัวร้อนผ่าว เหงื่อออกยามค่ำคืน)",
+    "icd10tm": "R53",
+    "icd10Name": "Malaise and fatigue",
+    "fullDescription": "โรคกษัยไฟ (ตัวร้อนผ่าว เหงื่อออกยามค่ำคืน) [U58.17] → Malaise and fatigue (R53)"
+  },
+  {
+    "id": "ICD-066",
+    "ttmCode": "U58.18",
+    "ttmName": "โรคกษัยปู้น (อุจจาระกะปริดกะปรอย/ถ่ายไม่สุด)",
+    "icd10tm": "K59.0",
+    "icd10Name": "Constipation",
+    "fullDescription": "โรคกษัยปู้น (อุจจาระกะปริดกะปรอย/ถ่ายไม่สุด) [U58.18] → Constipation (K59.0)"
+  },
+  {
+    "id": "ICD-067",
+    "ttmCode": "U58.19",
+    "ttmName": "โรคกษัยลิ้น (ลิ้นเป็นแผล/ลิ้นแข็งกระด้าง)",
+    "icd10tm": "K14.0",
+    "icd10Name": "Glossitis",
+    "fullDescription": "โรคกษัยลิ้น (ลิ้นเป็นแผล/ลิ้นแข็งกระด้าง) [U58.19] → Glossitis (K14.0)"
+  },
+  {
+    "id": "ICD-068",
+    "ttmCode": "U59.12",
+    "ttmName": "โรคกษัยโลหิตพิการ (ประจำเดือนมาไม่เป็นปกติ/สีคล้ำ)",
+    "icd10tm": "N92.6",
+    "icd10Name": "Irregular menstruation",
+    "fullDescription": "โรคกษัยโลหิตพิการ (ประจำเดือนมาไม่เป็นปกติ/สีคล้ำ) [U59.12] → Irregular menstruation (N92.6)"
+  },
+  {
+    "id": "ICD-069",
+    "ttmCode": "U59.13",
+    "ttmName": "โรคตกขาวสตรี (ระดูขาวมีกลิ่นคาว/ปวดท้องน้อย)",
+    "icd10tm": "N95.8",
+    "icd10Name": "Other specified menopausal and perimenopausal disorders",
+    "fullDescription": "โรคตกขาวสตรี (ระดูขาวมีกลิ่นคาว/ปวดท้องน้อย) [U59.13] → Other specified menopausal and perimenopausal disorders (N95.8)"
+  },
+  {
+    "id": "ICD-070",
+    "ttmCode": "U59.14",
+    "ttmName": "โรคดานกษัย (มีก้อนแข็งในช่องท้อง)",
+    "icd10tm": "R19.0",
+    "icd10Name": "Intra-abdominal and pelvic swelling",
+    "fullDescription": "โรคดานกษัย (มีก้อนแข็งในช่องท้อง) [U59.14] → Intra-abdominal and pelvic swelling (R19.0)"
+  },
+  {
+    "id": "ICD-071",
+    "ttmCode": "U59.22",
+    "ttmName": "โรคปัสสาวะกษัย (ปัสสาวะเป็นเลือด/ขุ่นเป็นแป้ง)",
+    "icd10tm": "R31",
+    "icd10Name": "Unspecified hematuria",
+    "fullDescription": "โรคปัสสาวะกษัย (ปัสสาวะเป็นเลือด/ขุ่นเป็นแป้ง) [U59.22] → Unspecified hematuria (R31)"
+  },
+  {
+    "id": "ICD-072",
+    "ttmCode": "U59.23",
+    "ttmName": "โรคปัสสาวะหยด (ปัสสาวะไหลกะปริดกะปรอยควบคุมไม่ได้)",
+    "icd10tm": "R32",
+    "icd10Name": "Unspecified urinary incontinence",
+    "fullDescription": "โรคปัสสาวะหยด (ปัสสาวะไหลกะปริดกะปรอยควบคุมไม่ได้) [U59.23] → Unspecified urinary incontinence (R32)"
+  },
+  {
+    "id": "ICD-073",
+    "ttmCode": "U60.15",
+    "ttmName": "การนวดไทยแบบพื้นบ้านบำรุงสุขภาพ",
+    "icd10tm": "U60.15 / Z50.8",
+    "icd10Name": "Traditional Thai massage for health promotion",
+    "fullDescription": "การนวดไทยแบบพื้นบ้านบำรุงสุขภาพ [U60.15] → Traditional Thai massage for health promotion (U60.15 / Z50.8)"
+  },
+  {
+    "id": "ICD-074",
+    "ttmCode": "U60.16",
+    "ttmName": "การประคบสมุนไพรบำบัดอาการปวดกล้ามเนื้อหลังคลอด",
+    "icd10tm": "U60.16 / Z50.1",
+    "icd10Name": "Postpartum herbal compress therapy",
+    "fullDescription": "การประคบสมุนไพรบำบัดอาการปวดกล้ามเนื้อหลังคลอด [U60.16] → Postpartum herbal compress therapy (U60.16 / Z50.1)"
+  },
+  {
+    "id": "ICD-075",
+    "ttmCode": "U60.17",
+    "ttmName": "การทายาสมุนไพรภายนอกบำบัดผื่นคัน",
+    "icd10tm": "U60.17 / Z50.8",
+    "icd10Name": "Topical herbal application for dermatological conditions",
+    "fullDescription": "การทายาสมุนไพรภายนอกบำบัดผื่นคัน [U60.17] → Topical herbal application for dermatological conditions (U60.17 / Z50.8)"
+  },
+  {
+    "id": "ICD-076",
+    "ttmCode": "U60.18",
+    "ttmName": "การอบสมุนไพรฟื้นฟูสตรีหลังคลอด",
+    "icd10tm": "U60.18 / Z50.1",
+    "icd10Name": "Postpartum herbal sauna recovery",
+    "fullDescription": "การอบสมุนไพรฟื้นฟูสตรีหลังคลอด [U60.18] → Postpartum herbal sauna recovery (U60.18 / Z50.1)"
+  },
+  {
+    "id": "ICD-077",
+    "ttmCode": "U60.19",
+    "ttmName": "การนั่งแช่ต้มสมุนไพรบำบัดแผลฝีเย็บ",
+    "icd10tm": "U60.19 / Z50.1",
+    "icd10Name": "Herbal sitz bath for perineal healing",
+    "fullDescription": "การนั่งแช่ต้มสมุนไพรบำบัดแผลฝีเย็บ [U60.19] → Herbal sitz bath for perineal healing (U60.19 / Z50.1)"
+  },
+  {
+    "id": "ICD-078",
+    "ttmCode": "U60.20",
+    "ttmName": "การพอกสมุนไพรบำบัดข้อเท้าเคล็ด",
+    "icd10tm": "U60.20 / Z50.8",
+    "icd10Name": "Herbal poultice for ankle sprain",
+    "fullDescription": "การพอกสมุนไพรบำบัดข้อเท้าเคล็ด [U60.20] → Herbal poultice for ankle sprain (U60.20 / Z50.8)"
+  },
+  {
+    "id": "ICD-079",
+    "ttmCode": "U60.21",
+    "ttmName": "การกวาดคอบำบัดอาการเสมหะค้างในเด็กเล็ก",
+    "icd10tm": "U60.21 / Z50.8",
+    "icd10Name": "Pediatric herbal throat cleansing",
+    "fullDescription": "การกวาดคอบำบัดอาการเสมหะค้างในเด็กเล็ก [U60.21] → Pediatric herbal throat cleansing (U60.21 / Z50.8)"
+  },
+  {
+    "id": "ICD-080",
+    "ttmCode": "U60.22",
+    "ttmName": "การสืบค้นสมุฏฐานและปรับธาตุด้วยตำรับยาไทย",
+    "icd10tm": "U60.22 / Z50.8",
+    "icd10Name": "Traditional Thai etiology and element balancing",
+    "fullDescription": "การสืบค้นสมุฏฐานและปรับธาตุด้วยตำรับยาไทย [U60.22] → Traditional Thai etiology and element balancing (U60.22 / Z50.8)"
+  },
+  {
+    "id": "ICD-081",
+    "ttmCode": "U60.23",
+    "ttmName": "การเผายาท้องบำบัดโรคลมกุจฉิสยาวาตะเรื้อรัง",
+    "icd10tm": "U60.23 / Z50.8",
+    "icd10Name": "Abdominal herbal burning therapy for chronic flatulence",
+    "fullDescription": "การเผายาท้องบำบัดโรคลมกุจฉิสยาวาตะเรื้อรัง [U60.23] → Abdominal herbal burning therapy for chronic flatulence (U60.23 / Z50.8)"
+  },
+  {
+    "id": "ICD-082",
+    "ttmCode": "U60.24",
+    "ttmName": "การแช่มือแช่เท้าสมุนไพรบำบัดเหน็บชา",
+    "icd10tm": "U60.24 / Z50.1",
+    "icd10Name": "Herbal hand and foot bath for numbness",
+    "fullDescription": "การแช่มือแช่เท้าสมุนไพรบำบัดเหน็บชา [U60.24] → Herbal hand and foot bath for numbness (U60.24 / Z50.1)"
+  },
+  {
+    "id": "ICD-083",
+    "ttmCode": "U60.25",
+    "ttmName": "การนวดราชสำนักบำบัดโรคลมปักฆาตข้อไหล่",
+    "icd10tm": "U60.25 / Z50.8",
+    "icd10Name": "Royal Thai Massage for frozen shoulder",
+    "fullDescription": "การนวดราชสำนักบำบัดโรคลมปักฆาตข้อไหล่ [U60.25] → Royal Thai Massage for frozen shoulder (U60.25 / Z50.8)"
+  },
+  {
+    "id": "ICD-084",
+    "ttmCode": "U60.26",
+    "ttmName": "การนวดราชสำนักบำบัดโรคลมกะฏิทาราวาตะ",
+    "icd10tm": "U60.26 / Z50.8",
+    "icd10Name": "Royal Thai Massage for lower back pain",
+    "fullDescription": "การนวดราชสำนักบำบัดโรคลมกะฏิทาราวาตะ [U60.26] → Royal Thai Massage for lower back pain (U60.26 / Z50.8)"
+  },
+  {
+    "id": "ICD-085",
+    "ttmCode": "U60.27",
+    "ttmName": "การนวดราชสำนักบำบัดโรคลมราชยักษ์",
+    "icd10tm": "U60.27 / Z50.8",
+    "icd10Name": "Royal Thai Massage for cervicalgia",
+    "fullDescription": "การนวดราชสำนักบำบัดโรคลมราชยักษ์ [U60.27] → Royal Thai Massage for cervicalgia (U60.27 / Z50.8)"
+  },
+  {
+    "id": "ICD-086",
+    "ttmCode": "U60.28",
+    "ttmName": "การนวดราชสำนักบำบัดโรคลมจับกษัยข้อเข่า",
+    "icd10tm": "U60.28 / Z50.8",
+    "icd10Name": "Royal Thai Massage for knee osteoarthritis",
+    "fullDescription": "การนวดราชสำนักบำบัดโรคลมจับกษัยข้อเข่า [U60.28] → Royal Thai Massage for knee osteoarthritis (U60.28 / Z50.8)"
+  },
+  {
+    "id": "ICD-087",
+    "ttmCode": "U60.29",
+    "ttmName": "การประคบสมุนไพรร้อนบรรเทาอาการตะคริว",
+    "icd10tm": "U60.29 / Z50.1",
+    "icd10Name": "Hot herbal compress for muscle cramps",
+    "fullDescription": "การประคบสมุนไพรร้อนบรรเทาอาการตะคริว [U60.29] → Hot herbal compress for muscle cramps (U60.29 / Z50.1)"
+  },
+  {
+    "id": "ICD-088",
+    "ttmCode": "U60.30",
+    "ttmName": "การพอกยาเย็นลดอาการปวดบวมจากเกาต์",
+    "icd10tm": "U60.30 / Z50.8",
+    "icd10Name": "Cooling herbal poultice for gouty arthritis",
+    "fullDescription": "การพอกยาเย็นลดอาการปวดบวมจากเกาต์ [U60.30] → Cooling herbal poultice for gouty arthritis (U60.30 / Z50.8)"
+  },
+  {
+    "id": "ICD-089",
+    "ttmCode": "U60.31",
+    "ttmName": "การกวาดคอและพอกยาทรวงอกแก้ไข้เด็ก",
+    "icd10tm": "U60.31 / Z50.8",
+    "icd10Name": "Pediatric chest and throat herbal therapy",
+    "fullDescription": "การกวาดคอและพอกยาทรวงอกแก้ไข้เด็ก [U60.31] → Pediatric chest and throat herbal therapy (U60.31 / Z50.8)"
+  },
+  {
+    "id": "ICD-090",
+    "ttmCode": "U60.32",
+    "ttmName": "การอบสมุนไพรบรรเทาอาการแพ้อากาศเรื้อรัง",
+    "icd10tm": "U60.32 / Z50.1",
+    "icd10Name": "Herbal steam therapy for allergic rhinitis",
+    "fullDescription": "การอบสมุนไพรบรรเทาอาการแพ้อากาศเรื้อรัง [U60.32] → Herbal steam therapy for allergic rhinitis (U60.32 / Z50.1)"
+  },
+  {
+    "id": "ICD-091",
+    "ttmCode": "U60.33",
+    "ttmName": "การนั่งแช่น้ำต้มสมุนไพรบำบัดริดสีดวงทวาร",
+    "icd10tm": "U60.33 / Z50.1",
+    "icd10Name": "Herbal sitz bath for hemorrhoids",
+    "fullDescription": "การนั่งแช่น้ำต้มสมุนไพรบำบัดริดสีดวงทวาร [U60.33] → Herbal sitz bath for hemorrhoids (U60.33 / Z50.1)"
+  },
+  {
+    "id": "ICD-092",
+    "ttmCode": "U60.34",
+    "ttmName": "การนวดไทยบรรเทาอาการปวดศีรษะจากความเครียด",
+    "icd10tm": "U60.34 / Z50.8",
+    "icd10Name": "Thai massage for tension headache",
+    "fullDescription": "การนวดไทยบรรเทาอาการปวดศีรษะจากความเครียด [U60.34] → Thai massage for tension headache (U60.34 / Z50.8)"
+  },
+  {
+    "id": "ICD-093",
+    "ttmCode": "U60.35",
+    "ttmName": "การเผายาท้องบำบัดอาการท้องผูกสลับท้องเสีย",
+    "icd10tm": "U60.35 / Z50.8",
+    "icd10Name": "Abdominal herbal therapy for IBS",
+    "fullDescription": "การเผายาท้องบำบัดอาการท้องผูกสลับท้องเสีย [U60.35] → Abdominal herbal therapy for IBS (U60.35 / Z50.8)"
+  },
+  {
+    "id": "ICD-094",
+    "ttmCode": "U60.36",
+    "ttmName": "การพอกไพลสดบรรเทาอาการกล้ามเนื้ออักเสบ",
+    "icd10tm": "U60.36 / Z50.8",
+    "icd10Name": "Fresh Zingiber poultice for myositis",
+    "fullDescription": "การพอกไพลสดบรรเทาอาการกล้ามเนื้ออักเสบ [U60.36] → Fresh Zingiber poultice for myositis (U60.36 / Z50.8)"
+  },
+  {
+    "id": "ICD-095",
+    "ttmCode": "U60.37",
+    "ttmName": "การประคบสมุนไพรบรรเทาอาการชาปลายมือปลายเท้า",
+    "icd10tm": "U60.37 / Z50.1",
+    "icd10Name": "Herbal compress for peripheral neuropathy",
+    "fullDescription": "การประคบสมุนไพรบรรเทาอาการชาปลายมือปลายเท้า [U60.37] → Herbal compress for peripheral neuropathy (U60.37 / Z50.1)"
+  },
+  {
+    "id": "ICD-096",
+    "ttmCode": "U60.38",
+    "ttmName": "การนวดไทยบำบัดโรคลมอัมพฤกษ์ฟื้นฟูสมรรถภาพ",
+    "icd10tm": "U60.38 / Z50.8",
+    "icd10Name": "Thai massage rehabilitation for stroke",
+    "fullDescription": "การนวดไทยบำบัดโรคลมอัมพฤกษ์ฟื้นฟูสมรรถภาพ [U60.38] → Thai massage rehabilitation for stroke (U60.38 / Z50.8)"
+  },
+  {
+    "id": "ICD-097",
+    "ttmCode": "U60.39",
+    "ttmName": "การแช่น้ำต้มสมุนไพรคลายกล้ามเนื้อทั่วร่างกาย",
+    "icd10tm": "U60.39 / Z50.1",
+    "icd10Name": "Full body herbal bath for muscle relaxation",
+    "fullDescription": "การแช่น้ำต้มสมุนไพรคลายกล้ามเนื้อทั่วร่างกาย [U60.39] → Full body herbal bath for muscle relaxation (U60.39 / Z50.1)"
+  },
+  {
+    "id": "ICD-098",
+    "ttmCode": "U60.40",
+    "ttmName": "การสืบค้นธาตุและจ่ายยาสมุนไพรปรับสมดุลตรีโทษ",
+    "icd10tm": "U60.40 / Z50.8",
+    "icd10Name": "Comprehensive Tridosha balancing therapy",
+    "fullDescription": "การสืบค้นธาตุและจ่ายยาสมุนไพรปรับสมดุลตรีโทษ [U60.40] → Comprehensive Tridosha balancing therapy (U60.40 / Z50.8)"
   }
 ]

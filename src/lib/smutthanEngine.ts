@@ -1,5 +1,6 @@
 // src/lib/smutthanEngine.ts
 import { PatientCase, TextbookCitation } from '@/types/clinicalCase';
+import smutthanRules from '@/data/smutthan_rules.json';
 
 export interface SmutthanDimensionCard {
   dimension: string;
@@ -94,8 +95,40 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   let dhatuDetail = 'อาการทางเดินอาหารและกล้ามเนื้อสัมพันธ์กับธาตุลม';
   let dhatuCitation = 'อ้างอิง: คัมภีร์ธาตุบรรจบ (น.12)';
 
-  // กรณี 1: มีไข้ / ตัวร้อน ร่วมกับ ปวดศีรษะ (เช่น "ปวดหัวตัวร้อน")
-  if (hasFeverHeat && hasHeadache) {
+  // ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json ที่ตรงกับอาการของผู้ป่วย
+  const matchedSymptomRule = smutthanRules.find((rule) => {
+    if (!rule.dimension.startsWith('อาการสำคัญ')) return false;
+    const keywords = rule.condition
+      .split(/[\s,+/]+/)
+      .map((k) => k.trim())
+      .filter((k) => k.length >= 2);
+    return keywords.some((kw) => symptomsText.includes(kw));
+  });
+
+  if (matchedSymptomRule) {
+    const outDhatu = matchedSymptomRule.outputDhatu;
+    if (outDhatu.includes('วาตะ') || outDhatu.includes('วาโย')) {
+      vayoScore += 35;
+    }
+    if (outDhatu.includes('ปิตตะ') || outDhatu.includes('เตโช') || outDhatu.includes('สันตัปปัคคี') || outDhatu.includes('อพัทธปิตตะ')) {
+      techoScore += 35;
+    }
+    if (outDhatu.includes('เสมหะ') || outDhatu.includes('อาโป')) {
+      apoScore += 35;
+    }
+    if (outDhatu.includes('อัฏฐิ') || outDhatu.includes('ปถวี')) {
+      pathaviScore += 35;
+    }
+
+    dhatuTitle = `${outDhatu}`;
+    dhatuDetail = matchedSymptomRule.pathologyAndCitation;
+    dhatuCitation = `อ้างอิง: ${matchedSymptomRule.book}${matchedSymptomRule.page ? ` (น.${matchedSymptomRule.page})` : ''}`;
+    reasons.push(`${matchedSymptomRule.condition}: ${matchedSymptomRule.pathologyAndCitation}`);
+    citations.push({
+      book: matchedSymptomRule.book,
+      page: matchedSymptomRule.page || 1,
+    });
+  } else if (hasFeverHeat && hasHeadache) {
     techoScore += 45;
     vayoScore += 15;
     dhatuTitle = 'เตโชธาตุ · สันตัปปัคคี & ลมอุทธังคมาวาตา';
