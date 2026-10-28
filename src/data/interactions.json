@@ -695,17 +695,19 @@
   },
   {
     "id": "INT-044",
-    "herb": "ขมิ้นชันขนาดสูง (>2",
+    "herb": "ขมิ้นชันขนาดสูง",
     "herbKeywords": [
-      "ขมิ้นชันขนาดสูง (>2"
+      "ขมิ้นชันขนาดสูง"
     ],
-    "drug": "000 mg/day)",
+    "drug": "Rosuvastatin(>2000 mg/day)",
     "drugKeywords": [
+      "Rosuvastatin",
+      ">2000 mg",
       "day"
     ],
-    "severity": "SAFE",
-    "riskLabel": "SAFE (เขียว)",
-    "effect": "WARNING (ส้ม)",
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "แข่งขันการจับโปรตีนขนส่งยาในตับ อาจเพิ่มระดับ Rosuvastatin ในเลือด",
     "action": "แข่งขันการจับโปรตีนขนส่งยาในตับ อาจเพิ่มระดับ Rosuvastatin ในเลือด"
   },
   {
@@ -1582,6 +1584,7 @@
     ],
     "drug": "Salbutamol Inhaler / Formoterol",
     "drugKeywords": [
+      "Salbutamol Inhaler",
       "Formoterol"
     ],
     "severity": "MODERATE",
@@ -1695,5 +1698,455 @@
     "riskLabel": "SAFE (เขียว)",
     "effect": "บำรุงธาตุโดยไม่ขยายหลอดเลือดรุนแรง",
     "action": "ใช้บำรุงร่างกายได้ปลอดภัย"
+  },
+  {
+    "id": "INT-106",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้งการเกาะตัวของเกล็ดเลือด (Antiplatelet effect)",
+    "action": "ห้ามใช้ร่วมกัน เสี่ยงเลือดออกรุนแรง"
+  },
+  {
+    "id": "INT-107",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Aspirin",
+    "drugKeywords": [
+      "Aspirin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ต้านการเกาะตัวของเกล็ดเลือด",
+    "action": "เฝ้าระวังภาวะเลือดออกผิดปกติ"
+  },
+  {
+    "id": "INT-108",
+    "herb": "ฟ้าทะลายโจร",
+    "herbKeywords": [
+      "ฟ้าทะลายโจร"
+    ],
+    "drug": "Antihypertensives",
+    "drugKeywords": [
+      "Antihypertensives"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดความดันโลหิต",
+    "action": "เฝ้าระวังความดันโลหิตต่ำ หน้ามืด"
+  },
+  {
+    "id": "INT-109",
+    "herb": "ขมิ้นชัน",
+    "herbKeywords": [
+      "ขมิ้นชัน"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้ง CYP450 และเสริมฤทธิ์ต้านเกล็ดเลือด",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-110",
+    "herb": "ขมิ้นชัน",
+    "herbKeywords": [
+      "ขมิ้นชัน"
+    ],
+    "drug": "Clopidogrel",
+    "drugKeywords": [
+      "Clopidogrel"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ต้านการเกาะตัวของเกล็ดเลือด",
+    "action": "เฝ้าระวังภาวะเลือดออกผิดปกติ"
+  },
+  {
+    "id": "INT-111",
+    "herb": "ขมิ้นชัน",
+    "herbKeywords": [
+      "ขมิ้นชัน"
+    ],
+    "drug": "Omeprazole",
+    "drugKeywords": [
+      "Omeprazole"
+    ],
+    "severity": "SAFE",
+    "riskLabel": "SAFE (เขียว)",
+    "effect": "ไม่พบปฏิกิริยารุนแรง อาจเสริมฤทธิ์ลดกรด",
+    "action": "ใช้ร่วมกันได้ตามปกติ"
+  },
+  {
+    "id": "INT-112",
+    "herb": "กระเทียม",
+    "herbKeywords": [
+      "กระเทียม"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ยับยั้งการเกาะตัวของเกล็ดเลือด",
+    "action": "ห้ามใช้ร่วมกันในขนาดสูง (รูปแบบสารสกัด)"
+  },
+  {
+    "id": "INT-113",
+    "herb": "กระเทียม",
+    "herbKeywords": [
+      "กระเทียม"
+    ],
+    "drug": "Protease Inhibitors",
+    "drugKeywords": [
+      "Protease Inhibitors"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เหนี่ยวนำ CYP3A4 ลดระดับยาต้านไวรัส",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-114",
+    "herb": "กระเทียม",
+    "herbKeywords": [
+      "กระเทียม"
+    ],
+    "drug": "Insulin",
+    "drugKeywords": [
+      "Insulin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ"
+  },
+  {
+    "id": "INT-115",
+    "herb": "ขิง",
+    "herbKeywords": [
+      "ขิง"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ยับยั้ง Thromboxane synthetase เสริมฤทธิ์ต้านเกล็ดเลือด",
+    "action": "เฝ้าระวังค่า INR และภาวะเลือดออก"
+  },
+  {
+    "id": "INT-116",
+    "herb": "ขิง",
+    "herbKeywords": [
+      "ขิง"
+    ],
+    "drug": "Aspirin",
+    "drugKeywords": [
+      "Aspirin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ต้านการเกาะตัวของเกล็ดเลือด",
+    "action": "เฝ้าระวังภาวะเลือดออกผิดปกติ"
+  },
+  {
+    "id": "INT-117",
+    "herb": "ขิง",
+    "herbKeywords": [
+      "ขิง"
+    ],
+    "drug": "Antidiabetic drugs",
+    "drugKeywords": [
+      "Antidiabetic drugs"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ"
+  },
+  {
+    "id": "INT-118",
+    "herb": "มะขามแขก",
+    "herbKeywords": [
+      "มะขามแขก"
+    ],
+    "drug": "Digoxin",
+    "drugKeywords": [
+      "Digoxin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ทำให้สูญเสียโพแทสเซียม (Hypokalemia) เพิ่มพิษของ Digoxin",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-119",
+    "herb": "มะขามแขก",
+    "herbKeywords": [
+      "มะขามแขก"
+    ],
+    "drug": "Diuretics",
+    "drugKeywords": [
+      "Diuretics"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ขับโพแทสเซียม เสี่ยง Hypokalemia",
+    "action": "เฝ้าระวังระดับโพแทสเซียมในเลือด"
+  },
+  {
+    "id": "INT-120",
+    "herb": "มะขามแขก",
+    "herbKeywords": [
+      "มะขามแขก"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ลดการดูดซึมวิตามินเคจากการขับถ่ายที่เร็วขึ้น",
+    "action": "เฝ้าระวังค่า INR"
+  },
+  {
+    "id": "INT-121",
+    "herb": "บอระเพ็ด",
+    "herbKeywords": [
+      "บอระเพ็ด"
+    ],
+    "drug": "Metformin",
+    "drugKeywords": [
+      "Metformin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ ปรับขนาดยาหากจำเป็น"
+  },
+  {
+    "id": "INT-122",
+    "herb": "บอระเพ็ด",
+    "herbKeywords": [
+      "บอระเพ็ด"
+    ],
+    "drug": "Glibenclamide",
+    "drugKeywords": [
+      "Glibenclamide"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ"
+  },
+  {
+    "id": "INT-123",
+    "herb": "มะระขี้นก",
+    "herbKeywords": [
+      "มะระขี้นก"
+    ],
+    "drug": "Insulin",
+    "drugKeywords": [
+      "Insulin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือดอย่างรุนแรง",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำอย่างใกล้ชิด"
+  },
+  {
+    "id": "INT-124",
+    "herb": "มะระขี้นก",
+    "herbKeywords": [
+      "มะระขี้นก"
+    ],
+    "drug": "Metformin",
+    "drugKeywords": [
+      "Metformin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ"
+  },
+  {
+    "id": "INT-125",
+    "herb": "ว่านหางจระเข้ (ยาง)",
+    "herbKeywords": [
+      "ว่านหางจระเข้ (ยาง)"
+    ],
+    "drug": "Digoxin",
+    "drugKeywords": [
+      "Digoxin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "ทำให้สูญเสียโพแทสเซียม เพิ่มพิษของ Digoxin",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-126",
+    "herb": "ว่านหางจระเข้ (ยาง)",
+    "herbKeywords": [
+      "ว่านหางจระเข้ (ยาง)"
+    ],
+    "drug": "Diuretics",
+    "drugKeywords": [
+      "Diuretics"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ขับโพแทสเซียม",
+    "action": "เฝ้าระวังระดับโพแทสเซียมในเลือด"
+  },
+  {
+    "id": "INT-127",
+    "herb": "กวาวเครือขาว",
+    "herbKeywords": [
+      "กวาวเครือขาว"
+    ],
+    "drug": "Oral Contraceptives",
+    "drugKeywords": [
+      "Oral Contraceptives"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "มีฤทธิ์คล้ายเอสโตรเจน อาจรบกวนประสิทธิภาพยาคุม",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-128",
+    "herb": "กวาวเครือขาว",
+    "herbKeywords": [
+      "กวาวเครือขาว"
+    ],
+    "drug": "Hormone Replacement Therapy",
+    "drugKeywords": [
+      "Hormone Replacement Therapy"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ฮอร์โมนเอสโตรเจน",
+    "action": "เฝ้าระวังผลข้างเคียงจากเอสโตรเจนเกิน"
+  },
+  {
+    "id": "INT-129",
+    "herb": "พริกไทย",
+    "herbKeywords": [
+      "พริกไทย"
+    ],
+    "drug": "Phenytoin",
+    "drugKeywords": [
+      "Phenytoin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "ยับยั้ง CYP3A4 และ P-gp เพิ่มระดับยาในเลือด",
+    "action": "เฝ้าระวังพิษจากยา Phenytoin"
+  },
+  {
+    "id": "INT-130",
+    "herb": "พริกไทย",
+    "herbKeywords": [
+      "พริกไทย"
+    ],
+    "drug": "Propranolol",
+    "drugKeywords": [
+      "Propranolol"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เพิ่มการดูดซึมและระดับยาในเลือด",
+    "action": "เฝ้าระวังผลข้างเคียงของ Propranolol"
+  },
+  {
+    "id": "INT-131",
+    "herb": "ชาเขียว",
+    "herbKeywords": [
+      "ชาเขียว"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "มีวิตามินเคสูง อาจต้านฤทธิ์ Warfarin",
+    "action": "จำกัดปริมาณการดื่ม เฝ้าระวังค่า INR"
+  },
+  {
+    "id": "INT-132",
+    "herb": "ชาเขียว",
+    "herbKeywords": [
+      "ชาเขียว"
+    ],
+    "drug": "Iron supplements",
+    "drugKeywords": [
+      "Iron supplements"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "แทนนินในชาลดการดูดซึมธาตุเหล็ก",
+    "action": "รับประทานห่างกันอย่างน้อย 2 ชั่วโมง"
+  },
+  {
+    "id": "INT-133",
+    "herb": "โสม",
+    "herbKeywords": [
+      "โสม"
+    ],
+    "drug": "Warfarin",
+    "drugKeywords": [
+      "Warfarin"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "เหนี่ยวนำ CYP450 ลดระดับ Warfarin ในเลือด",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
+  },
+  {
+    "id": "INT-134",
+    "herb": "โสม",
+    "herbKeywords": [
+      "โสม"
+    ],
+    "drug": "Antidiabetic drugs",
+    "drugKeywords": [
+      "Antidiabetic drugs"
+    ],
+    "severity": "MODERATE",
+    "riskLabel": "WARNING (ส้ม)",
+    "effect": "เสริมฤทธิ์ลดน้ำตาลในเลือด",
+    "action": "เฝ้าระวังภาวะน้ำตาลในเลือดต่ำ"
+  },
+  {
+    "id": "INT-135",
+    "herb": "โสม",
+    "herbKeywords": [
+      "โสม"
+    ],
+    "drug": "MAOIs",
+    "drugKeywords": [
+      "MAOIs"
+    ],
+    "severity": "CRITICAL",
+    "riskLabel": "CRITICAL (แดง)",
+    "effect": "อาจทำให้เกิดอาการปวดศีรษะ นอนไม่หลับ ใจสั่น",
+    "action": "หลีกเลี่ยงการใช้ร่วมกัน"
   }
 ]

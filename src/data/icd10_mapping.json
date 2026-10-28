@@ -782,5 +782,245 @@
     "icd10tm": "U60.40 / Z50.8",
     "icd10Name": "Comprehensive Tridosha balancing therapy",
     "fullDescription": "การสืบค้นธาตุและจ่ายยาสมุนไพรปรับสมดุลตรีโทษ [U60.40] → Comprehensive Tridosha balancing therapy (U60.40 / Z50.8)"
+  },
+  {
+    "id": "ICD-099",
+    "ttmCode": "U55.0",
+    "ttmName": "ไข้หวัด",
+    "icd10tm": "J00",
+    "icd10Name": "Acute nasopharyngitis [common cold]",
+    "fullDescription": "ไข้หวัด [U55.0] → Acute nasopharyngitis [common cold] (J00)"
+  },
+  {
+    "id": "ICD-100",
+    "ttmCode": "U55.1",
+    "ttmName": "ไข้ทับระดู",
+    "icd10tm": "N94.8",
+    "icd10Name": "Other specified conditions associated with female genital organs and menstrual cycle",
+    "fullDescription": "ไข้ทับระดู [U55.1] → Other specified conditions associated with female genital organs and menstrual cycle (N94.8)"
+  },
+  {
+    "id": "ICD-101",
+    "ttmCode": "U55.2",
+    "ttmName": "ไข้กำเดา",
+    "icd10tm": "R04.0",
+    "icd10Name": "Epistaxis",
+    "fullDescription": "ไข้กำเดา [U55.2] → Epistaxis (R04.0)"
+  },
+  {
+    "id": "ICD-102",
+    "ttmCode": "U55.3",
+    "ttmName": "ไข้พิษ",
+    "icd10tm": "A92.0",
+    "icd10Name": "Chikungunya virus disease",
+    "fullDescription": "ไข้พิษ [U55.3] → Chikungunya virus disease (A92.0)"
+  },
+  {
+    "id": "ICD-103",
+    "ttmCode": "U55.4",
+    "ttmName": "ไข้สันนิบาต",
+    "icd10tm": "G04.9",
+    "icd10Name": "Encephalitis, myelitis and encephalomyelitis, unspecified",
+    "fullDescription": "ไข้สันนิบาต [U55.4] → Encephalitis, myelitis and encephalomyelitis, unspecified (G04.9)"
+  },
+  {
+    "id": "ICD-104",
+    "ttmCode": "U56.0",
+    "ttmName": "ลมจุกเสียด",
+    "icd10tm": "R10.4",
+    "icd10Name": "Other and unspecified abdominal pain",
+    "fullDescription": "ลมจุกเสียด [U56.0] → Other and unspecified abdominal pain (R10.4)"
+  },
+  {
+    "id": "ICD-105",
+    "ttmCode": "U56.1",
+    "ttmName": "ลมป่วง",
+    "icd10tm": "A09",
+    "icd10Name": "Infectious gastroenteritis and colitis, unspecified",
+    "fullDescription": "ลมป่วง [U56.1] → Infectious gastroenteritis and colitis, unspecified (A09)"
+  },
+  {
+    "id": "ICD-106",
+    "ttmCode": "U56.2",
+    "ttmName": "ลมอัมพฤกษ์",
+    "icd10tm": "I64",
+    "icd10Name": "Stroke, not specified as haemorrhage or infarction",
+    "fullDescription": "ลมอัมพฤกษ์ [U56.2] → Stroke, not specified as haemorrhage or infarction (I64)"
+  },
+  {
+    "id": "ICD-107",
+    "ttmCode": "U56.3",
+    "ttmName": "ลมอัมพาต",
+    "icd10tm": "G81.9",
+    "icd10Name": "Hemiplegia, unspecified",
+    "fullDescription": "ลมอัมพาต [U56.3] → Hemiplegia, unspecified (G81.9)"
+  },
+  {
+    "id": "ICD-108",
+    "ttmCode": "U56.4",
+    "ttmName": "ลมตะคริว",
+    "icd10tm": "R25.2",
+    "icd10Name": "Cramp and spasm",
+    "fullDescription": "ลมตะคริว [U56.4] → Cramp and spasm (R25.2)"
+  },
+  {
+    "id": "ICD-109",
+    "ttmCode": "U57.0",
+    "ttmName": "กษัยกล่อน",
+    "icd10tm": "N43.3",
+    "icd10Name": "Hydrocele, unspecified",
+    "fullDescription": "กษัยกล่อน [U57.0] → Hydrocele, unspecified (N43.3)"
+  },
+  {
+    "id": "ICD-110",
+    "ttmCode": "U57.1",
+    "ttmName": "กษัยจุก",
+    "icd10tm": "R10.3",
+    "icd10Name": "Pain localized to other parts of lower abdomen",
+    "fullDescription": "กษัยจุก [U57.1] → Pain localized to other parts of lower abdomen (R10.3)"
+  },
+  {
+    "id": "ICD-111",
+    "ttmCode": "U57.2",
+    "ttmName": "กษัยดาน",
+    "icd10tm": "K59.0",
+    "icd10Name": "Constipation",
+    "fullDescription": "กษัยดาน [U57.2] → Constipation (K59.0)"
+  },
+  {
+    "id": "ICD-112",
+    "ttmCode": "U57.3",
+    "ttmName": "กษัยปู",
+    "icd10tm": "K31.9",
+    "icd10Name": "Disease of stomach and duodenum, unspecified",
+    "fullDescription": "กษัยปู [U57.3] → Disease of stomach and duodenum, unspecified (K31.9)"
+  },
+  {
+    "id": "ICD-113",
+    "ttmCode": "U57.4",
+    "ttmName": "กษัยเสียด",
+    "icd10tm": "R10.1",
+    "icd10Name": "Pain localized to upper abdomen",
+    "fullDescription": "กษัยเสียด [U57.4] → Pain localized to upper abdomen (R10.1)"
+  },
+  {
+    "id": "ICD-114",
+    "ttmCode": "U58.0",
+    "ttmName": "ซางขุม",
+    "icd10tm": "K12.0",
+    "icd10Name": "Recurrent oral aphthae",
+    "fullDescription": "ซางขุม [U58.0] → Recurrent oral aphthae (K12.0)"
+  },
+  {
+    "id": "ICD-115",
+    "ttmCode": "U58.1",
+    "ttmName": "ซางทับ",
+    "icd10tm": "K29.7",
+    "icd10Name": "Gastritis, unspecified",
+    "fullDescription": "ซางทับ [U58.1] → Gastritis, unspecified (K29.7)"
+  },
+  {
+    "id": "ICD-116",
+    "ttmCode": "U58.2",
+    "ttmName": "ซางเพลิง",
+    "icd10tm": "K12.2",
+    "icd10Name": "Cellulitis and abscess of mouth",
+    "fullDescription": "ซางเพลิง [U58.2] → Cellulitis and abscess of mouth (K12.2)"
+  },
+  {
+    "id": "ICD-117",
+    "ttmCode": "U58.3",
+    "ttmName": "ซางสะกิด",
+    "icd10tm": "K13.7",
+    "icd10Name": "Other and unspecified lesions of oral mucosa",
+    "fullDescription": "ซางสะกิด [U58.3] → Other and unspecified lesions of oral mucosa (K13.7)"
+  },
+  {
+    "id": "ICD-118",
+    "ttmCode": "U58.4",
+    "ttmName": "ซางโค",
+    "icd10tm": "K14.0",
+    "icd10Name": "Glossitis",
+    "fullDescription": "ซางโค [U58.4] → Glossitis (K14.0)"
+  },
+  {
+    "id": "ICD-119",
+    "ttmCode": "U59.0",
+    "ttmName": "ริดสีดวงทวาร",
+    "icd10tm": "I84.9",
+    "icd10Name": "Unspecified haemorrhoids without complication",
+    "fullDescription": "ริดสีดวงทวาร [U59.0] → Unspecified haemorrhoids without complication (I84.9)"
+  },
+  {
+    "id": "ICD-120",
+    "ttmCode": "U59.1",
+    "ttmName": "ริดสีดวงจมูก",
+    "icd10tm": "J33.9",
+    "icd10Name": "Nasal polyp, unspecified",
+    "fullDescription": "ริดสีดวงจมูก [U59.1] → Nasal polyp, unspecified (J33.9)"
+  },
+  {
+    "id": "ICD-121",
+    "ttmCode": "U59.2",
+    "ttmName": "ริดสีดวงตา",
+    "icd10tm": "H04.9",
+    "icd10Name": "Disorder of lacrimal system, unspecified",
+    "fullDescription": "ริดสีดวงตา [U59.2] → Disorder of lacrimal system, unspecified (H04.9)"
+  },
+  {
+    "id": "ICD-122",
+    "ttmCode": "U59.3",
+    "ttmName": "ริดสีดวงคอ",
+    "icd10tm": "J31.2",
+    "icd10Name": "Chronic pharyngitis",
+    "fullDescription": "ริดสีดวงคอ [U59.3] → Chronic pharyngitis (J31.2)"
+  },
+  {
+    "id": "ICD-123",
+    "ttmCode": "U59.4",
+    "ttmName": "ริดสีดวงมหากาฬ",
+    "icd10tm": "A51.3",
+    "icd10Name": "Secondary syphilis of skin and mucous membranes",
+    "fullDescription": "ริดสีดวงมหากาฬ [U59.4] → Secondary syphilis of skin and mucous membranes (A51.3)"
+  },
+  {
+    "id": "ICD-124",
+    "ttmCode": "U60.0",
+    "ttmName": "ประดงเลือด",
+    "icd10tm": "L50.0",
+    "icd10Name": "Allergic urticaria",
+    "fullDescription": "ประดงเลือด [U60.0] → Allergic urticaria (L50.0)"
+  },
+  {
+    "id": "ICD-125",
+    "ttmCode": "U60.1",
+    "ttmName": "ประดงลม",
+    "icd10tm": "L50.1",
+    "icd10Name": "Idiopathic urticaria",
+    "fullDescription": "ประดงลม [U60.1] → Idiopathic urticaria (L50.1)"
+  },
+  {
+    "id": "ICD-126",
+    "ttmCode": "U60.2",
+    "ttmName": "ประดงไฟ",
+    "icd10tm": "L50.8",
+    "icd10Name": "Other urticaria",
+    "fullDescription": "ประดงไฟ [U60.2] → Other urticaria (L50.8)"
+  },
+  {
+    "id": "ICD-127",
+    "ttmCode": "U60.3",
+    "ttmName": "ประดงน้ำ",
+    "icd10tm": "L50.9",
+    "icd10Name": "Urticaria, unspecified",
+    "fullDescription": "ประดงน้ำ [U60.3] → Urticaria, unspecified (L50.9)"
+  },
+  {
+    "id": "ICD-128",
+    "ttmCode": "U60.4",
+    "ttmName": "ประดงช้าง",
+    "icd10tm": "L51.9",
+    "icd10Name": "Erythema multiforme, unspecified",
+    "fullDescription": "ประดงช้าง [U60.4] → Erythema multiforme, unspecified (L51.9)"
   }
 ]

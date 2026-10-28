@@ -94,8 +94,9 @@ export default function KnowledgeArchive() {
       });
     });
 
-    // 3. Smutthan Rules (109 อาการ & กฎสมุฏฐาน)
+    // 3. Smutthan Rules (139 อาการ & กฎสมุฏฐาน พร้อมตำรับยาแนะนำ)
     (smutthanRulesData as any[]).forEach((rule) => {
+      const recFormula = rule.recommendedFormula ? `\nตำรับยาแผนไทยที่แนะนำ: ${rule.recommendedFormula}` : '';
       list.push({
         id: `RULE_${rule.id}`,
         category: 'SCRIPTURES',
@@ -104,10 +105,10 @@ export default function KnowledgeArchive() {
         page: rule.page || 80,
         title: `${rule.dimension || 'สมุฏฐาน'}: ${rule.condition || ''}`,
         subtitle: rule.outputDhatu || 'ธาตุสมุฏฐาน',
-        content: rule.pathologyAndCitation || '',
+        content: `${rule.pathologyAndCitation || ''}${recFormula}`,
         quote: `[${rule.book || 'ตำราพื้นฐานฯ'} หน้า ${rule.page || 80}] ${rule.pathologyAndCitation || ''}`,
         image: `/scans/page_${rule.page || 80}.jpg`,
-        tags: [rule.dimension, rule.outputDhatu, 'สมุฏฐาน'].filter(Boolean),
+        tags: [rule.dimension, rule.outputDhatu, rule.recommendedFormula, 'สมุฏฐาน'].filter(Boolean),
         dhatu: rule.outputDhatu,
       });
     });

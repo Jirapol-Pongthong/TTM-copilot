@@ -18,6 +18,11 @@ export interface PatientCase {
   weather?: {
     tempC: number;
     humidityPct: number;
+    conditionLabel?: string;
+    precipitationMm?: number;
+    locationName?: string;
+    isLiveApi?: boolean;
+    fetchedAt?: string;
   };
   vitals?: {
     bp: string;
@@ -105,6 +110,10 @@ export const DEMO_SOMSRI_CASE: PatientCase = {
   weather: {
     tempC: 29,
     humidityPct: 78,
+    conditionLabel: 'ฝนตกพรำ อากาศชื้น',
+    precipitationMm: 2.4,
+    locationName: 'นนทบุรี (กรมการแพทย์แผนไทยฯ)',
+    isLiveApi: false,
   },
   vitals: {
     bp: '132/84 mmHg',
@@ -135,6 +144,10 @@ export const DEMO_SOMCHAI_CASE: PatientCase = {
   weather: {
     tempC: 29,
     humidityPct: 78,
+    conditionLabel: 'เมฆมาก ความชื้นสูง',
+    precipitationMm: 1.2,
+    locationName: 'นนทบุรี (กรมการแพทย์แผนไทยฯ)',
+    isLiveApi: false,
   },
   vitals: {
     bp: '138/86 mmHg',

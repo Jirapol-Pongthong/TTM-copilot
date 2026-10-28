@@ -5,12 +5,25 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { extractThaiSymptomsDeterministic } from '@/lib/symptomExtractor';
-import { Sparkles, Mic, MicOff, Plus, X, Loader2, Check, RotateCcw, Activity } from 'lucide-react';
+import {
+  fetchRealTimeWeather,
+} from '@/lib/weatherService';
+import {
+  Sparkles,
+  Mic,
+  MicOff,
+  Plus,
+  X,
+  Loader2,
+  Check,
+  RotateCcw,
+  Activity,
+  CloudSun,
+  RefreshCw,
+} from 'lucide-react';
 
 /**
  * ทำความสะอาดข้อความภาษาไทยที่ได้จาก Web Speech API ของ Chrome
- * - ยุบช่องว่างที่คั่นระหว่างคำไทยติดกัน เช่น "ปวด ท้อง แน่น ท้อง ปวด หัว" -> "ปวดท้อง แน่นท้อง ปวดหัว"
- * - ตัดคำซ้ำติดกันที่เกิดจากการพูดซ้ำจังหวะสั้นๆ
  */
 function normalizeThaiSpeechTranscript(rawSpeech: string): string {
   return rawSpeech
@@ -42,12 +55,12 @@ function normalizeThaiSpeechTranscript(rawSpeech: string): string {
 export default function Step4HistoryExam() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
 
-  // เริ่มต้นจาก rawNote ของเคสจริง
   const [noteText, setNoteText] = useState(patientCase.rawNote || '');
   const [isExtracting, setIsExtracting] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [newSymptomInput, setNewSymptomInput] = useState('');
   const [extractSuccess, setExtractSuccess] = useState(false);
+  const [isFetchingWeather, setIsFetchingWeather] = useState(false);
 
   const currentPainScore = patientCase.extractedSymptoms?.painScore ?? 7;
   const calculatedSymptomWeight = Math.max(1.0, Math.min(5.0, Number((currentPainScore * 0.5).toFixed(1))));
@@ -65,6 +78,38 @@ export default function Step4HistoryExam() {
         }
       }
     };
+  }, []);
+
+  // ดึงข้อมูลสภาพอากาศจริงจาก Open-Meteo API
+  const handleFetchLiveWeather = async () => {
+    setIsFetchingWeather(true);
+    try {
+      const live = await fetchRealTimeWeather();
+      updateCase({
+        season: live.inferredSeason,
+        weather: {
+          tempC: live.tempC,
+          humidityPct: live.humidityPct,
+          conditionLabel: live.conditionLabel,
+          precipitationMm: live.precipitationMm,
+          locationName: live.locationName,
+          isLiveApi: true,
+          fetchedAt: live.fetchedAt,
+        },
+      });
+    } catch {
+      // Fallback
+    } finally {
+      setIsFetchingWeather(false);
+    }
+  };
+
+  // ดึงสภาพอากาศจริงจาก Open-Meteo API อัตโนมัติเมื่อเปิดหน้าหากยังไม่ได้ดึง
+  useEffect(() => {
+    if (!patientCase.weather?.isLiveApi) {
+      handleFetchLiveWeather();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // อัปเดตระดับความปวด VAS (1–10)
@@ -129,7 +174,7 @@ export default function Step4HistoryExam() {
     }
   };
 
-  // บันทึกเสียงพูดด้วย Web Speech API แบบเสถียร
+  // บันทึกเสียงพูดด้วย Web Speech API
   const handleToggleSpeech = () => {
     if (isListening) {
       if (recognitionRef.current) {
@@ -267,10 +312,14 @@ export default function Step4HistoryExam() {
     setCurrentStep('S5');
   };
 
+  const tempC = patientCase.weather?.tempC ?? 29;
+  const humidityPct = patientCase.weather?.humidityPct ?? 78;
+  const isHotDryAnomaly = tempC >= 33 && humidityPct < 65 && patientCase.season !== 'summer';
+
   return (
     <AppShell
       title="ซักประวัติและตรวจร่างกาย"
-      subtitle="ขั้นตอนที่ 1–2 ตามคัมภีร์: ซักประวัติอาการสำคัญ → ประเมินระดับความรุนแรง (VAS 1–10) และดึงบริบทแวดล้อม"
+      subtitle="ขั้นตอนที่ 1–2 ตามคัมภีร์: ซักประวัติอาการสำคัญ → ประเมินระดับความรุนแรง (VAS 1–10) และดึงสภาพอากาศจริงจาก Weather API"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* คอลัมน์ซ้าย (2 ส่วน): ช่องกรอกประวัติ + กล่องสกัดอาการด้วย AI + สเกลความปวด VAS */}
@@ -436,7 +485,6 @@ export default function Step4HistoryExam() {
             </div>
 
             <div className="space-y-3 text-xs">
-              {/* รายการอาการสำคัญ */}
               <div className="flex flex-col sm:flex-row sm:items-start gap-2">
                 <span className="text-gray-500 font-medium sm:w-28 shrink-0 pt-1">อาการสำคัญ (CC):</span>
                 <div className="flex flex-wrap items-center gap-2 flex-1">
@@ -462,7 +510,6 @@ export default function Step4HistoryExam() {
                     <span className="text-gray-400 italic">ยังไม่มีข้อมูลอาการ (พิมพ์อาการแล้วกดปุ่ม &ldquo;ให้ AI สกัดอาการ&rdquo;)</span>
                   )}
 
-                  {/* ช่องพิมพ์เพิ่มอาการ */}
                   <div className="flex items-center gap-1">
                     <input
                       type="text"
@@ -485,7 +532,6 @@ export default function Step4HistoryExam() {
                 </div>
               </div>
 
-              {/* ระยะเวลา */}
               <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
                 <span className="text-gray-500 font-medium w-28 shrink-0">ระยะเวลาที่เป็น:</span>
                 <span className="bg-white border border-gray-200 px-3 py-0.5 rounded-full font-semibold text-[#14261D]">
@@ -493,7 +539,6 @@ export default function Step4HistoryExam() {
                 </span>
               </div>
 
-              {/* แนวโน้มธาตุที่เกี่ยวข้อง */}
               <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
                 <span className="text-gray-500 font-medium w-28 shrink-0">ธาตุต้องสงสัย:</span>
                 <div className="flex flex-wrap gap-1.5">
@@ -516,7 +561,7 @@ export default function Step4HistoryExam() {
           </div>
         </div>
 
-        {/* คอลัมน์ขวา (1 ส่วน): สัญญาณชีพและบริบทแวดล้อม รพ.สต. */}
+        {/* คอลัมน์ขวา (1 ส่วน): สัญญาณชีพ + บริบทแวดล้อม & Live Weather API */}
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs text-xs">
             <h4 className="font-bold text-[#14261D] mb-3 pb-2 border-b border-gray-100">
@@ -550,10 +595,20 @@ export default function Step4HistoryExam() {
             </div>
           </div>
 
+          {/* กล่อง Live Weather API & อุตุสมุฏฐานเชิงพลวัต */}
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs text-xs">
-            <h4 className="font-bold text-[#14261D] mb-3 pb-2 border-b border-gray-100">
-              บริบทแวดล้อม ณ จุดตรวจ (Base Weights)
-            </h4>
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
+              <h4 className="font-bold text-[#14261D] flex items-center gap-1.5">
+                <CloudSun className="w-4 h-4 text-[#1E4D38]" />
+                อุตุสมุฏฐาน & Live Weather API
+              </h4>
+              {patientCase.weather?.isLiveApi && (
+                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                  Live API
+                </span>
+              )}
+            </div>
+
             <div className="space-y-2.5 text-gray-600">
               <div className="flex justify-between items-center">
                 <span>อายุสมุฏฐาน ({patientCase.age || 58} ปี)</span>
@@ -568,21 +623,47 @@ export default function Step4HistoryExam() {
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>อุตุสมุฏฐาน (วสันตฤดู)</span>
-                <span className="font-bold text-[#7A5214] bg-[#FDF0D5] px-2 py-0.5 rounded">
-                  +1.5 คะแนน (Secondary)
+                <span>ฤดูตามปฏิทิน</span>
+                <span className="font-bold text-[#14261D]">
+                  {patientCase.season === 'rainy'
+                    ? 'วสันตฤดู (ฤดูฝน)'
+                    : patientCase.season === 'summer'
+                    ? 'คิมหันตฤดู (ฤดูร้อน)'
+                    : 'เหมันตฤดู (ฤดูหนาว)'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>สภาพอากาศ รพ.สต.</span>
-                <span className="font-bold text-gray-800">
-                  {patientCase.weather?.tempC || 29} °C · ชื้น {patientCase.weather?.humidityPct || 78}%
+                <span>สภาพอากาศจริง ณ จุดตรวจ</span>
+                <span className="font-extrabold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
+                  {tempC} °C · ชื้น {humidityPct}%
                 </span>
               </div>
+              {patientCase.weather?.conditionLabel && (
+                <div className="text-[11px] bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-700">
+                  <strong>ลักษณะอากาศ:</strong> {patientCase.weather.conditionLabel}
+                  {isHotDryAnomaly && (
+                    <span className="block text-rose-700 font-bold mt-0.5">
+                      ⚠️ ตรวจพบอุตุแปรปรวน: ฤดูฝนแต่แดดจัดร้อนแล้ง → กระตุ้นปิตตะ (+1.5)
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
-            <p className="text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
-              * ค่าน้ำหนักฐาน (+2.0, +1.5, +1.5) จะถูกนำไปรวมกับน้ำหนักอาการสำคัญ (+{calculatedSymptomWeight.toFixed(1)}) ในหน้าถัดไป
-            </p>
+
+            {/* ปุ่มดึงข้อมูลจริงจาก Open-Meteo API */}
+            <button
+              type="button"
+              onClick={handleFetchLiveWeather}
+              disabled={isFetchingWeather}
+              className="mt-3 w-full py-2 px-3 bg-[#1E4D38] hover:bg-[#163B2B] text-white font-bold rounded-xl text-[11px] flex items-center justify-center gap-1.5 transition cursor-pointer shadow-xs disabled:opacity-50"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isFetchingWeather ? 'animate-spin' : ''}`} />
+              <span>
+                {isFetchingWeather
+                  ? 'กำลังดึงสภาพอากาศจริงจาก Open-Meteo API...'
+                  : '🛰️ อัปเดตสภาพอากาศจริง ณ จุดตรวจ (Live Weather API)'}
+              </span>
+            </button>
           </div>
         </div>
       </div>
