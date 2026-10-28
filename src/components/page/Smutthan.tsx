@@ -6,7 +6,7 @@ import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { evaluateSmutthan } from '@/lib/smutthanEngine';
 import { getCitationDetails, KnowledgeChunk } from '@/lib/ragService';
-import { BookOpen, Sparkles, X, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Sparkles, X, CheckCircle2, Eye } from 'lucide-react';
 
 export default function Step5Smutthan() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
@@ -117,7 +117,7 @@ export default function Step5Smutthan() {
               <span className="text-[11px] text-[#B2C5BB] font-medium tracking-wide">
                 ผลประเมินสมุฏฐานวินิจฉัย
               </span>
-              <span className="text-[11px] font-bold bg-[#E5C483] text-[#14261D] px-2.5 py-0.5 rounded-full shadow-xs">
+              <span className="text-[11px] font-bold bg-[#E5C483] text-[#14261D] px-1.5 py-0.5 rounded-full shadow-xs">
                 {evaluation.concordanceLevel}
               </span>
             </div>
@@ -151,9 +151,24 @@ export default function Step5Smutthan() {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-[#B2C5BB] mt-2.5 flex items-center gap-1 opacity-80">
-                <span>📖</span> อ้างอิง: แนวทางเวชกรรมไทยในหน่วยบริการปฐมภูมิ พ.ศ. 2564 (น. 89–91)
-              </p>
+              <div className="mt-3 pt-2.5 border-t border-teal-800/60 flex items-center justify-between gap-2">
+                <div className="text-[10px] text-[#B2C5BB] flex items-center gap-1.5 opacity-90 truncate">
+                  <BookOpen className="w-3.5 h-3.5 text-[#E5C483] shrink-0" />
+                  <span className="truncate">อ้างอิง: แนวทางเวชกรรมปฐมภูมิ 2564 (น. 89–91)</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleOpenCitation(
+                      'แนวทางปฏิบัติเวชกรรมไทยในการดูแลผู้ป่วยในหน่วยบริการปฐมภูมิ',
+                      90
+                    )
+                  }
+                  className="px-2 py-1 bg-[#E5C483] hover:bg-[#d8b56f] text-[#14261D] rounded-md font-bold text-[10px] flex items-center gap-1 cursor-pointer transition shadow-xs shrink-0"
+                >
+                  <Eye className="w-3 h-3" /> เปิดดูเอกสาร
+                </button>
+              </div>
             </div>
           </div>
 
@@ -252,9 +267,34 @@ export default function Step5Smutthan() {
 
             <div className="mt-4 space-y-3 text-xs">
               <div className="flex items-center justify-between">
-                <span className="bg-[#E0F2FE] text-[#0369A1] px-2.5 py-0.5 rounded-full font-bold text-[10px]">
-                  เลขหน้าอ้างอิง: หน้า {selectedChunk.page}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="bg-[#E0F2FE] text-[#0369A1] px-2.5 py-0.5 rounded-full font-bold text-[10px]">
+                    เลขหน้าอ้างอิง: หน้า {selectedChunk.page}
+                  </span>
+                  {selectedChunk.book.includes('ปฐมภูมิ') && (
+                    <div className="flex gap-1 ml-1">
+                      {[89, 90, 91].map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          onClick={() =>
+                            handleOpenCitation(
+                              'แนวทางปฏิบัติเวชกรรมไทยในการดูแลผู้ป่วยในหน่วยบริการปฐมภูมิ',
+                              p
+                            )
+                          }
+                          className={`text-[9px] px-2 py-0.5 rounded font-semibold cursor-pointer transition ${
+                            selectedChunk.page === p
+                              ? 'bg-[#0369A1] text-white font-bold'
+                              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                          }`}
+                        >
+                          น.{p}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <span className="text-[11px] text-green-700 flex items-center gap-1 font-semibold">
                   <CheckCircle2 className="w-3.5 h-3.5" /> ตรวจสอบเทียบเคียงแล้ว
                 </span>

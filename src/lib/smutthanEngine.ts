@@ -341,6 +341,14 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     },
   ];
 
+  // เพิ่มการอ้างอิงแนวทางปฏิบัติเวชกรรมไทยในหน่วยบริการปฐมภูมิ พ.ศ. 2564 (น. 89-91)
+  if (!citations.some((c) => c.book.includes('ปฐมภูมิ'))) {
+    citations.push({
+      book: 'แนวทางปฏิบัติเวชกรรมไทยในการดูแลผู้ป่วยในหน่วยบริการปฐมภูมิ',
+      page: 90,
+    });
+  }
+
   return {
     primaryElement,
     confidence,
