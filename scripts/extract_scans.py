@@ -39,7 +39,7 @@ BOOKS_CONFIG = [
 
 def extract_pdf_pages():
     total_saved = 0
-    print("🚀 เริ่มต้นกระบวนการสกัดภาพสแกนจากตำราทางการ...")
+    print("เริ่มต้นกระบวนการสกัดภาพสแกนจากตำราทางการ...")
 
     for config in BOOKS_CONFIG:
         pdf_path = os.path.join(PDF_DIR, config['pdf_name'])

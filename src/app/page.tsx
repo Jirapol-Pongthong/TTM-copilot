@@ -11,6 +11,7 @@ import Step6FormulaRasa from '@/components/page/FormulaRasa';
 import Step7InteractionAlert from '@/components/page/InteractionAlert';
 import Step8IcdCoding from '@/components/page/IcdCoding';
 import Step9CaseSummary from '@/components/page/CaseSummary';
+import KnowledgeArchive from '@/components/page/KnowledgeArchive';
 
 function AppRouter() {
   const { currentStep } = useCase();
@@ -34,6 +35,8 @@ function AppRouter() {
       return <Step8IcdCoding />;
     case 'S9':
       return <Step9CaseSummary />;
+    case 'KB':
+      return <KnowledgeArchive />;
     default:
       return <Step1Login />;
   }

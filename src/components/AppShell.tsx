@@ -33,7 +33,7 @@ export default function AppShell({
   }
 
   const currentIdx = STEP_ORDER.indexOf(currentStep);
-  const isClinicalFlow = currentIdx >= STEP_ORDER.indexOf('S4') && currentStep !== 'S9';
+  const isClinicalFlow = currentIdx >= STEP_ORDER.indexOf('S4') && currentStep !== 'S9' && currentStep !== 'KB';
 
   return (
     <div className="min-h-screen flex bg-[#F9F8F4] text-[#1A2E25]">
@@ -77,8 +77,18 @@ export default function AppShell({
             </button>
 
             {/* เมนู 3: ฐานความรู้ตำรา */}
-            <button className="w-full text-left px-3.5 py-2.5 rounded-xl text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white transition-all duration-150 cursor-pointer">
-              ฐานความรู้ตำรา
+            <button
+              onClick={() => setCurrentStep('KB')}
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between transition-all duration-150 cursor-pointer ${
+                currentStep === 'KB'
+                  ? 'bg-[#1E4635] font-bold text-white shadow-xs ring-1 ring-[#E5C483]/30'
+                  : 'text-[#B2C5BB] hover:bg-[#193B2C] hover:text-white'
+              }`}
+            >
+              <span>ฐานความรู้ตำรา</span>
+              {currentStep === 'KB' && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E5C483] shrink-0" />
+              )}
             </button>
 
             {/* เมนู 4: รายงาน / ส่งออก */}
