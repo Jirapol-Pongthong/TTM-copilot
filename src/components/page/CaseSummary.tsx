@@ -153,7 +153,7 @@ export default function Step9CaseSummary() {
                   {smutthanText}
                 </span>
                 <p className="text-gray-500 text-[11px] mt-1">
-                  ความเชื่อมั่น {patientCase.smutthanResult?.confidence || 88}% · อ้างอิงคัมภีร์เวชศึกษา และสมุฏฐานวินิจฉัย
+                  ระดับความสอดคล้อง: <span className="font-semibold text-[#1E4D38]">{patientCase.smutthanResult?.concordanceLevel || 'สอดคล้องระดับสูง (3/4 มิติ)'}</span> · อ้างอิงแนวทางเวชกรรมปฐมภูมิ พ.ศ. 2564
                 </p>
               </div>
             </div>

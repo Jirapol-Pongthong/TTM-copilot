@@ -35,6 +35,8 @@ export interface PatientCase {
   smutthanResult?: {
     primaryElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ';
     confidence: number;
+    concordanceLevel?: string;
+    matchedCount?: number;
     reasons: string[];
     citations: TextbookCitation[];
   };

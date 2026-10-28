@@ -159,7 +159,7 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
         : primaryEl === 'ดิน'
         ? 'ปถวีธาตุ (ดิน)'
         : 'วาโยธาตุ (ลม)'
-    } แปรปรวน (ความเชื่อมั่น ${mergedCase.smutthanResult?.confidence || 88}%)`;
+    } แปรปรวน (${mergedCase.smutthanResult?.concordanceLevel || 'สอดคล้อง 3/4 มิติ'})`;
 
     setPatientQueue((prev) => {
       const existingIdx = prev.findIndex((item) => item.id === mergedCase.id || item.hn === mergedCase.hn);

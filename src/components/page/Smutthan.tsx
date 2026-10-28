@@ -50,6 +50,8 @@ export default function Step5Smutthan() {
       smutthanResult: {
         primaryElement: evaluation.primaryElement,
         confidence: evaluation.confidence,
+        concordanceLevel: evaluation.concordanceLevel,
+        matchedCount: evaluation.matchedCount,
         reasons: evaluation.reasons,
         citations: evaluation.citations,
       },
@@ -108,25 +110,51 @@ export default function Step5Smutthan() {
           ))}
         </div>
 
-        {/* การ์ดสรุปคะแนนความมั่นใจและเหตุผล */}
+        {/* การ์ดสรุปผลการประเมินระดับความสอดคล้องตามคัมภีร์ */}
         <div className="space-y-4">
           <div className="bg-[#1E4D38] text-white p-5 rounded-2xl shadow-sm">
-            <span className="text-xs text-[#B2C5BB]">ผลประเมินสมุฏฐานโดยรวม</span>
-            <h3 className="text-lg font-bold text-[#E5C483] mt-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] text-[#B2C5BB] font-medium tracking-wide">
+                ผลประเมินสมุฏฐานวินิจฉัย
+              </span>
+              <span className="text-[11px] font-bold bg-[#E5C483] text-[#14261D] px-2.5 py-0.5 rounded-full shadow-xs">
+                {evaluation.concordanceLevel}
+              </span>
+            </div>
+            <h3 className="text-lg font-bold text-[#E5C483] mt-2">
               แนวโน้ม{elementFullLabel}แปรปรวน
             </h3>
-            <p className="text-xs text-gray-200 mt-2">
-              ความสอดคล้องของปัจจัย {evaluation.matchedCount} จาก 4 มิติสมุฏฐาน
+            <p className="text-xs text-gray-200 mt-1 leading-relaxed">
+              {evaluation.concordanceDescription}
             </p>
-            <div className="w-full bg-teal-950 rounded-full h-2.5 mt-3 overflow-hidden">
-              <div
-                className="bg-[#E5C483] h-2.5 rounded-full transition-all duration-500"
-                style={{ width: `${evaluation.confidence}%` }}
-              />
+
+            {/* แสดงสถานะ 4 มิติสมุฏฐานตามแนวทางเวชกรรมปฐมภูมิ พ.ศ. 2564 */}
+            <div className="mt-4 pt-3 border-t border-teal-800/60">
+              <div className="flex items-center justify-between text-[11px] text-gray-300 mb-2">
+                <span>ความสอดคล้อง 4 มิติสมุฏฐาน:</span>
+                <span className="font-bold text-[#E5C483]">{evaluation.matchedCount} / 4 มิติ</span>
+              </div>
+              <div className="grid grid-cols-4 gap-1.5">
+                {evaluation.cards.map((c, i) => (
+                  <div
+                    key={i}
+                    className={`text-center py-1.5 px-1 rounded-lg text-[10px] font-medium transition-all ${
+                      c.isMatch
+                        ? 'bg-[#E5C483] text-[#14261D] font-bold shadow-xs'
+                        : 'bg-teal-900/80 text-gray-300 border border-teal-700/50'
+                    }`}
+                  >
+                    <div>{c.dimension.replace('สมุฏฐาน', '')}</div>
+                    <div className="text-[9px] opacity-90 mt-0.5">
+                      {c.isMatch ? 'ตรงกับธาตุ' : 'ปัจจัยร่วม'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-[#B2C5BB] mt-2.5 flex items-center gap-1 opacity-80">
+                <span>📖</span> อ้างอิง: แนวทางเวชกรรมไทยในหน่วยบริการปฐมภูมิ พ.ศ. 2564 (น. 89–91)
+              </p>
             </div>
-            <p className="text-right text-xs text-[#E5C483] mt-1.5 font-bold">
-              ความมั่นใจ {evaluation.confidence}%
-            </p>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs shadow-xs">

@@ -13,6 +13,8 @@ export interface SmutthanDimensionCard {
 export interface FullSmutthanEvaluation {
   primaryElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ';
   confidence: number;
+  concordanceLevel: string;
+  concordanceDescription: string;
   matchedCount: number;
   reasons: string[];
   citations: TextbookCitation[];
@@ -284,8 +286,25 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   const ayuMatch = ayuElement === primaryElement;
   const kalaMatch = kalaElement === primaryElement;
 
-  const confidence = Math.min(Math.max(maxScore, 75), 94);
   const matchedCount = [true, utuMatch, ayuMatch, kalaMatch].filter(Boolean).length;
+  const confidence = Math.round((matchedCount / 4) * 100);
+
+  let concordanceLevel = 'สอดคล้องระดับสูง (3/4 มิติ)';
+  let concordanceDescription = 'ปัจจัยสมุฏฐาน 3 มิติสนับสนุนธาตุหลักอย่างชัดเจน โดยมี 1 มิติเป็นปัจจัยร่วม';
+
+  if (matchedCount === 4) {
+    concordanceLevel = 'สอดคล้องสมบูรณ์ (4/4 มิติ)';
+    concordanceDescription = 'ปัจจัยสมุฏฐาน 4 มิติ (ธาตุ-อุตุ-อายุ-กาล) บ่งชี้ไปในทิศทางเดียวกันอย่างสมบูรณ์ตามแนวทางเวชกรรมปฐมภูมิ';
+  } else if (matchedCount === 3) {
+    concordanceLevel = 'สอดคล้องระดับสูง (3/4 มิติ)';
+    concordanceDescription = 'ปัจจัยสมุฏฐาน 3 มิติสนับสนุนธาตุหลักอย่างชัดเจน โดยมี 1 มิติเป็นปัจจัยร่วมตามแนวทางเวชกรรมปฐมภูมิ';
+  } else if (matchedCount === 2) {
+    concordanceLevel = 'มีปฏิสัมพันธ์พหุธาตุ (2/4 มิติ)';
+    concordanceDescription = 'ภาวะทุวันโทษ/พหุธาตุ ปัจจัยสมุฏฐานชี้ร่วม 2 มิติ แพทย์ควรพิจารณาธาตุแทรกซ้อน';
+  } else {
+    concordanceLevel = 'สอดคล้องเฉพาะธาตุสมุฏฐาน (1/4 มิติ)';
+    concordanceDescription = 'อาการทางคลินิกเป็นตัวชี้วัดเดี่ยว แพทย์ควรซักประวัติกาลและอุตุเพิ่มเติม';
+  }
 
   const cards: SmutthanDimensionCard[] = [
     {
@@ -325,6 +344,8 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   return {
     primaryElement,
     confidence,
+    concordanceLevel,
+    concordanceDescription,
     matchedCount,
     reasons,
     citations,
