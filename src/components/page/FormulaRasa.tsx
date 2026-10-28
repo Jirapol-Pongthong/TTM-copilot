@@ -35,8 +35,27 @@ export default function Step6FormulaRasa() {
   const primaryElement = patientCase.smutthanResult?.primaryElement || 'ลม';
 
   const defaultFormulaForElement = useMemo(() => {
-    return formulas.find((f) => f.targetElement === primaryElement) || formulas[0];
-  }, [primaryElement]);
+    const symptomsStr = [
+      ...(patientCase.extractedSymptoms?.chiefComplaint || []),
+      patientCase.rawNote || '',
+    ].join(' ').toLowerCase();
+
+    let best = formulas[0];
+    let bestScore = -1;
+
+    for (const f of formulas) {
+      let score = f.targetElement === primaryElement ? 10 : 0;
+      const tokens = f.indication.toLowerCase().split(/[\s,+/]+/);
+      for (const t of tokens) {
+        if (t.length >= 3 && symptomsStr.includes(t)) score += 5;
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        best = f;
+      }
+    }
+    return best;
+  }, [primaryElement, patientCase]);
 
   const [selectedId, setSelectedId] = useState<string>(defaultFormulaForElement.id);
   const selectedFormula = formulas.find((f) => f.id === selectedId) || defaultFormulaForElement;
@@ -137,12 +156,28 @@ export default function Step6FormulaRasa() {
       );
     });
 
+    const symptomsStr = [
+      ...(patientCase.extractedSymptoms?.chiefComplaint || []),
+      patientCase.rawNote || '',
+    ].join(' ').toLowerCase();
+
     return [...filtered].sort((a, b) => {
-      const aMatch = a.targetElement === primaryElement ? 1 : 0;
-      const bMatch = b.targetElement === primaryElement ? 1 : 0;
-      return bMatch - aMatch;
+      let scoreA = a.targetElement === primaryElement ? 15 : 0;
+      let scoreB = b.targetElement === primaryElement ? 15 : 0;
+
+      const aTokens = a.indication.toLowerCase().split(/[\s,+/]+/);
+      const bTokens = b.indication.toLowerCase().split(/[\s,+/]+/);
+
+      for (const t of aTokens) {
+        if (t.length >= 3 && symptomsStr.includes(t)) scoreA += 5;
+      }
+      for (const t of bTokens) {
+        if (t.length >= 3 && symptomsStr.includes(t)) scoreB += 5;
+      }
+
+      return scoreB - scoreA;
     });
-  }, [formulaSearch, filterCategory, primaryElement]);
+  }, [formulaSearch, filterCategory, primaryElement, patientCase]);
 
   return (
     <AppShell

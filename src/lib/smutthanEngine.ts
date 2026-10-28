@@ -95,10 +95,9 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   let dhatuDetail = 'อาการทางเดินอาหารและกล้ามเนื้อสัมพันธ์กับธาตุลม';
   let dhatuCitation = 'อ้างอิง: คัมภีร์ธาตุบรรจบ (น.12)';
 
-  // ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json ที่ตรงกับอาการของผู้ป่วย (Fuzzy Substring Scoring)
+  // ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json ที่ตรงกับอาการของผู้ป่วย (Fuzzy Multi-symptom Substring Scoring)
   const normSymptoms = symptomsText.replace(/\s+/g, '');
-  let bestRule: any = null;
-  let bestScore = 0;
+  const scoredRules: { rule: (typeof smutthanRules)[0]; score: number }[] = [];
 
   for (const rule of smutthanRules) {
     if (!rule.dimension.startsWith('อาการสำคัญ')) continue;
@@ -124,35 +123,50 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
       }
     }
 
-    if (score > bestScore) {
-      bestScore = score;
-      bestRule = rule;
+    if (score >= 6) {
+      scoredRules.push({ rule, score });
     }
   }
 
-  if (bestRule && bestScore >= 6) {
-    const outDhatu = bestRule.outputDhatu;
-    if (outDhatu.includes('วาตะ') || outDhatu.includes('วาโย')) {
-      vayoScore += 45;
-    }
-    if (outDhatu.includes('ปิตตะ') || outDhatu.includes('เตโช') || outDhatu.includes('สันตัปปัคคี') || outDhatu.includes('อพัทธปิตตะ')) {
-      techoScore += 45;
-    }
-    if (outDhatu.includes('เสมหะ') || outDhatu.includes('อาโป')) {
-      apoScore += 45;
-    }
-    if (outDhatu.includes('อัฏฐิ') || outDhatu.includes('ปถวี')) {
-      pathaviScore += 45;
+  // เรียงลำดับจากคะแนนสูงสุด
+  scoredRules.sort((a, b) => b.score - a.score);
+  const topMatched = scoredRules.slice(0, 3);
+
+  if (topMatched.length > 0) {
+    const titles: string[] = [];
+    const details: string[] = [];
+    const citTexts: string[] = [];
+
+    for (const { rule } of topMatched) {
+      const outDhatu = rule.outputDhatu;
+      if (outDhatu.includes('วาตะ') || outDhatu.includes('วาโย')) {
+        vayoScore += 45;
+      }
+      if (outDhatu.includes('ปิตตะ') || outDhatu.includes('เตโช') || outDhatu.includes('สันตัปปัคคี') || outDhatu.includes('อพัทธปิตตะ')) {
+        techoScore += 45;
+      }
+      if (outDhatu.includes('เสมหะ') || outDhatu.includes('อาโป')) {
+        apoScore += 45;
+      }
+      if (outDhatu.includes('อัฏฐิ') || outDhatu.includes('ปถวี')) {
+        pathaviScore += 45;
+      }
+
+      titles.push(outDhatu);
+      details.push(rule.pathologyAndCitation);
+      citTexts.push(`${rule.book}${rule.page ? ` (น.${rule.page})` : ''}`);
+      reasons.push(`${rule.condition}: ${rule.pathologyAndCitation}`);
+      if (!citations.some((c) => c.book === rule.book && c.page === rule.page)) {
+        citations.push({
+          book: rule.book,
+          page: rule.page || 1,
+        });
+      }
     }
 
-    dhatuTitle = `${outDhatu}`;
-    dhatuDetail = bestRule.pathologyAndCitation;
-    dhatuCitation = `อ้างอิง: ${bestRule.book}${bestRule.page ? ` (น.${bestRule.page})` : ''}`;
-    reasons.push(`${bestRule.condition}: ${bestRule.pathologyAndCitation}`);
-    citations.unshift({
-      book: bestRule.book,
-      page: bestRule.page || 1,
-    });
+    dhatuTitle = titles.join(' · ');
+    dhatuDetail = details.join(' | ');
+    dhatuCitation = `อ้างอิง: ${citTexts.join(' & ')}`;
   } else if (hasFeverHeat && hasHeadache) {
     techoScore += 45;
     vayoScore += 15;

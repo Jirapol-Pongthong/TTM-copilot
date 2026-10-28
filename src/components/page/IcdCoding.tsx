@@ -79,7 +79,7 @@ export default function Step8IcdCoding() {
         isRecommended: isMatch,
         checked: isMatch,
       };
-    });
+    }).sort((a, b) => (b.isRecommended ? 1 : 0) - (a.isRecommended ? 1 : 0));
   }, [patientCase]);
 
   const [codesList, setCodesList] = useState<ICDItem[]>(initialCodes);

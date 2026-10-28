@@ -49,7 +49,7 @@ export function normalizeDrugString(input: string): string {
 }
 
 /**
- * ตรวจสอบว่ายาแผนปัจจุบันที่พิมพ์เข้ามา จัดอยู่ในกลุ่มเสี่ยงตีกับสมุนไพรหรือไม่
+ * ตรวจสอบว่ายาแผนปัจจุบันที่พิมพ์เข้ามา จัดอยู่ในกลุ่มเสี่ยงตีกับสมุนไพรหรือไม่ (ค้นหาจากฐานข้อมูล 105 คู่ยามาตรฐาน)
  */
 export function evaluateSingleDrugRisk(medInput: string): {
   isRisk: boolean;
@@ -58,7 +58,37 @@ export function evaluateSingleDrugRisk(medInput: string): {
   badgeText: string;
 } {
   const norm = normalizeDrugString(medInput);
+  if (!norm) {
+    return { isRisk: false, level: 'NONE', canonicalDrug: '', badgeText: '' };
+  }
 
+  // 1. ค้นหาจากฐานข้อมูล 105 อันตรกิริยาใน interactions.json
+  const matchedRules = interactions.filter((rule) => {
+    if (rule.severity === 'SAFE') return false;
+    const drugKws = rule.drugKeywords && rule.drugKeywords.length > 0
+      ? rule.drugKeywords
+      : [rule.drug];
+    
+    return drugKws.some((dkw) => {
+      const clean = dkw.toLowerCase().trim();
+      return clean.length >= 3 && (norm.includes(clean) || clean.includes(norm));
+    });
+  });
+
+  if (matchedRules.length > 0) {
+    // หาความรุนแรงสูงสุด
+    const hasCritical = matchedRules.some((r) => r.severity === 'CRITICAL');
+    const topRule = matchedRules.find((r) => hasCritical ? r.severity === 'CRITICAL' : true) || matchedRules[0];
+
+    return {
+      isRisk: true,
+      level: hasCritical ? 'CRITICAL' : 'MODERATE',
+      canonicalDrug: topRule.drug,
+      badgeText: `เสี่ยงตีกับสมุนไพร (${topRule.effect.slice(0, 50)}...)`,
+    };
+  }
+
+  // 2. Fallback ตรวจเทียบผ่าน DRUG_ALIASES
   if (DRUG_ALIASES.warfarin.some((alias) => norm.includes(alias)) || DRUG_ALIASES.clopidogrel.some((alias) => norm.includes(alias))) {
     return {
       isRisk: true,
@@ -92,33 +122,6 @@ export function evaluateSingleDrugRisk(medInput: string): {
       level: 'MODERATE',
       canonicalDrug: 'ยาลดน้ำตาล / Insulin',
       badgeText: 'เฝ้าระวังระดับน้ำตาลเมื่อใช้คู่สมุนไพรรสขมหรือปรับธาตุ',
-    };
-  }
-
-  if (DRUG_ALIASES.statin.some((alias) => norm.includes(alias))) {
-    return {
-      isRisk: true,
-      level: 'MODERATE',
-      canonicalDrug: 'Atorvastatin / Simvastatin',
-      badgeText: 'เฝ้าระวังเมื่อใช้คู่ขมิ้นชันขนาดสูง (CYP3A4)',
-    };
-  }
-
-  if (DRUG_ALIASES.enalapril.some((alias) => norm.includes(alias))) {
-    return {
-      isRisk: true,
-      level: 'MODERATE',
-      canonicalDrug: 'Enalapril / Losartan',
-      badgeText: 'เฝ้าระวังความดันโลหิตและเกลือแร่',
-    };
-  }
-
-  if (DRUG_ALIASES.paracetamol.some((alias) => norm.includes(alias))) {
-    return {
-      isRisk: true,
-      level: 'MODERATE',
-      canonicalDrug: 'Paracetamol',
-      badgeText: 'เลี่ยงใช้คู่สมุนไพรรสขมจัดที่มีผลต่อตับ เช่น บอระเพ็ด',
     };
   }
 
