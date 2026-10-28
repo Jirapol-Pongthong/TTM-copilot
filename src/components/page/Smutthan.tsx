@@ -6,20 +6,29 @@ import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { evaluateSmutthan } from '@/lib/smutthanEngine';
 import { getCitationDetails, KnowledgeChunk } from '@/lib/ragService';
-import { BookOpen, Sparkles, X, CheckCircle2, Eye } from 'lucide-react';
+import { BookOpen, Sparkles, X, CheckCircle2, Eye, Activity, Calculator } from 'lucide-react';
 
 export default function Step5Smutthan() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
 
-  // คำนวณสมุฏฐาน 4 แบบ Real-time จากข้อมูลใน patientCase
+  // คำนวณสมุฏฐาน 4 เชิงปริมาณแบบ Real-time จากข้อมูลใน patientCase
   const evaluation = useMemo(() => evaluateSmutthan(patientCase), [patientCase]);
 
   // State สำหรับเปิด Modal ดูภาพและเนื้อหาตำราอ้างอิงจริง
   const [selectedChunk, setSelectedChunk] = useState<KnowledgeChunk | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // ปรับระดับความปวด VAS (1–10) แบบ Real-time จากหน้าวิเคราะห์สมุฏฐานได้ทันที
+  const handleChangeVasScore = (newScore: number) => {
+    updateCase({
+      extractedSymptoms: {
+        ...patientCase.extractedSymptoms,
+        painScore: newScore,
+      },
+    });
+  };
+
   const handleOpenCitation = (bookName: string, pageNumber?: number) => {
-    // รองรับกรณีส่งข้อความเช่น "อ้างอิง: คัมภีร์ธาตุวิภังค์ (น.25)"
     let cleanBook = bookName.replace(/^อ้างอิง:\s*/, '').trim();
     let parsedPage = pageNumber;
     const pageMatch = cleanBook.match(/\(น\.(\d+)\)/);
@@ -52,6 +61,14 @@ export default function Step5Smutthan() {
         confidence: evaluation.confidence,
         concordanceLevel: evaluation.concordanceLevel,
         matchedCount: evaluation.matchedCount,
+        vasScore: evaluation.vasScore,
+        symptomWeight: evaluation.symptomWeight,
+        doshaScores: {
+          vata: evaluation.doshaScores.vata,
+          pitta: evaluation.doshaScores.pitta,
+          semha: evaluation.doshaScores.semha,
+          maxPossible: evaluation.doshaScores.maxPossible,
+        },
         reasons: evaluation.reasons,
         citations: evaluation.citations,
       },
@@ -61,72 +78,236 @@ export default function Step5Smutthan() {
 
   const elementFullLabel =
     evaluation.primaryElement === 'ลม'
-      ? 'วาโยธาตุ (ธาตุลม)'
+      ? 'วาโยธาตุ (วาตะสมุฏฐาน)'
       : evaluation.primaryElement === 'ไฟ'
-      ? 'เตโชธาตุ (ธาตุไฟ)'
+      ? 'เตโชธาตุ (ปิตตะสมุฏฐาน)'
       : evaluation.primaryElement === 'น้ำ'
-      ? 'อาโปธาตุ (ธาตุน้ำ)'
+      ? 'อาโปธาตุ (เสมหะสมุฏฐาน)'
       : 'ปถวีธาตุ (ธาตุดิน)';
 
   return (
     <AppShell
-      title="วิเคราะห์สมุฏฐาน 4"
-      subtitle="ขั้นตอนที่ 3–5 ตามตำรา: ประเมินสมุฏฐานวินิจฉัย 4 มิติตามเกณฑ์คัมภีร์เวชศึกษาและสมุฏฐานวินิจฉัย (กระทรวงสาธารณสุข)"
+      title="วิเคราะห์สมุฏฐาน 4 เชิงปริมาณ (Dosha Quantification Model)"
+      subtitle="ขั้นตอนที่ 3–5 ตามตำรา: ประเมินดัชนีตรีโทษเชิงปริมาณด้วยโมเดลถ่วงน้ำหนัก AHP & Delphi Method ร่วมกับสเกลความรุนแรง VAS (1–10)"
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* การ์ดสมุฏฐาน 4 ด้าน */}
-        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {evaluation.cards.map((card) => (
-            <div
-              key={card.dimension}
-              className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#1E4D38]/40 transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex justify-between items-start">
-                  <span className="text-[11px] text-gray-500 font-semibold">{card.dimension}</span>
-                  <span
-                    className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold ${
-                      card.isMatch
-                        ? 'bg-[#EAF3EE] text-[#1E4D38]'
-                        : 'bg-[#FDF0D5] text-[#9A6B1F]'
-                    }`}
-                  >
-                    {card.badge}
-                  </span>
-                </div>
-                <h3 className="font-extrabold text-base text-[#14261D] mt-2">{card.title}</h3>
-                <p className="text-xs text-gray-600 mt-1 leading-relaxed">{card.detail}</p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleOpenCitation(card.citationText)}
-                className="text-[11px] text-[#1E4D38] font-semibold mt-4 text-left hover:underline cursor-pointer flex items-center gap-1 group"
-              >
-                <BookOpen className="w-3.5 h-3.5 text-[#1E4D38] group-hover:scale-110 transition" />
-                <span>{card.citationText}</span>
-              </button>
+      {/* แถบควบคุมสเกลวัดระดับความปวด/ความรุนแรง (VAS 1–10) เพื่อจำลองและคำนวณน้ำหนักอาการ (+1.0 ถึง +5.0) แบบ Real-time */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-4 mb-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5">
+          <span className="p-2 bg-[#EAF3EE] text-[#1E4D38] rounded-xl">
+            <Activity className="w-4 h-4" />
+          </span>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-[#14261D]">
+                สเกลวัดระดับความปวด / ความรุนแรงของผู้ป่วย (VAS Scale 1–10):
+              </span>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#1E4D38] text-[#E5C483]">
+                VAS {evaluation.vasScore}/10 → น้ำหนักอาการสำคัญ +{evaluation.symptomWeight.toFixed(1)} คะแนน
+              </span>
             </div>
-          ))}
+            <p className="text-[11px] text-gray-500 mt-0.5">
+              คลิกปรับระดับความปวด (1–10) เพื่อดูการเปลี่ยนแปลงของค่าน้ำหนักอาการ (+1.0 ถึง +5.0) และดัชนีสมุฏฐานแบบ Real-time
+            </p>
+          </div>
         </div>
 
-        {/* การ์ดสรุปผลการประเมินระดับความสอดคล้องตามคัมภีร์ */}
+        <div className="flex items-center gap-1">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+            const active = evaluation.vasScore === num;
+            return (
+              <button
+                key={num}
+                type="button"
+                onClick={() => handleChangeVasScore(num)}
+                className={`w-8 h-8 rounded-lg text-xs font-bold transition cursor-pointer flex flex-col items-center justify-center border ${
+                  active
+                    ? 'bg-[#1E4D38] text-[#E5C483] border-[#1E4D38] ring-2 ring-[#E5C483]/50 shadow-xs'
+                    : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-[#EAF3EE] hover:text-[#1E4D38]'
+                }`}
+                title={`ระดับความปวด ${num}/10 (น้ำหนัก +${Math.max(1.0, Number((num * 0.5).toFixed(1))).toFixed(1)})`}
+              >
+                <span>{num}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* คอลัมน์ซ้าย (2 ส่วน): การ์ดสมุฏฐาน 4 ด้าน + ตารางสรุปโครงสร้างการให้คะแนน */}
+        <div className="md:col-span-2 space-y-5">
+          {/* การ์ดสมุฏฐาน 4 ด้าน */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {evaluation.cards.map((card) => (
+              <div
+                key={card.dimension}
+                className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs hover:border-[#1E4D38]/40 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="text-[11px] text-gray-500 font-semibold">{card.dimension}</span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-[10px] px-2 py-0.5 rounded-md font-extrabold bg-[#1E4D38] text-[#E5C483]">
+                        {card.weightBadge}
+                      </span>
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                          card.isMatch
+                            ? 'bg-[#EAF3EE] text-[#1E4D38]'
+                            : 'bg-[#FDF0D5] text-[#9A6B1F]'
+                        }`}
+                      >
+                        {card.badge}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-extrabold text-base text-[#14261D] mt-2">{card.title}</h3>
+                  <p className="text-xs text-gray-600 mt-1 leading-relaxed">{card.detail}</p>
+                  <p className="text-[11px] text-[#5C7065] bg-[#F4F7F5] px-2.5 py-1.5 rounded-lg mt-2.5 border border-[#DCE5DF]">
+                    <strong className="text-[#1E4D38]">เหตุผลเชิงวิทยาสุขภาพ:</strong> {card.healthScienceRationale}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleOpenCitation(card.citationText)}
+                  className="text-[11px] text-[#1E4D38] font-semibold mt-4 text-left hover:underline cursor-pointer flex items-center gap-1 group"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-[#1E4D38] group-hover:scale-110 transition" />
+                  <span>{card.citationText}</span>
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* ตารางสรุปโครงสร้างการให้คะแนน (Scoring Rule Summary Table) */}
+          <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="p-1.5 bg-[#EAF3EE] text-[#1E4D38] rounded-lg">
+                <Calculator className="w-4 h-4" />
+              </span>
+              <div>
+                <h4 className="font-bold text-sm text-[#14261D]">
+                  สรุปโครงสร้างการให้คะแนนเชิงปริมาณ (Scoring Rule Summary)
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  อ้างอิงกระบวนการแปลงทฤษฎีการแพทย์แผนไทยด้วยเทคนิค AHP (Analytic Hierarchy Process) และ Delphi Method
+                </p>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-600 bg-gray-50/80">
+                    <th className="py-2.5 px-3 font-bold">ปัจจัยสมุฏฐาน</th>
+                    <th className="py-2.5 px-3 font-bold">ที่มาในคัมภีร์ / ทฤษฎี</th>
+                    <th className="py-2.5 px-3 font-bold">ธาตุที่ได้รับผล</th>
+                    <th className="py-2.5 px-3 font-bold">น้ำหนักที่กำหนด (Weight)</th>
+                    <th className="py-2.5 px-3 font-bold">เหตุผลเชิงวิทยาสุขภาพ</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {evaluation.scoringSummaryTable.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50/60">
+                      <td className="py-2.5 px-3 font-bold text-[#14261D] whitespace-nowrap">{row.factor}</td>
+                      <td className="py-2.5 px-3 text-gray-600">{row.scriptureRef}</td>
+                      <td className="py-2.5 px-3">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EAF3EE] text-[#1E4D38] whitespace-nowrap">
+                          {row.targetDosha}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 font-extrabold text-[#1E4D38] whitespace-nowrap">{row.weight}</td>
+                      <td className="py-2.5 px-3 text-gray-600">{row.rationale}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-3.5 bg-[#FFFDF7] border border-[#E8DFC9] rounded-xl p-3 text-[11px] text-[#5C4922] leading-relaxed">
+              💡 <strong>หลักการโมเดลคณิตศาสตร์:</strong> ตัวเลข <strong>+2.0</strong> (Primary Factor ~40%) และ{' '}
+              <strong>+1.5</strong> (Secondary Factors ~30%) คือ <em>&ldquo;ตัวคูณน้ำหนัก (Weights)&rdquo;</em>{' '}
+              ที่ถอดสัดส่วนความสำคัญตามลำดับขั้นของคัมภีร์เวชศึกษาและสมุฏฐานวินิจฉัย เมื่อนำมารวมกับสเกลความรุนแรงของอาการจริง{' '}
+              <strong>VAS 1–10 (+1.0 ถึง +5.0)</strong> จะได้ฐานคะแนนเต็ม <strong>10.0 คะแนน</strong>{' '}
+              โดยไม่เอนเอียงไปที่ปัจจัยใดปัจจัยหนึ่งมากเกินไป (Normalized Weighted Scoring)
+            </div>
+          </div>
+        </div>
+
+        {/* คอลัมน์ขวา (1 ส่วน): การ์ดสรุปผลการประเมินดัชนีตรีโทษเชิงปริมาณ */}
         <div className="space-y-4">
           <div className="bg-[#1E4D38] text-white p-5 rounded-2xl shadow-sm">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <span className="text-[11px] text-[#B2C5BB] font-medium tracking-wide">
-                ผลประเมินสมุฏฐานวินิจฉัย
+                ดัชนีสมุฏฐานเชิงปริมาณ
               </span>
-              <span className="text-[11px] font-bold bg-[#E5C483] text-[#14261D] px-1.5 py-0.5 rounded-full shadow-xs">
+              <span className="text-[11px] font-extrabold bg-[#E5C483] text-[#14261D] px-2.5 py-0.5 rounded-full shadow-xs">
                 {evaluation.concordanceLevel}
               </span>
             </div>
             <h3 className="text-lg font-bold text-[#E5C483] mt-2">
-              แนวโน้ม{elementFullLabel}แปรปรวน
+              แนวโน้ม{elementFullLabel}เด่นชัด
             </h3>
             <p className="text-xs text-gray-200 mt-1 leading-relaxed">
               {evaluation.concordanceDescription}
             </p>
+
+            {/* หลอดคะแนนดัชนีตรีโทษ (วาตะ / ปิตตะ / เสมหะ) เต็ม 10.0 คะแนน */}
+            <div className="mt-4 pt-3.5 border-t border-teal-800/60 space-y-2.5">
+              <div className="text-[11px] font-bold text-[#E5C483] flex justify-between">
+                <span>คะแนนสะสมรายธาตุ (เต็ม 10.0 คะแนน):</span>
+                <span>รวม {evaluation.doshaScores.totalAccumulated.toFixed(1)} แต้ม</span>
+              </div>
+
+              {/* วาตะ (ลม) */}
+              <div>
+                <div className="flex justify-between text-[11px] mb-1">
+                  <span className="text-gray-200 font-medium">วาตะสมุฏฐาน (ธาตุลม)</span>
+                  <span className="font-bold text-[#E5C483]">
+                    {evaluation.doshaScores.vata.toFixed(1)} / 10.0 ({evaluation.doshaPercentages.vata}%)
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-teal-950 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#E5C483] rounded-full transition-all duration-300"
+                    style={{ width: `${Math.min(100, (evaluation.doshaScores.vata / 10) * 100)}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* ปิตตะ (ไฟ) */}
+              <div>
+                <div className="flex justify-between text-[11px] mb-1">
+                  <span className="text-gray-200 font-medium">ปิตตะสมุฏฐาน (ธาตุไฟ)</span>
+                  <span className="font-bold text-amber-300">
+                    {evaluation.doshaScores.pitta.toFixed(1)} / 10.0 ({evaluation.doshaPercentages.pitta}%)
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-teal-950 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-amber-400 rounded-full transition-all duration-300"
+                    style={{ width: `${Math.min(100, (evaluation.doshaScores.pitta / 10) * 100)}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* เสมหะ (น้ำ) */}
+              <div>
+                <div className="flex justify-between text-[11px] mb-1">
+                  <span className="text-gray-200 font-medium">เสมหะสมุฏฐาน (ธาตุน้ำ)</span>
+                  <span className="font-bold text-sky-300">
+                    {evaluation.doshaScores.semha.toFixed(1)} / 10.0 ({evaluation.doshaPercentages.semha}%)
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-teal-950 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-sky-400 rounded-full transition-all duration-300"
+                    style={{ width: `${Math.min(100, (evaluation.doshaScores.semha / 10) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* แสดงสถานะ 4 มิติสมุฏฐานตามแนวทางเวชกรรมปฐมภูมิ พ.ศ. 2564 */}
             <div className="mt-4 pt-3 border-t border-teal-800/60">
@@ -144,9 +325,9 @@ export default function Step5Smutthan() {
                         : 'bg-teal-900/80 text-gray-300 border border-teal-700/50'
                     }`}
                   >
-                    <div>{c.dimension.replace('สมุฏฐาน', '')}</div>
+                    <div className="truncate">{c.dimension.split(' ')[0].replace('สมุฏฐาน', '')}</div>
                     <div className="text-[9px] opacity-90 mt-0.5">
-                      {c.isMatch ? 'ตรงกับธาตุ' : 'ปัจจัยร่วม'}
+                      +{c.weightValue.toFixed(1)}
                     </div>
                   </div>
                 ))}
@@ -166,7 +347,7 @@ export default function Step5Smutthan() {
                   }
                   className="px-2 py-1 bg-[#E5C483] hover:bg-[#d8b56f] text-[#14261D] rounded-md font-bold text-[10px] flex items-center gap-1 cursor-pointer transition shadow-xs shrink-0"
                 >
-                  <Eye className="w-3 h-3" /> เปิดดูเอกสาร
+                  <Eye className="w-3.5 h-3.5" /> เปิดดูเอกสาร
                 </button>
               </div>
             </div>
@@ -174,7 +355,7 @@ export default function Step5Smutthan() {
 
           <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs shadow-xs">
             <h4 className="font-bold text-[#7A5214] flex items-center gap-1.5 mb-2.5">
-              <Sparkles className="w-3.5 h-3.5" /> เหตุผลประกอบตามคัมภีร์เวชกรรม
+              <Sparkles className="w-3.5 h-3.5" /> รายละเอียดการคำนวณคะแนนตามคัมภีร์
             </h4>
             <ul className="list-disc pl-4 space-y-1.5 text-gray-700 leading-relaxed">
               {evaluation.reasons.map((reason, idx) => (
@@ -182,7 +363,7 @@ export default function Step5Smutthan() {
               ))}
             </ul>
             <p className="text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
-              * ข้อมูลสนับสนุนการตัดสินใจของแพทย์ตามหลักเกณฑ์วิชาชีพเวชกรรมไทย
+              * อ้างอิง: คู่มือแนวทางการตรวจวินิจฉัยด้วยสมุฏฐานวินิจฉัย สภาการแพทย์แผนไทย และโมเดล Dosha Quantification
             </p>
             <button
               type="button"
@@ -241,7 +422,6 @@ export default function Step5Smutthan() {
               </button>
             </div>
 
-            {/* แถบสลับดูรายการอ้างอิงทั้งหมดของเคสนี้ */}
             {evaluation.citations.length > 1 && (
               <div className="flex flex-wrap gap-1.5 mt-3 pb-2 border-b border-gray-100">
                 {evaluation.citations.map((cit, idx) => {
@@ -300,45 +480,33 @@ export default function Step5Smutthan() {
                 </span>
               </div>
 
-              <div className="bg-[#F9F8F4] p-4 rounded-xl border border-[#E5E0D8] text-gray-800 leading-relaxed italic">
-                &ldquo;{selectedChunk.content}&rdquo;
-              </div>
-
-              {/* ภาพสแกนหน้าตำราจริงจาก public/scans/ */}
-              {Boolean(selectedChunk.image || [12, 34, 58, 91, 103].includes(selectedChunk.page)) && (
-                <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50">
-                  <div className="text-[10px] text-gray-600 font-semibold px-3 py-1.5 bg-gray-100 flex items-center justify-between border-b border-gray-200">
-                    <span>เอกสารสแกนฉบับทางการ (Digital Archive)</span>
-                    <span className="text-[#1E4D38] font-bold">
-                      {selectedChunk.image || `/scans/page_${selectedChunk.page}.jpg`}
-                    </span>
-                  </div>
-                  <div className="max-h-56 overflow-y-auto p-2 flex justify-center bg-gray-200/40">
-                    <img
-                      src={selectedChunk.image || `/scans/page_${selectedChunk.page}.jpg`}
-                      alt={`ภาพสแกนหน้า ${selectedChunk.page}`}
-                      className="rounded-lg shadow-xs max-w-full h-auto object-contain border border-gray-300"
-                    />
-                  </div>
+              {selectedChunk.image && (
+                <div className="bg-gray-900 rounded-xl p-2 border border-gray-200 max-h-64 overflow-y-auto flex justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={selectedChunk.image}
+                    alt={`${selectedChunk.book} หน้า ${selectedChunk.page}`}
+                    className="max-h-60 w-auto object-contain rounded shadow-sm bg-white"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/scans/page_12.jpg';
+                    }}
+                  />
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {selectedChunk.tags.map((tag, i) => (
-                  <span key={i} className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">
-                    #{tag}
-                  </span>
-                ))}
+              <div className="bg-[#FAF8F5] border border-[#E8DFC9] p-3.5 rounded-xl text-gray-700 leading-relaxed">
+                <p className="font-semibold text-[#14261D] mb-1">ข้อความอ้างอิงจากคัมภีร์:</p>
+                <p>&ldquo;{selectedChunk.content}&rdquo;</p>
               </div>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-gray-100 flex justify-end">
+            <div className="mt-5 flex justify-end">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-[#1E4D38] hover:bg-[#163B2B] text-white rounded-lg text-xs font-semibold cursor-pointer transition"
+                className="px-4 py-2 bg-[#1E4D38] text-white rounded-lg text-xs font-bold hover:bg-[#163B2B] cursor-pointer transition"
               >
-                ปิดหน้าต่างอ้างอิง
+                ปิดหน้าต่าง
               </button>
             </div>
           </div>

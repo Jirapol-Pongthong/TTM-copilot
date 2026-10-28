@@ -6,6 +6,7 @@ export interface ExtractedSymptomPayload {
   duration: string;
   affectedDhatu: string[];
   bowelMovement: string;
+  painScore: number; // สเกลวัดระดับความปวด/ความรุนแรง VAS (1–10)
   source?: string;
 }
 
@@ -36,7 +37,38 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
     duration = '1 วัน';
   }
 
-  // 2. ตรวจสอบการขับถ่าย
+  // 2. สกัดระดับความปวด/ความรุนแรง VAS (1–10)
+  let painScore = 6; // ค่าเริ่มต้นระดับปานกลาง (VAS 6/10 -> Weight +3.0)
+  const explicitScoreMatch =
+    raw.match(/(?:ระดับความปวด|ความปวด|ระดับ|คะแนน|สเกล|vas|pain)\s*(?:อยู่ที่|ประมาณ|เท่ากับ|:)?\s*(\d{1,2})/i) ||
+    raw.match(/(\d{1,2})\s*(?:\/\s*10|เต็ม\s*10|คะแนน)/);
+
+  if (explicitScoreMatch) {
+    const parsed = parseInt(explicitScoreMatch[1], 10);
+    if (parsed >= 1 && parsed <= 10) {
+      painScore = parsed;
+    }
+  } else if (
+    normText.includes('ปวดมาก') ||
+    normText.includes('ปวดรุนแรง') ||
+    normText.includes('ทรมาน') ||
+    normText.includes('แทบทนไม่ไหว') ||
+    normText.includes('เดินไม่ได้') ||
+    normText.includes('ลุกยืนลำบาก')
+  ) {
+    painScore = 8; // รุนแรง (VAS 8/10 -> Weight +4.0)
+  } else if (
+    normText.includes('ปวดตึง') ||
+    normText.includes('ร้าวลง') ||
+    normText.includes('แน่นเฟ้อ') ||
+    normText.includes('เรื้อรัง')
+  ) {
+    painScore = 7; // ค่อนข้างมาก (VAS 7/10 -> Weight +3.5)
+  } else if (normText.includes('เล็กน้อย') || normText.includes('พอรำคาญ') || normText.includes('นิดหน่อย')) {
+    painScore = 3; // เล็กน้อย (VAS 3/10 -> Weight +1.5)
+  }
+
+  // 3. ตรวจสอบการขับถ่าย
   let bowelMovement = 'ปกติ';
   if (normText.includes('ท้องผูก') || normText.includes('ถ่ายไม่สะดวก') || normText.includes('ถ่ายยาก') || normText.includes('อุจจาระแข็ง')) {
     bowelMovement = 'ขับถ่ายไม่สะดวก (ท้องผูก)';
@@ -44,7 +76,7 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
     bowelMovement = 'ถ่ายเหลว / มวนท้อง';
   }
 
-  // 3. ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json แบบ Fuzzy Substring Scoring
+  // 4. ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json แบบ Fuzzy Substring Scoring
   let bestRule: any = null;
   let bestScore = 0;
 
@@ -94,7 +126,7 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
       dhatus.add(outDhatu);
     }
   } else {
-    // 4. กรณีทั่วไป (Fallback Heuristics ถ้าไม่ตรงกับ 100 ข้อเฉพาะเจาะจง)
+    // 5. กรณีทั่วไป (Fallback Heuristics ถ้าไม่ตรงกับ 100 ข้อเฉพาะเจาะจง)
     if (lower.includes('ตัวร้อน') || lower.includes('มีไข้') || lower.includes('เป็นไข้') || lower.includes('ไข้ขึ้น')) {
       symptoms.push('ตัวร้อน มีไข้');
       dhatus.add('เตโชธาตุ (สันตัปปัคคี)');
@@ -136,8 +168,8 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
       symptoms.push('ปวดตึงกล้ามเนื้อคอบ่าหลัง');
       dhatus.add('วาโยธาตุ (อังคมังคานุสารีวาตา)');
     }
-    if (lower.includes('ปวดก้น') || lower.includes('สะโพก') || lower.includes('สลักเพชร') || lower.includes('ร้าวลงขา') || lower.includes('เอว')) {
-      symptoms.push('ปวดสะโพกและก้น (ลมแล่นในเส้น)');
+    if (lower.includes('ปวดก้น') || lower.includes('สะโพก') || lower.includes('สลักเพชร') || lower.includes('ร้าวลงขา') || lower.includes('เอว') || lower.includes('ปวดขา')) {
+      symptoms.push('ปวดสะโพกและขา (ลมแล่นในเส้น)');
       dhatus.add('วาโยธาตุ (อังคมังคานุสารีวาตา)');
     }
     if (lower.includes('ปวดเข่า') || lower.includes('ข้อเข่า') || lower.includes('เข่าเสื่อม')) {
@@ -147,7 +179,7 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
     }
   }
 
-  // 5. หากผู้ใช้พิมพ์ข้อความอื่นที่ไม่อยู่ใน Keyword ให้ดึงข้อความจริงของผู้ใช้
+  // 6. หากผู้ใช้พิมพ์ข้อความอื่นที่ไม่อยู่ใน Keyword ให้ดึงข้อความจริงของผู้ใช้
   if (symptoms.length === 0 && raw.length > 0) {
     const cleaned = raw
       .replace(/คนไข้มีอาการ|ผู้ป่วยมีอาการ|คนไข้|ผู้ป่วย|มีอาการ/g, '')
@@ -177,6 +209,7 @@ export function extractThaiSymptomsDeterministic(textPrompt: string): ExtractedS
     duration,
     affectedDhatu: Array.from(dhatus),
     bowelMovement,
+    painScore,
     source: 'Deterministic Thai Clinical NLP Parser',
   };
 }

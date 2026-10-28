@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { extractThaiSymptomsDeterministic } from '@/lib/symptomExtractor';
-import { Sparkles, Mic, MicOff, Plus, X, Loader2, Check, RotateCcw } from 'lucide-react';
+import { Sparkles, Mic, MicOff, Plus, X, Loader2, Check, RotateCcw, Activity } from 'lucide-react';
 
 /**
  * ทำความสะอาดข้อความภาษาไทยที่ได้จาก Web Speech API ของ Chrome
@@ -32,6 +32,7 @@ function normalizeThaiSpeechTranscript(rawSpeech: string): string {
     .replace(/ปวด\s+หลัง/g, 'ปวดหลัง')
     .replace(/ปวด\s+ก้น/g, 'ปวดก้น')
     .replace(/ปวด\s+เข่า/g, 'ปวดเข่า')
+    .replace(/ปวด\s+ขา/g, 'ปวดขา')
     .replace(/ท้อง\s+ผูก/g, 'ท้องผูก')
     .replace(/ท้อง\s+เสีย/g, 'ท้องเสีย')
     .replace(/เรอ\s+เปรี้ยว/g, 'เรอเปรี้ยว')
@@ -41,14 +42,16 @@ function normalizeThaiSpeechTranscript(rawSpeech: string): string {
 export default function Step4HistoryExam() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
 
-  // เริ่มต้นจาก rawNote ของเคสจริง (ถ้าเปิดเคสใหม่จะเป็นค่าว่าง ไม่บังคับข้อความตั้งต้น)
+  // เริ่มต้นจาก rawNote ของเคสจริง
   const [noteText, setNoteText] = useState(patientCase.rawNote || '');
   const [isExtracting, setIsExtracting] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [newSymptomInput, setNewSymptomInput] = useState('');
   const [extractSuccess, setExtractSuccess] = useState(false);
 
-  // เก็บ Instance ของ SpeechRecognition และข้อความตั้งต้นก่อนกดอัดเสียง เพื่อป้องกันการต่อข้อความซ้ำซ้อน (Cumulative Duplication)
+  const currentPainScore = patientCase.extractedSymptoms?.painScore ?? 7;
+  const calculatedSymptomWeight = Math.max(1.0, Math.min(5.0, Number((currentPainScore * 0.5).toFixed(1))));
+
   const recognitionRef = useRef<any>(null);
   const baseTextBeforeSpeechRef = useRef<string>('');
 
@@ -63,6 +66,16 @@ export default function Step4HistoryExam() {
       }
     };
   }, []);
+
+  // อัปเดตระดับความปวด VAS (1–10)
+  const handleSelectPainScore = (score: number) => {
+    updateCase({
+      extractedSymptoms: {
+        ...patientCase.extractedSymptoms,
+        painScore: score,
+      },
+    });
+  };
 
   // ฟังก์ชันเรียก API เพื่อสกัดอาการจากข้อความที่พิมพ์จริง
   const handleExtractSymptoms = async () => {
@@ -93,6 +106,7 @@ export default function Step4HistoryExam() {
             Array.isArray(data.affectedDhatu) && data.affectedDhatu.length > 0
               ? data.affectedDhatu
               : fallback.affectedDhatu,
+          painScore: data.painScore || fallback.painScore || currentPainScore,
         },
       });
       setExtractSuccess(true);
@@ -105,6 +119,7 @@ export default function Step4HistoryExam() {
           chiefComplaint: fallback.chiefComplaint,
           duration: fallback.duration,
           affectedDhatu: fallback.affectedDhatu,
+          painScore: fallback.painScore || currentPainScore,
         },
       });
       setExtractSuccess(true);
@@ -114,7 +129,7 @@ export default function Step4HistoryExam() {
     }
   };
 
-  // บันทึกเสียงพูดด้วย Web Speech API แบบเสถียร (ไม่เบิ้ลคำซ้ำ และกดหยุดไมค์ได้จริง)
+  // บันทึกเสียงพูดด้วย Web Speech API แบบเสถียร
   const handleToggleSpeech = () => {
     if (isListening) {
       if (recognitionRef.current) {
@@ -138,7 +153,6 @@ export default function Step4HistoryExam() {
 
       if (RecognitionClass) {
         try {
-          // หยุดตัวเก่าถ้าค้างอยู่
           if (recognitionRef.current) {
             try {
               recognitionRef.current.abort();
@@ -161,8 +175,6 @@ export default function Step4HistoryExam() {
           };
 
           recognition.onresult = (event: any) => {
-            // อ่านเฉพาะประโยคในรอบการพูดนี้จาก event.results ทั้งชุด แล้วเขียนทับต่อจาก baseTextBeforeSpeechRef
-            // ป้องกันปัญหาการนำผลลัพธ์ระหว่างพูด (Interim/Cumulative) มาบวกซ้ำไปเรื่อยๆ
             const pieces: string[] = [];
             for (let i = 0; i < event.results.length; i++) {
               const piece = event.results[i]?.[0]?.transcript?.trim();
@@ -243,6 +255,7 @@ export default function Step4HistoryExam() {
           chiefComplaint: parsed.chiefComplaint,
           duration: parsed.duration,
           affectedDhatu: parsed.affectedDhatu,
+          painScore: patientCase.extractedSymptoms?.painScore ?? parsed.painScore,
         },
       });
     } else {
@@ -257,10 +270,10 @@ export default function Step4HistoryExam() {
   return (
     <AppShell
       title="ซักประวัติและตรวจร่างกาย"
-      subtitle="ขั้นตอนที่ 1–2 ตามคัมภีร์: ซักประวัติอาการสำคัญ → ตรวจร่างกายและดึงบริบทแวดล้อมอัตโนมัติ"
+      subtitle="ขั้นตอนที่ 1–2 ตามคัมภีร์: ซักประวัติอาการสำคัญ → ประเมินระดับความรุนแรง (VAS 1–10) และดึงบริบทแวดล้อม"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* คอลัมน์ซ้าย (2 ส่วน): ช่องกรอกประวัติ + กล่องสกัดอาการด้วย AI */}
+        {/* คอลัมน์ซ้าย (2 ส่วน): ช่องกรอกประวัติ + กล่องสกัดอาการด้วย AI + สเกลความปวด VAS */}
         <div className="md:col-span-2 space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
@@ -277,7 +290,7 @@ export default function Step4HistoryExam() {
                 setNoteText(e.target.value);
                 baseTextBeforeSpeechRef.current = e.target.value.trim();
               }}
-              placeholder="พิมพ์ข้อความที่ซักประวัติคนไข้ เช่น ปวดหัวตัวร้อน 4 วันแล้ว, ปวดท้อง แน่นท้อง, ปวดตึงคอบ่า..."
+              placeholder="พิมพ์ข้อความที่ซักประวัติคนไข้ เช่น ปวดขามากๆ ระดับความปวด 8/10, ปวดท้อง แน่นท้อง, ปวดตึงคอบ่า..."
               className="w-full border border-gray-200 rounded-xl p-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#1E4D38] transition leading-relaxed bg-[#FDFDFD]"
             />
 
@@ -344,6 +357,68 @@ export default function Step4HistoryExam() {
                   </>
                 )}
               </button>
+            </div>
+          </div>
+
+          {/* กล่องสเกลวัดระดับความปวดและความรุนแรงของอาการ (VAS 1–10 -> Symptom Weight +1.0 ถึง +5.0) */}
+          <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2">
+                <span className="bg-[#1E4D38] text-white p-1.5 rounded-lg">
+                  <Activity className="w-3.5 h-3.5" />
+                </span>
+                <div>
+                  <h4 className="text-xs font-bold text-[#14261D]">
+                    สเกลวัดระดับความปวด / ความรุนแรงของอาการ (VAS Scale 1–10)
+                  </h4>
+                  <p className="text-[11px] text-gray-500">
+                    แปลงเป็นค่าน้ำหนักอาการสำคัญ (+1.0 ถึง +5.0) เพื่อคำนวณสมุฏฐานเชิงปริมาณตามคัมภีร์ธาตุวิภังค์และธาตุบรรจบ
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#EAF3EE] text-[#1E4D38] border border-[#1E4D38]/20">
+                  ระดับ {currentPainScore}/10 → น้ำหนัก +{calculatedSymptomWeight.toFixed(1)} คะแนน
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-10 gap-1.5 mt-3">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                const isSelected = currentPainScore === num;
+                let colorClass = 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100';
+                if (num >= 4 && num <= 6) {
+                  colorClass = 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100';
+                } else if (num >= 7) {
+                  colorClass = 'bg-rose-50 text-rose-800 border-rose-200 hover:bg-rose-100';
+                }
+
+                if (isSelected) {
+                  if (num <= 3) colorClass = 'bg-emerald-600 text-white border-emerald-700 ring-2 ring-emerald-300 font-extrabold shadow-xs';
+                  else if (num <= 6) colorClass = 'bg-amber-500 text-white border-amber-600 ring-2 ring-amber-300 font-extrabold shadow-xs';
+                  else colorClass = 'bg-rose-600 text-white border-rose-700 ring-2 ring-rose-300 font-extrabold shadow-xs';
+                }
+
+                return (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => handleSelectPainScore(num)}
+                    className={`py-2 rounded-xl border text-xs font-bold transition cursor-pointer flex flex-col items-center justify-center ${colorClass}`}
+                  >
+                    <span>{num}</span>
+                    <span className="text-[9px] opacity-80 font-normal">
+                      +{Math.max(1.0, Number((num * 0.5).toFixed(1))).toFixed(1)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-between text-[10px] text-gray-500 mt-2 px-1">
+              <span className="text-emerald-700 font-medium">1–3: ปวด/รุนแรงเล็กน้อย (+1.0 ถึง +1.5)</span>
+              <span className="text-amber-700 font-medium">4–6: ปวด/รุนแรงปานกลาง (+2.0 ถึง +3.0)</span>
+              <span className="text-rose-700 font-medium">7–10: ปวด/รุนแรงมาก (+3.5 ถึง +5.0)</span>
             </div>
           </div>
 
@@ -466,21 +541,37 @@ export default function Step4HistoryExam() {
                   {patientCase.vitals?.temp || 36.6} °C
                 </span>
               </div>
+              <div className="flex justify-between items-center pt-1 border-t border-gray-100">
+                <span>สเกลความปวด (VAS)</span>
+                <span className="font-bold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
+                  {currentPainScore} / 10 (น้ำหนัก +{calculatedSymptomWeight.toFixed(1)})
+                </span>
+              </div>
             </div>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs text-xs">
             <h4 className="font-bold text-[#14261D] mb-3 pb-2 border-b border-gray-100">
-              บริบทแวดล้อม ณ จุดตรวจ (Auto-Context)
+              บริบทแวดล้อม ณ จุดตรวจ (Base Weights)
             </h4>
             <div className="space-y-2.5 text-gray-600">
               <div className="flex justify-between items-center">
-                <span>เวลาเข้ารับบริการ</span>
-                <span className="font-bold text-[#14261D]">{patientCase.visitTime || '10:30'} น. (โลหิต-ปิตตะ)</span>
+                <span>อายุสมุฏฐาน ({patientCase.age || 58} ปี)</span>
+                <span className="font-bold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
+                  +2.0 คะแนน (Primary)
+                </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>อุตุสมุฏฐาน (ฤดู)</span>
-                <span className="font-bold text-[#14261D]">วสันตฤดู (ฤดูฝน)</span>
+                <span>กาลสมุฏฐาน ({patientCase.visitTime || '10:30'} น.)</span>
+                <span className="font-bold text-[#7A5214] bg-[#FDF0D5] px-2 py-0.5 rounded">
+                  +1.5 คะแนน (Secondary)
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>อุตุสมุฏฐาน (วสันตฤดู)</span>
+                <span className="font-bold text-[#7A5214] bg-[#FDF0D5] px-2 py-0.5 rounded">
+                  +1.5 คะแนน (Secondary)
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span>สภาพอากาศ รพ.สต.</span>
@@ -490,7 +581,7 @@ export default function Step4HistoryExam() {
               </div>
             </div>
             <p className="text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
-              * ข้อมูลเวลาและฤดูกาลจะถูกนำไปร่วมประเมินสมุฏฐานในขั้นตอนถัดไปอัตโนมัติ
+              * ค่าน้ำหนักฐาน (+2.0, +1.5, +1.5) จะถูกนำไปรวมกับน้ำหนักอาการสำคัญ (+{calculatedSymptomWeight.toFixed(1)}) ในหน้าถัดไป
             </p>
           </div>
         </div>
@@ -510,7 +601,7 @@ export default function Step4HistoryExam() {
           onClick={handleProceedToSmutthan}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
         >
-          วิเคราะห์สมุฏฐาน 4 (ขั้นตอนถัดไป) →
+          วิเคราะห์สมุฏฐาน 4 เชิงปริมาณ (ขั้นตอนถัดไป) →
         </button>
       </div>
     </AppShell>

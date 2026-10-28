@@ -5,10 +5,22 @@ import smutthanRules from '@/data/smutthan_rules.json';
 export interface SmutthanDimensionCard {
   dimension: string;
   badge: string;
+  weightBadge: string;
+  weightValue: number;
+  targetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)';
   isMatch: boolean;
   title: string;
   detail: string;
   citationText: string;
+  healthScienceRationale: string;
+}
+
+export interface ScoringRuleSummaryRow {
+  factor: string;
+  scriptureRef: string;
+  targetDosha: string;
+  weight: string;
+  rationale: string;
 }
 
 export interface FullSmutthanEvaluation {
@@ -17,6 +29,21 @@ export interface FullSmutthanEvaluation {
   concordanceLevel: string;
   concordanceDescription: string;
   matchedCount: number;
+  vasScore: number;
+  symptomWeight: number;
+  doshaScores: {
+    vata: number;
+    pitta: number;
+    semha: number;
+    maxPossible: number;
+    totalAccumulated: number;
+  };
+  doshaPercentages: {
+    vata: number;
+    pitta: number;
+    semha: number;
+  };
+  scoringSummaryTable: ScoringRuleSummaryRow[];
   reasons: string[];
   citations: TextbookCitation[];
   cards: SmutthanDimensionCard[];
@@ -25,12 +52,23 @@ export interface FullSmutthanEvaluation {
 export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation {
   const reasons: string[] = [];
   const citations: TextbookCitation[] = [];
-  let vayoScore = 0;
-  let techoScore = 0;
-  let apoScore = 0;
-  let pathaviScore = 0;
 
-  // 1. ประเมินธาตุสมุฏฐานจากอาการสำคัญและอุณหภูมิร่างกาย (เทียบกับ 1_Smutthan_Rules)
+  // ตัวแปรสะสมคะแนนตรีโทษเชิงปริมาณ (Ayurvedic/TTM Dosha Quantification Model)
+  // ฐานคะแนนสูงสุดต่อธาตุ = 2.0 (อายุ) + 1.5 (กาล) + 1.5 (อุตุ) + 5.0 (อาการ VAS 10/10) = 10.0 คะแนน
+  let vataScore = 0;  // วาตะ / วาโยธาตุ (ลม)
+  let pittaScore = 0; // ปิตตะ / เตโชธาตุ (ไฟ)
+  let semhaScore = 0; // เสมหะ / อาโป-ปถวีธาตุ (น้ำ)
+
+  // สเกลวัดระดับความปวดและความรุนแรงของอาการ (VAS 1–10)
+  const rawVas = caseData.extractedSymptoms?.painScore ?? 7;
+  const vasScore = Math.max(1, Math.min(10, Math.round(rawVas)));
+  // Normalization: แปลง VAS (1–10) เป็นค่าน้ำหนักอาการสำคัญ (+1.0 ถึง +5.0)
+  const symptomWeight = Number(Math.max(1.0, Math.min(5.0, vasScore * 0.5)).toFixed(1));
+
+  // ============================================================================
+  // 1. กลไกพยาธิสภาพของอาการสำคัญ (Symptom Weighting Matrix: +1.0 ถึง +5.0)
+  // อ้างอิง: คัมภีร์ธาตุวิภังค์, คัมภีร์ธาตุบรรจบ, คัมภีร์เชวตสาร, คัมภีร์โรคนิจฉัย
+  // ============================================================================
   const symptomsText = [
     ...(caseData.extractedSymptoms?.chiefComplaint || []),
     caseData.rawNote || '',
@@ -64,6 +102,7 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     symptomsText.includes('เอว') ||
     symptomsText.includes('บั้นเอว') ||
     symptomsText.includes('ขา') ||
+    symptomsText.includes('เข่า') ||
     symptomsText.includes('กะฏิทารา');
 
   const hasNeckShoulderBack =
@@ -94,8 +133,9 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   let dhatuTitle = 'วาโยธาตุ · กุจฉิสยาวาตา';
   let dhatuDetail = 'อาการทางเดินอาหารและกล้ามเนื้อสัมพันธ์กับธาตุลม';
   let dhatuCitation = 'อ้างอิง: คัมภีร์ธาตุบรรจบ (น.12)';
+  let symptomTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'วาตะ (ลม)';
 
-  // ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json ที่ตรงกับอาการของผู้ป่วย (Fuzzy Multi-symptom Substring Scoring)
+  // ค้นหากฎอาการสำคัญ 100 ข้อจาก smutthan_rules.json ที่ตรงกับอาการของผู้ป่วย
   const normSymptoms = symptomsText.replace(/\s+/g, '');
   const scoredRules: { rule: (typeof smutthanRules)[0]; score: number }[] = [];
 
@@ -128,7 +168,6 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     }
   }
 
-  // เรียงลำดับจากคะแนนสูงสุด
   scoredRules.sort((a, b) => b.score - a.score);
   const topMatched = scoredRules.slice(0, 3);
 
@@ -137,25 +176,35 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     const details: string[] = [];
     const citTexts: string[] = [];
 
+    // กระจายค่าน้ำหนักอาการสำคัญ (symptomWeight: +1.0 ถึง +5.0) เข้าสู่ธาตุตามกลไกโรค
+    let matchedVata = 0;
+    let matchedPitta = 0;
+    let matchedSemha = 0;
+
     for (const { rule } of topMatched) {
       const outDhatu = rule.outputDhatu;
-      if (outDhatu.includes('วาตะ') || outDhatu.includes('วาโย')) {
-        vayoScore += 45;
+      if (outDhatu.includes('วาตะ') || outDhatu.includes('วาโย') || outDhatu.includes('ลม')) {
+        matchedVata += 1;
       }
-      if (outDhatu.includes('ปิตตะ') || outDhatu.includes('เตโช') || outDhatu.includes('สันตัปปัคคี') || outDhatu.includes('อพัทธปิตตะ')) {
-        techoScore += 45;
+      if (
+        outDhatu.includes('ปิตตะ') ||
+        outDhatu.includes('เตโช') ||
+        outDhatu.includes('สันตัปปัคคี') ||
+        outDhatu.includes('อพัทธปิตตะ') ||
+        outDhatu.includes('ไฟ')
+      ) {
+        matchedPitta += 1;
       }
-      if (outDhatu.includes('เสมหะ') || outDhatu.includes('อาโป')) {
-        apoScore += 45;
-      }
-      if (outDhatu.includes('อัฏฐิ') || outDhatu.includes('ปถวี')) {
-        pathaviScore += 45;
+      if (outDhatu.includes('เสมหะ') || outDhatu.includes('อาโป') || outDhatu.includes('อัฏฐิ') || outDhatu.includes('ปถวี')) {
+        matchedSemha += 1;
       }
 
       titles.push(outDhatu);
       details.push(rule.pathologyAndCitation);
       citTexts.push(`${rule.book}${rule.page ? ` (น.${rule.page})` : ''}`);
-      reasons.push(`${rule.condition}: ${rule.pathologyAndCitation}`);
+      reasons.push(
+        `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] ${rule.condition}: ${rule.pathologyAndCitation}`
+      );
       if (!citations.some((c) => c.book === rule.book && c.page === rule.page)) {
         citations.push({
           book: rule.book,
@@ -164,256 +213,377 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
       }
     }
 
+    // มอบค่าน้ำหนักหลัก (+1.0 ถึง +5.0) ให้ธาตุหลักของอาการ และหากมีธาตุร่วมให้กระจายตามสัดส่วน
+    if (matchedVata >= matchedPitta && matchedVata >= matchedSemha) {
+      vataScore += symptomWeight;
+      symptomTargetDosha = 'วาตะ (ลม)';
+      if (matchedPitta > 0) pittaScore += Number((symptomWeight * 0.3).toFixed(1));
+      if (matchedSemha > 0) semhaScore += Number((symptomWeight * 0.3).toFixed(1));
+    } else if (matchedPitta >= matchedVata && matchedPitta >= matchedSemha) {
+      pittaScore += symptomWeight;
+      symptomTargetDosha = 'ปิตตะ (ไฟ)';
+      if (matchedVata > 0) vataScore += Number((symptomWeight * 0.3).toFixed(1));
+      if (matchedSemha > 0) semhaScore += Number((symptomWeight * 0.3).toFixed(1));
+    } else {
+      semhaScore += symptomWeight;
+      symptomTargetDosha = 'เสมหะ (น้ำ)';
+      if (matchedVata > 0) vataScore += Number((symptomWeight * 0.3).toFixed(1));
+      if (matchedPitta > 0) pittaScore += Number((symptomWeight * 0.3).toFixed(1));
+    }
+
     dhatuTitle = titles.join(' · ');
     dhatuDetail = details.join(' | ');
     dhatuCitation = `อ้างอิง: ${citTexts.join(' & ')}`;
   } else if (hasFeverHeat && hasHeadache) {
-    techoScore += 45;
-    vayoScore += 15;
+    pittaScore += symptomWeight;
+    vataScore += Number((symptomWeight * 0.4).toFixed(1));
+    symptomTargetDosha = 'ปิตตะ (ไฟ)';
     dhatuTitle = 'เตโชธาตุ · สันตัปปัคคี & ลมอุทธังคมาวาตา';
     dhatuDetail = 'พิษไข้ความร้อน (สันตัปปัคคี) กำเริบหนุนให้ลมพัดขึ้นเบื้องบน ทำให้ตัวร้อนและปวดตึงศีรษะ';
-    reasons.push('อาการตัวร้อนมีไข้ร่วมกับปวดศีรษะ เกิดจากเตโชธาตุ (สันตัปปัคคี) กำเริบหนุนลมอุทธังคมาวาตาพัดขึ้นเบื้องบน');
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการตัวร้อนมีไข้ร่วมกับปวดศีรษะ เกิดจากเตโชธาตุ (สันตัปปัคคี) กำเริบหนุนลมอุทธังคมาวาตา`
+    );
     citations.push({ book: 'คัมภีร์ฉันทศาสตร์', page: 11 });
     citations.push({ book: 'คัมภีร์เชวตสาร', page: 35 });
     dhatuCitation = 'อ้างอิง: คัมภีร์ฉันทศาสตร์ (น.11) & คัมภีร์เชวตสาร (น.35)';
-  }
-  // กรณี 2: ตัวร้อน / มีไข้ อย่างเดียว (เตโชธาตุ)
-  else if (hasFeverHeat) {
-    techoScore += 42;
+  } else if (hasFeverHeat) {
+    pittaScore += symptomWeight;
+    symptomTargetDosha = 'ปิตตะ (ไฟ)';
     dhatuTitle = 'เตโชธาตุ · สันตัปปัคคี & พัทธปิตตะ';
     dhatuDetail = 'ไฟในกายกำเริบ เกิดความร้อนรุม มีไข้ตัวร้อน หรือกระหายน้ำ';
-    reasons.push('อาการตัวร้อนและไข้ สัมพันธ์กับเตโชธาตุ (สันตัปปัคคี) กำเริบหนุนด้วยปิตตะสมุฏฐาน');
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการตัวร้อนและไข้ สัมพันธ์กับเตโชธาตุ (สันตัปปัคคี) กำเริบหนุนด้วยปิตตะสมุฏฐาน`
+    );
     citations.push({ book: 'คัมภีร์ฉันทศาสตร์', page: 11 });
     dhatuCitation = 'อ้างอิง: คัมภีร์ฉันทศาสตร์ (น.11)';
-  }
-  // กรณี 3: ไอ / เสมหะ / เจ็บคอ (อาโปธาตุ)
-  else if (hasCoughCold) {
-    apoScore += 42;
-    dhatuTitle = 'อาโปธาตุ · ศิโรเสมหะ & คีวะเสมหะ';
+  } else if (hasCoughCold) {
+    semhaScore += symptomWeight;
+    symptomTargetDosha = 'เสมหะ (น้ำ)';
+    dhatuTitle = 'อาโปธาตุ · ศอเสมหะ & อุระเสมหะ';
     dhatuDetail = 'เสมหะในลำคอและช่องอกกำเริบ ส่งผลให้ไอ ระคายคอ เจ็บคอ หรือมีน้ำมูก';
-    reasons.push('อาการไอ เจ็บคอ หรือมีเสมหะ สัมพันธ์กับอาโปธาตุ (ศิโรเสมหะและคีวะเสมหะ) พิการแปรปรวน');
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการไอ เจ็บคอ หรือมีเสมหะ สัมพันธ์กับอาโปธาตุ (ศอเสมหะและอุระเสมหะ) พิการแปรปรวน`
+    );
     citations.push({ book: 'คัมภีร์ธาตุวิภังค์', page: 22 });
     dhatuCitation = 'อ้างอิง: คัมภีร์ธาตุวิภังค์ (น.22)';
-  }
-  // กรณี 4: ปวดหัว ร่วมกับ ปวดก้น/สะโพก (ลมอุทธังคมาวาตา & อังคมังคานุสารีวาตา)
-  else if (hasHeadache && hasHipOrButtock) {
-    vayoScore += 35;
+  } else if (hasHeadache && hasHipOrButtock) {
+    vataScore += symptomWeight;
+    symptomTargetDosha = 'วาตะ (ลม)';
     dhatuTitle = 'วาโยธาตุ · ลมอุทธังคมาวาตา & กะฏิทาราวาตา';
-    dhatuDetail = 'มีลมพัดขึ้นเบื้องบนทำให้ปวดตึงศีรษะขมับ ร่วมกับลมแล่นทั่วกายติดขัดตามแนวก้น สะโพก และเส้นเอ็น';
-    reasons.push('อาการปวดศีรษะสัมพันธ์กับลมอุทธังคมาวาตา (ลมพัดขึ้น) และอาการปวดสะโพก/ก้นสัมพันธ์กับลมอังคมังคานุสารีวาตาและกะฏิทาราวาตา');
+    dhatuDetail = 'มีลมพัดขึ้นเบื้องบนทำให้ปวดตึงศีรษะขมับ ร่วมกับลมแล่นทั่วกายติดขัดตามแนวก้น สะโพก และขา';
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการปวดศีรษะสัมพันธ์กับลมอุทธังคมาวาตา และอาการปวดสะโพก/ขาสัมพันธ์กับลมอังคมังคานุสารีวาตา`
+    );
     citations.push({ book: 'คัมภีร์เชวตสาร', page: 35 });
     citations.push({ book: 'คัมภีร์แผนนวดไทย', page: 14 });
     dhatuCitation = 'อ้างอิง: คัมภีร์เชวตสาร (น.35) & คัมภีร์แผนนวดไทย (น.14)';
-  }
-  // กรณี 5: ปวดหัว / เวียนศีรษะอย่างเดียว
-  else if (hasHeadache) {
-    vayoScore += 35;
+  } else if (hasHeadache) {
+    vataScore += symptomWeight;
+    symptomTargetDosha = 'วาตะ (ลม)';
     dhatuTitle = 'วาโยธาตุ · ลมสุมนาวาตา & อุทธังคมาวาตา';
     dhatuDetail = 'ลมกำเริบแล่นขึ้นสู่เบื้องสูงผ่านเส้นสุมนา ทำให้เลือดไปเลี้ยงศีรษะไม่สะดวก เกิดอาการวิงเวียนและปวดขมับ';
-    reasons.push('อาการปวดศีรษะและมึนตึงขมับ เกิดจากลมอุทธังคมาวาตาและลมสุมนาวาตากำเริบพัดขึ้นเบื้องบน');
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการปวดศีรษะและมึนตึงขมับ เกิดจากลมอุทธังคมาวาตาและลมสุมนาวาตากำเริบพัดขึ้นเบื้องบน`
+    );
     citations.push({ book: 'คัมภีร์เชวตสาร', page: 35 });
     dhatuCitation = 'อ้างอิง: คัมภีร์เชวตสาร (น.35)';
-  }
-  // กรณี 6: ปวดก้น/สะโพก หรือ ปวดเมื่อยคอบ่าหลัง
-  else if (hasHipOrButtock || hasNeckShoulderBack) {
+  } else if (hasHipOrButtock || hasNeckShoulderBack) {
+    vataScore += symptomWeight;
+    symptomTargetDosha = 'วาตะ (ลม)';
     if (hasBloating) {
-      vayoScore += 35;
       dhatuTitle = 'วาโยธาตุ · กุจฉิสยาวาตะ & อังคมังคานุสารีวาตา';
       dhatuDetail = 'ท้องอืด แน่นเฟ้อ ร่วมกับปวดเมื่อยคอบ่าไหล่ ลมอั้นในกระเพาะอาหารและลมพัดซ่านทั่วร่างกายทำให้กล้ามเนื้อตึงตัว';
-      reasons.push('อาการท้องอืด แน่นเฟ้อ และปวดตึงกล้ามเนื้อ สัมพันธ์กับลมกุจฉิสยาวาตะและอังคมังคานุสารีวาตะ');
+      reasons.push(
+        `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการท้องอืด แน่นเฟ้อ และปวดตึงกล้ามเนื้อ สัมพันธ์กับลมกุจฉิสยาวาตะและอังคมังคานุสารีวาตะ`
+      );
       citations.push({ book: 'คัมภีร์โรคนิจฉัย', page: 19 });
       dhatuCitation = 'อ้างอิง: คัมภีร์โรคนิจฉัย (น.19)';
     } else {
-      vayoScore += 35;
       dhatuTitle = 'วาโยธาตุ · ลมอังคมังคานุสารีวาตา (ลมแล่นในเส้น)';
-      dhatuDetail = 'ลมแล่นตามสรรพางค์กายติดขัดตามแนวก้น สะโพก เส้นเอ็น และกล้ามเนื้อ';
-      reasons.push('อาการปวดกล้ามเนื้อและเส้นเอ็น สัมพันธ์กับลมอังคมังคานุสารีวาตาคั่งค้างในแนวเส้นเอ็น');
+      dhatuDetail = 'ลมแล่นตามสรรพางค์กายติดขัดตามแนวขา สะโพก เส้นเอ็น และกล้ามเนื้อ';
+      reasons.push(
+        `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการปวดกล้ามเนื้อ ขา และเส้นเอ็น สัมพันธ์กับลมอังคมังคานุสารีวาตาคั่งค้างในแนวเส้นเอ็น`
+      );
       citations.push({ book: 'คัมภีร์แผนนวดไทย', page: 14 });
       dhatuCitation = 'อ้างอิง: คัมภีร์แผนนวดไทย (น.14)';
     }
-  }
-  // กรณี 7: ท้องอืดอย่างเดียว
-  else if (hasBloating) {
-    vayoScore += 35;
+  } else if (hasBloating) {
+    vataScore += symptomWeight;
+    symptomTargetDosha = 'วาตะ (ลม)';
     dhatuTitle = 'วาโยธาตุ · กุจฉิสยาวาตา';
     dhatuDetail = 'อาการท้องอืด แน่นเฟ้อ ลมอั้นในกระเพาะอาหารและลำไส้';
-    reasons.push('อาการท้องอืด แน่นเฟ้อ สัมพันธ์กับลมกุจฉิสยาวาตะ');
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการท้องอืด แน่นเฟ้อ สัมพันธ์กับลมกุจฉิสยาวาตะ`
+    );
     citations.push({ book: 'คัมภีร์ธาตุบรรจบ', page: 12 });
     dhatuCitation = 'อ้างอิง: คัมภีร์ธาตุบรรจบ (น.12)';
   } else {
-    vayoScore += 25;
-    reasons.push('อาการระบบกล้ามเนื้อและเส้นเอ็นสัมพันธ์กับวาโยธาตุ');
+    vataScore += symptomWeight;
+    symptomTargetDosha = 'วาตะ (ลม)';
+    reasons.push(
+      `[อาการสำคัญ +${symptomWeight.toFixed(1)} | VAS ${vasScore}/10] อาการระบบกล้ามเนื้อและเส้นเอ็นสัมพันธ์กับวาโยธาตุ`
+    );
     citations.push({ book: 'คัมภีร์แผนนวดไทย', page: 14 });
     dhatuCitation = 'อ้างอิง: คัมภีร์แผนนวดไทย (น.14)';
   }
 
-  // 2. ประเมินอุตุสมุฏฐาน (ฤดูกาล) ตาม 1_Smutthan_Rules
-  let utuTitle = 'วสันตฤดู (ฤดูฝน: ก.ค.–ต.ค.)';
-  let utuDetail = 'ธาตุประจำฤดู: วาโยสมุฏฐาน (ลมกำเริบ/กุจฉิสยาวาตะ)';
-  let utuElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
-  let utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.58)';
-
-  if (caseData.season === 'rainy') {
-    vayoScore += 25;
-    utuElement = 'ลม';
-    reasons.push('วสันตฤดู (ฤดูฝน) ความชื้นและไอฝนกระตุ้นให้เกิดลมปั่นป่วนในลำไส้ จุกเสียด แน่นท้อง');
-    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 58 });
-  } else if (caseData.season === 'summer') {
-    techoScore += 25;
-    utuElement = 'ไฟ';
-    utuTitle = 'คิมหันตฤดู (ฤดูร้อน: มี.ค.–มิ.ย.)';
-    utuDetail = 'ธาตุประจำฤดู: ปิตตะสมุฏฐาน (ไฟกำเริบ/สันตัปปัคคี)';
-    utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.40)';
-    reasons.push('คิมหันตฤดู (ฤดูร้อน) ความร้อนภายนอกกระตุ้นธาตุไฟในร่างกาย เกิดไข้ตัวร้อน คอแห้ง');
-    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 40 });
-  } else {
-    apoScore += 25;
-    utuElement = 'น้ำ';
-    utuTitle = 'เหมันตฤดู (ฤดูหนาว: พ.ย.–ก.พ.)';
-    utuDetail = 'ธาตุประจำฤดู: เสมหะสมุฏฐาน (น้ำไอเย็นกำเริบ)';
-    utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.66)';
-    reasons.push('เหมันตฤดู (ฤดูหนาว) ความเย็นกระตุ้นให้ธาตุน้ำแข็งตัว เกิดน้ำมูก ไอ เสมหะเหนียวข้น');
-    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 66 });
-  }
-
-  // 3. ประเมินอายุสมุฏฐาน (ช่วงวัย) ตาม 1_Smutthan_Rules
+  // ============================================================================
+  // 2. อายุสมุฏฐาน (Primary Factor: +2.0 — คิดเป็น ~40% ของปัจจัยฐาน)
+  // อ้างอิง: คัมภีร์เวชศึกษา (พระยาพิษณุประสาทเวช) หน้า 18, 24, 34
+  // เกณฑ์: 0–16 ปี (เสมหะ +2.0), 16–32 ปี (ปิตตะ +2.0), 32 ปีขึ้นไป (วาตะ +2.0)
+  // ============================================================================
   const age = caseData.age || 58;
-  let ayuTitle = 'ปัจฉิมวัย (32–64+ ปี)';
-  let ayuDetail = `อายุ ${age} ปี · ธาตุประจำวัย: วาโยสมุฏฐาน (วาตะกำเริบ/หทัยวาตะ)`;
+  let ayuTitle = 'ปัจฉิมวัย (32 ปีขึ้นไป)';
+  let ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: วาตะเจ้าเรือน (+2.0 คะแนน)`;
   let ayuElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
+  let ayuTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'วาตะ (ลม)';
   let ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.34)';
 
   if (age >= 32) {
-    vayoScore += 25;
+    vataScore += 2.0;
     ayuElement = 'ลม';
-    reasons.push(`อายุ ${age} ปี (ปัจฉิมวัย) วัยชราธาตุลมเป็นเจ้าเรือน ลมในร่างกายกระพือหรือหย่อน ส่งผลต่อกล้ามเนื้อและข้อต่อ`);
+    ayuTargetDosha = 'วาตะ (ลม)';
+    reasons.push(
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปัจฉิมวัย > 32 ปี): วาตะเจ้าเรือนเป็นปัจจัยระดับประธานควบคุมโครงสร้างร่างกายระยะยาว (คัมภีร์เวชศึกษา น.34)`
+    );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 34 });
   } else if (age > 16) {
-    techoScore += 25;
+    pittaScore += 2.0;
     ayuElement = 'ไฟ';
+    ayuTargetDosha = 'ปิตตะ (ไฟ)';
     ayuTitle = 'มัชฌิมวัย (16–32 ปี)';
-    ayuDetail = `อายุ ${age} ปี · ธาตุประจำวัย: ปิตตะสมุฏฐาน (ปิตตะกำเริบ/พัทธปิตตะ)`;
+    ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: ปิตตะเจ้าเรือน (+2.0 คะแนน)`;
     ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.24)';
-    reasons.push(`อายุ ${age} ปี (มัชฌิมวัย) วัยเจริญพันธุ์มีธาตุไฟเป็นเจ้าเรือน เสี่ยงต่อภาวะความร้อนสูง ไข้ และการอักเสบ`);
+    reasons.push(
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (มัชฌิมวัย 16–32 ปี): ปิตตะเจ้าเรือนเป็นปัจจัยระดับประธานตามวัย (คัมภีร์เวชศึกษา น.24)`
+    );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 24 });
   } else {
-    apoScore += 25;
+    semhaScore += 2.0;
     ayuElement = 'น้ำ';
+    ayuTargetDosha = 'เสมหะ (น้ำ)';
     ayuTitle = 'ปฐมวัย (0–16 ปี)';
-    ayuDetail = `อายุ ${age} ปี · ธาตุประจำวัย: เสมหะสมุฏฐาน (เสมหะกำเริบ/พัทธเสมหะ)`;
+    ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: เสมหะเจ้าเรือน (+2.0 คะแนน)`;
     ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.18)';
-    reasons.push(`อายุ ${age} ปี (ปฐมวัย) วัยเด็กมีธาตุน้ำเป็นเจ้าเรือน เกิดภาวะเสมหะและน้ำมูกสะสมง่าย`);
+    reasons.push(
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปฐมวัย 0–16 ปี): เสมหะเจ้าเรือนเป็นปัจจัยระดับประธานตามวัยเด็ก (คัมภีร์เวชศึกษา น.18)`
+    );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 18 });
   }
 
-  // 4. ประเมินกาลสมุฏฐาน (ช่วงเวลาที่มารับบริการ) ตาม 1_Smutthan_Rules
+  // ============================================================================
+  // 3. กาลสมุฏฐาน (Secondary Factor: +1.5 — คิดเป็น ~30% ของปัจจัยฐาน)
+  // อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย หน้า 30, 45, 52
+  // เกณฑ์: 06.00–10.00 = เสมหะ +1.5, 10.00–14.00 = ปิตตะ +1.5, 14.00–18.00 = วาตะ +1.5
+  // ============================================================================
   const visitTime = caseData.visitTime || '10:30';
   const hour = parseInt(visitTime.split(':')[0] || '10', 10);
-  let kalaTitle = `${visitTime} น. (10:00–14:00 น.)`;
-  let kalaDetail = 'ช่วงเวลา: ปิตตะสมุฏฐาน (ปิตตะกำเริบ · ไฟย่อยและไฟความร้อนทำงานสูงสุด)';
+  let kalaTitle = `${visitTime} น. (ยาม 2: 10.00–14.00 น.)`;
+  let kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: ปิตตะสมุฏฐาน (+1.5 คะแนน)';
   let kalaElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ไฟ';
+  let kalaTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'ปิตตะ (ไฟ)';
   let kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.45)';
 
   if ((hour >= 14 && hour < 18) || (hour >= 2 && hour < 6)) {
-    vayoScore += 18;
+    vataScore += 1.5;
     kalaElement = 'ลม';
-    kalaTitle = `${visitTime} น. (14:00–18:00 น. / 02:00–06:00 น.)`;
-    kalaDetail = 'ช่วงเวลา: วาโยสมุฏฐาน (วาตะกำเริบ · ลมในร่างกายเคลื่อนไหวมาก ท้องอืด อ่อนเพลีย)';
+    kalaTargetDosha = 'วาตะ (ลม)';
+    kalaTitle = `${visitTime} น. (ยาม 3: 14.00–18.00 / 02.00–06.00 น.)`;
+    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: วาตะสมุฏฐาน (+1.5 คะแนน · ลมเคลื่อนไหวมาก)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.52)';
+    reasons.push(
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 3): ช่วงเวลาวาตะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.52)`
+    );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 52 });
-  } else if ((hour >= 10 && hour < 14) || (hour >= 22 || hour < 2)) {
-    techoScore += 18;
+  } else if ((hour >= 10 && hour < 14) || hour >= 22 || hour < 2) {
+    pittaScore += 1.5;
     kalaElement = 'ไฟ';
-    kalaTitle = `${visitTime} น. (10:00–14:00 น. / 22:00–02:00 น.)`;
-    kalaDetail = 'ช่วงเวลา: ปิตตะสมุฏฐาน (ปิตตะกำเริบ · ไฟย่อยและไฟความร้อนทำงานสูงสุด)';
+    kalaTargetDosha = 'ปิตตะ (ไฟ)';
+    kalaTitle = `${visitTime} น. (ยาม 2: 10.00–14.00 / 22.00–02.00 น.)`;
+    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: ปิตตะสมุฏฐาน (+1.5 คะแนน · ไฟย่อยและไฟความร้อนทำงานสูงสุด)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.45)';
+    reasons.push(
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 2): ช่วงเวลาปิตตะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.45)`
+    );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 45 });
   } else {
-    apoScore += 18;
+    semhaScore += 1.5;
     kalaElement = 'น้ำ';
-    kalaTitle = `${visitTime} น. (06:00–10:00 น. / 18:00–22:00 น.)`;
-    kalaDetail = 'ช่วงเวลา: เสมหะสมุฏฐาน (เสมหะกำเริบ · อุณหภูมิกายต่ำ กระตุ้นธาตุน้ำและเสมหะ)';
+    kalaTargetDosha = 'เสมหะ (น้ำ)';
+    kalaTitle = `${visitTime} น. (ยาม 1: 06.00–10.00 / 18.00–22.00 น.)`;
+    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: เสมหะสมุฏฐาน (+1.5 คะแนน · กระตุ้นธาตุน้ำและเสมหะ)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.30)';
+    reasons.push(
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 1): ช่วงเวลาเสมหะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.30)`
+    );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 30 });
   }
 
-  // คำนวณธาตุหลักแบบไดนามิกตามคะแนนสูงสุดจริง
+  // ============================================================================
+  // 4. อุตุสมุฏฐาน (Secondary Factor: +1.5 — คิดเป็น ~30% ของปัจจัยฐาน)
+  // อ้างอิง: คัมภีร์เวชกรรมไทย 1 (สภาการแพทย์แผนไทย) หน้า 40, 58, 66
+  // เกณฑ์: คิมหันตฤดู/ความร้อน (ปิตตะ +1.5), วสันตฤดู/ความชื้น (วาตะ +1.5), เหมันตฤดู/ความเย็น (เสมหะ +1.5)
+  // ============================================================================
+  let utuTitle = 'วสันตฤดู (ฤดูฝน / ความชื้น)';
+  let utuDetail = 'ปัจจัยกระตุ้นจากอุณหภูมิและความชื้น: วาตะสมุฏฐาน (+1.5 คะแนน)';
+  let utuElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
+  let utuTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'วาตะ (ลม)';
+  let utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.58)';
+
+  if (caseData.season === 'rainy') {
+    vataScore += 1.5;
+    utuElement = 'ลม';
+    utuTargetDosha = 'วาตะ (ลม)';
+    reasons.push(
+      `[อุตุสมุฏฐาน +1.5] วสันตฤดู (ความชื้น): กระตุ้นให้วาตะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.58)`
+    );
+    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 58 });
+  } else if (caseData.season === 'summer') {
+    pittaScore += 1.5;
+    utuElement = 'ไฟ';
+    utuTargetDosha = 'ปิตตะ (ไฟ)';
+    utuTitle = 'คิมหันตฤดู (ฤดูร้อน / ความร้อน)';
+    utuDetail = 'ปัจจัยกระตุ้นจากอุณหภูมิและความร้อน: ปิตตะสมุฏฐาน (+1.5 คะแนน)';
+    utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.40)';
+    reasons.push(
+      `[อุตุสมุฏฐาน +1.5] คิมหันตฤดู (ความร้อน): กระตุ้นให้ปิตตะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.40)`
+    );
+    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 40 });
+  } else {
+    semhaScore += 1.5;
+    utuElement = 'น้ำ';
+    utuTargetDosha = 'เสมหะ (น้ำ)';
+    utuTitle = 'เหมันตฤดู (ฤดูหนาว / ความเย็น)';
+    utuDetail = 'ปัจจัยกระตุ้นจากความเย็นภายนอก: เสมหะสมุฏฐาน (+1.5 คะแนน)';
+    utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.66)';
+    reasons.push(
+      `[อุตุสมุฏฐาน +1.5] เหมันตฤดู (ความเย็น): กระตุ้นให้เสมหะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.66)`
+    );
+    citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 66 });
+  }
+
+  // ปัดเศษทศนิยม 1 ตำแหน่งเพื่อความแม่นยำ
+  vataScore = Number(vataScore.toFixed(1));
+  pittaScore = Number(pittaScore.toFixed(1));
+  semhaScore = Number(semhaScore.toFixed(1));
+  const totalAccumulated = Number((vataScore + pittaScore + semhaScore).toFixed(1)) || 1;
+
+  // คำนวณสัดส่วนร้อยละของตรีโทษ (Dosha Quantification Percentage)
+  const vataPct = Math.round((vataScore / totalAccumulated) * 100);
+  const pittaPct = Math.round((pittaScore / totalAccumulated) * 100);
+  const semhaPct = Math.max(0, 100 - vataPct - pittaPct);
+
+  // ค้นหาธาตุหลักที่ได้คะแนนสูงสุด
   let primaryElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
-  let maxScore = vayoScore;
+  let maxDoshaScore = vataScore;
+  let confidence = vataPct;
 
-  if (techoScore > maxScore) {
+  if (pittaScore > maxDoshaScore) {
     primaryElement = 'ไฟ';
-    maxScore = techoScore;
+    maxDoshaScore = pittaScore;
+    confidence = pittaPct;
   }
-  if (apoScore > maxScore) {
+  if (semhaScore > maxDoshaScore) {
     primaryElement = 'น้ำ';
-    maxScore = apoScore;
-  }
-  if (pathaviScore > maxScore) {
-    primaryElement = 'ดิน';
-    maxScore = pathaviScore;
+    maxDoshaScore = semhaScore;
+    confidence = semhaPct;
   }
 
+  const dhatuMatch =
+    (primaryElement === 'ลม' && symptomTargetDosha === 'วาตะ (ลม)') ||
+    (primaryElement === 'ไฟ' && symptomTargetDosha === 'ปิตตะ (ไฟ)') ||
+    (primaryElement === 'น้ำ' && symptomTargetDosha === 'เสมหะ (น้ำ)');
   const utuMatch = utuElement === primaryElement;
   const ayuMatch = ayuElement === primaryElement;
   const kalaMatch = kalaElement === primaryElement;
 
-  const matchedCount = [true, utuMatch, ayuMatch, kalaMatch].filter(Boolean).length;
-  const confidence = Math.round((matchedCount / 4) * 100);
+  const matchedCount = [dhatuMatch, utuMatch, ayuMatch, kalaMatch].filter(Boolean).length;
 
-  let concordanceLevel = 'สอดคล้องระดับสูง (3/4 มิติ)';
-  let concordanceDescription = 'ปัจจัยสมุฏฐาน 3 มิติสนับสนุนธาตุหลักอย่างชัดเจน โดยมี 1 มิติเป็นปัจจัยร่วม';
-
-  if (matchedCount === 4) {
-    concordanceLevel = 'สอดคล้องสมบูรณ์ (4/4 มิติ)';
-    concordanceDescription = 'ปัจจัยสมุฏฐาน 4 มิติ (ธาตุ-อุตุ-อายุ-กาล) บ่งชี้ไปในทิศทางเดียวกันอย่างสมบูรณ์ตามแนวทางเวชกรรมปฐมภูมิ';
-  } else if (matchedCount === 3) {
-    concordanceLevel = 'สอดคล้องระดับสูง (3/4 มิติ)';
-    concordanceDescription = 'ปัจจัยสมุฏฐาน 3 มิติสนับสนุนธาตุหลักอย่างชัดเจน โดยมี 1 มิติเป็นปัจจัยร่วมตามแนวทางเวชกรรมปฐมภูมิ';
-  } else if (matchedCount === 2) {
-    concordanceLevel = 'มีปฏิสัมพันธ์พหุธาตุ (2/4 มิติ)';
-    concordanceDescription = 'ภาวะทุวันโทษ/พหุธาตุ ปัจจัยสมุฏฐานชี้ร่วม 2 มิติ แพทย์ควรพิจารณาธาตุแทรกซ้อน';
-  } else {
-    concordanceLevel = 'สอดคล้องเฉพาะธาตุสมุฏฐาน (1/4 มิติ)';
-    concordanceDescription = 'อาการทางคลินิกเป็นตัวชี้วัดเดี่ยว แพทย์ควรซักประวัติกาลและอุตุเพิ่มเติม';
-  }
+  let concordanceLevel = `${maxDoshaScore.toFixed(1)} / 10.0 คะแนน (${confidence}%)`;
+  let concordanceDescription = `ประเมินด้วยโมเดลคณิตศาสตร์ถ่วงน้ำหนัก (AHP & Delphi Weighted Scoring): อายุสมุฏฐาน (+2.0) + กาลสมุฏฐาน (+1.5) + อุตุสมุฏฐาน (+1.5) + อาการสำคัญ VAS ${vasScore}/10 (+${symptomWeight.toFixed(1)}) สอดคล้องกัน ${matchedCount}/4 มิติ`;
 
   const cards: SmutthanDimensionCard[] = [
     {
-      dimension: 'ธาตุสมุฏฐาน',
-      badge: 'ตรงกับอาการ',
-      isMatch: true,
+      dimension: 'อาการสำคัญ (ธาตุสมุฏฐาน)',
+      badge: dhatuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: `+${symptomWeight.toFixed(1)} (VAS ${vasScore}/10)`,
+      weightValue: symptomWeight,
+      targetDosha: symptomTargetDosha,
+      isMatch: dhatuMatch,
       title: dhatuTitle,
       detail: dhatuDetail,
       citationText: dhatuCitation,
+      healthScienceRationale: `ปรับตามระดับความรุนแรงจริงที่ผู้ป่วยเป็น (VAS Scale ${vasScore}/10 → น้ำหนัก +${symptomWeight.toFixed(1)} จากฐาน +1.0 ถึง +5.0)`,
     },
     {
-      dimension: 'อุตุสมุฏฐาน',
-      badge: utuMatch ? 'ตรงกับธาตุ' : 'ปัจจัยร่วม',
-      isMatch: utuMatch,
-      title: utuTitle,
-      detail: utuDetail,
-      citationText: utuCitation,
-    },
-    {
-      dimension: 'อายุสมุฏฐาน',
-      badge: ayuMatch ? 'ตรงกับธาตุ' : 'ปัจจัยร่วม',
+      dimension: 'อายุสมุฏฐาน (Primary Factor)',
+      badge: ayuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: '+2.0 (น้ำหนัก ~40%)',
+      weightValue: 2.0,
+      targetDosha: ayuTargetDosha,
       isMatch: ayuMatch,
       title: ayuTitle,
       detail: ayuDetail,
       citationText: ayuCitation,
+      healthScienceRationale: 'เป็นฐานธาตุเจ้าเรือนหลักตามพันธุกรรมและช่วงวัยที่ควบคุมโครงสร้างร่างกายระยะยาว',
     },
     {
-      dimension: 'กาลสมุฏฐาน',
-      badge: kalaMatch ? 'ตรงกับธาตุ' : 'ปัจจัยร่วม',
+      dimension: 'กาลสมุฏฐาน (Secondary Factor)',
+      badge: kalaMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: '+1.5 (น้ำหนัก ~30%)',
+      weightValue: 1.5,
+      targetDosha: kalaTargetDosha,
       isMatch: kalaMatch,
       title: kalaTitle,
       detail: kalaDetail,
       citationText: kalaCitation,
+      healthScienceRationale: 'เป็นปัจจัยกระตุ้นชั่วคราวตามนาฬิกาชีวภาพในรอบวัน (Circadian Rhythm ช่วงละ 4 ชม.)',
+    },
+    {
+      dimension: 'อุตุสมุฏฐาน (Secondary Factor)',
+      badge: utuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: '+1.5 (น้ำหนัก ~30%)',
+      weightValue: 1.5,
+      targetDosha: utuTargetDosha,
+      isMatch: utuMatch,
+      title: utuTitle,
+      detail: utuDetail,
+      citationText: utuCitation,
+      healthScienceRationale: 'เป็นปัจจัยกระตุ้นจากอุณหภูมิและความชื้นภายนอกตามฤดูกาล',
     },
   ];
 
-  // เพิ่มการอ้างอิงแนวทางปฏิบัติเวชกรรมไทยในหน่วยบริการปฐมภูมิ พ.ศ. 2564 (น. 89-91)
+  const scoringSummaryTable: ScoringRuleSummaryRow[] = [
+    {
+      factor: 'อายุสมุฏฐาน',
+      scriptureRef: 'คัมภีร์เวชศึกษา (ปฐม/มัชฌิม/ปัจฉิมวัย) น.18, 24, 34',
+      targetDosha: ayuTargetDosha,
+      weight: '+2.0',
+      rationale: 'เป็นฐานธาตุเจ้าเรือนหลักตามพันธุกรรมและวัย (Primary Factor ~40%)',
+    },
+    {
+      factor: 'กาลสมุฏฐาน',
+      scriptureRef: 'คัมภีร์สมุฏฐานวินิจฉัย (ยาม 1, 2, 3) น.30, 45, 52',
+      targetDosha: kalaTargetDosha,
+      weight: '+1.5',
+      rationale: 'เป็นปัจจัยกระตุ้นตามนาฬิกาชีวภาพ (Circadian Rhythm ~30%)',
+    },
+    {
+      factor: 'อุตุสมุฏฐาน',
+      scriptureRef: 'คัมภีร์เวชกรรมไทย 1 (คิมหันต/วสันต/เหมันต) น.40, 58, 66',
+      targetDosha: utuTargetDosha,
+      weight: '+1.5',
+      rationale: 'เป็นปัจจัยกระตุ้นจากอุณหภูมิและความชื้นภายนอก (~30%)',
+    },
+    {
+      factor: 'อาการสำคัญ',
+      scriptureRef: 'คัมภีร์ธาตุวิภังค์ / ธาตุบรรจบ / โรคนิจฉัย / เชวตสาร',
+      targetDosha: symptomTargetDosha,
+      weight: `+${symptomWeight.toFixed(1)} (จากเกณฑ์ +1.0 ถึง +5.0)`,
+      rationale: `ปรับตามระดับความรุนแรงจริงที่ผู้ป่วยเป็น (VAS Scale ${vasScore}/10)`,
+    },
+  ];
+
   if (!citations.some((c) => c.book.includes('ปฐมภูมิ'))) {
     citations.push({
       book: 'แนวทางปฏิบัติเวชกรรมไทยในการดูแลผู้ป่วยในหน่วยบริการปฐมภูมิ',
@@ -427,6 +597,21 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     concordanceLevel,
     concordanceDescription,
     matchedCount,
+    vasScore,
+    symptomWeight,
+    doshaScores: {
+      vata: vataScore,
+      pitta: pittaScore,
+      semha: semhaScore,
+      maxPossible: 10.0,
+      totalAccumulated,
+    },
+    doshaPercentages: {
+      vata: vataPct,
+      pitta: pittaPct,
+      semha: semhaPct,
+    },
+    scoringSummaryTable,
     reasons,
     citations,
     cards,

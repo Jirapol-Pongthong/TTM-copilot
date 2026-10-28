@@ -31,12 +31,21 @@ export interface PatientCase {
     chiefComplaint: string[];
     duration: string;
     affectedDhatu: string[];
+    painScore?: number;         // สเกลวัดระดับความปวด/ความรุนแรง VAS (1–10)
   };
   smutthanResult?: {
     primaryElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ';
     confidence: number;
     concordanceLevel?: string;
     matchedCount?: number;
+    vasScore?: number;
+    symptomWeight?: number;
+    doshaScores?: {
+      vata: number;
+      pitta: number;
+      semha: number;
+      maxPossible: number;
+    };
     reasons: string[];
     citations: TextbookCitation[];
   };
@@ -104,11 +113,12 @@ export const DEMO_SOMSRI_CASE: PatientCase = {
   },
   underlyingDiseases: ['เบาหวานชนิดที่ 2 (Type 2 DM)', 'ไขมันในเลือดสูง (Dyslipidemia)'],
   currentMeds: ['Metformin 500mg', 'Warfarin 3mg', 'Aspirin 81mg'],
-  rawNote: 'คนไข้ท้องอืด แน่นเฟ้อหลังอาหาร เรอเปรี้ยว ร่วมกับปวดตึงคอบ่าสะบักและหลังส่วนล่างมา 4 วัน',
+  rawNote: 'คนไข้ท้องอืด แน่นเฟ้อหลังอาหาร เรอเปรี้ยว ร่วมกับปวดตึงคอบ่าสะบักและหลังส่วนล่างมา 4 วัน ระดับความปวด 7/10',
   extractedSymptoms: {
     chiefComplaint: ['ท้องอืด แน่นเฟ้อ', 'ปวดตึงคอบ่าหลัง'],
     duration: '4 วัน',
     affectedDhatu: ['วาโยธาตุ (กุจฉิสยาวาตา)', 'วาโยธาตุ (อังคมังคานุสารีวาตา)'],
+    painScore: 7,
   },
   prescriptions: [],
 };
@@ -133,11 +143,12 @@ export const DEMO_SOMCHAI_CASE: PatientCase = {
   },
   underlyingDiseases: ['ข้อเข่าเสื่อม (OA Knee)', 'ความดันโลหิตสูง (Hypertension)'],
   currentMeds: ['Amlodipine 5mg 1 tab od pc'],
-  rawNote: 'คนไข้มีอาการปวดขัดข้อเข่าทั้งสองข้างเรื้อรัง นั่งยองไม่ได้ ลุกยืนลำบาก ปวดตึงบั้นเอวและกล้ามเนื้อขา 2 สัปดาห์',
+  rawNote: 'คนไข้มีอาการปวดขัดข้อเข่าทั้งสองข้างเรื้อรัง นั่งยองไม่ได้ ลุกยืนลำบาก ปวดตึงบั้นเอวและกล้ามเนื้อขา 2 สัปดาห์ ระดับความปวด 8/10',
   extractedSymptoms: {
     chiefComplaint: ['ปวดขัดข้อเข่าเรื้อรัง', 'ลุกนั่งลำบาก ปวดตึงกล้ามเนื้อขา'],
     duration: '2 สัปดาห์',
     affectedDhatu: ['วาโยธาตุ (อังคมังคานุสารีวาตา)'],
+    painScore: 8,
   },
   prescriptions: [],
 };

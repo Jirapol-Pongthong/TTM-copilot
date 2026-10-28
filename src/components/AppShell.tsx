@@ -41,6 +41,7 @@ export default function AppShell({
       {/* Left Sidebar */}
       <aside className="w-60 bg-[#123123] text-white flex flex-col justify-between p-5 shrink-0 select-none">
         <div>
+          <h3 className="text-xl font-extrabold text-[#E5C483] tracking-tight">TTM Copilot </h3>
           <div className="mb-7 px-1 cursor-pointer hover:opacity-95 transition" onClick={() => setCurrentStep('S2')}>
           </div>
 
