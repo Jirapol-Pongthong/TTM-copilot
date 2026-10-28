@@ -18,17 +18,12 @@ import {
   RotateCcw,
   Plus,
   CheckCircle2,
-  AlertTriangle,
   Tag,
-  Filter,
   ExternalLink,
   ShieldCheck,
-  Layers,
-  Pill,
   Sparkles,
   X,
   Eye,
-  Info,
 } from 'lucide-react';
 
 export type CategoryFilter =
@@ -74,7 +69,7 @@ export default function KnowledgeArchive() {
   const [newContent, setNewContent] = useState('');
   const [newTags, setNewTags] = useState('สมุฏฐาน, ธาตุพิการ, เวชกรรมไทย');
 
-  // รวมรวมฐานข้อมูลทั้งหมดเข้าด้วยกัน
+  // รวมรวมฐานข้อมูลทั้งหมด 452 รายการเข้าด้วยกันอย่างปลอดภัย
   const allItems = useMemo<UnifiedKnowledgeItem[]>(() => {
     const list: UnifiedKnowledgeItem[] = [];
 
@@ -83,17 +78,17 @@ export default function KnowledgeArchive() {
 
     // 2. Knowledge Chunks (แนวทางปฐมภูมิ 2564 & ตำราหลัก)
     (knowledgeChunksData as any[]).forEach((chunk) => {
-      const isPrimary = chunk.book.includes('ปฐมภูมิ') || chunk.id.includes('ปฐมภูมิ');
+      const isPrimary = (chunk.book || '').includes('ปฐมภูมิ') || (chunk.id || '').includes('ปฐมภูมิ');
       list.push({
-        id: chunk.id,
+        id: chunk.id || `CHUNK_${Math.random()}`,
         category: isPrimary ? 'PRIMARY_CARE' : 'SCRIPTURES',
         categoryLabel: isPrimary ? 'แนวทางปฐมภูมิ 2564' : 'คัมภีร์หลัก 5 เล่ม',
-        book: chunk.book,
-        page: chunk.page,
-        title: chunk.chapter || chunk.id,
+        book: chunk.book || 'แนวทางเวชกรรมไทย',
+        page: chunk.page || 89,
+        title: chunk.chapter || chunk.id || 'เอกสารอ้างอิง',
         subtitle: chunk.category || 'สมุฏฐานวินิจฉัย',
-        content: chunk.content,
-        quote: chunk.content,
+        content: chunk.content || '',
+        quote: chunk.content || '',
         image: chunk.image || (chunk.page ? `/scans/page_${chunk.page}.jpg` : undefined),
         tags: chunk.tags || ['สมุฏฐาน', 'คัมภีร์'],
       });
@@ -105,70 +100,89 @@ export default function KnowledgeArchive() {
         id: `RULE_${rule.id}`,
         category: 'SCRIPTURES',
         categoryLabel: 'ตำราพื้นฐาน เล่ม 1',
-        book: rule.citation?.book || 'ตำราพื้นฐานวิชาชีพการแพทย์แผนไทย เล่ม 1',
-        page: rule.citation?.page || 80,
-        title: `อาการที่ ${rule.id}: ${rule.symptom}`,
-        subtitle: rule.dhatu,
-        content: rule.explanation,
-        quote: `คัมภีร์ ${rule.citation?.book} หน้า ${rule.citation?.page} อธิบายกลไกพยาธิสภาพว่า: "${rule.explanation}"`,
-        image: rule.citation?.image || `/scans/book1_page_${String(rule.citation?.page || 80).padStart(3, '0')}.png`,
-        tags: [rule.dhatu, 'สมุฏฐาน', 'อาการสำคัญ'],
-        dhatu: rule.dhatu,
+        book: rule.book || 'ตำราพื้นฐานวิชาชีพการแพทย์แผนไทย เล่ม 1',
+        page: rule.page || 80,
+        title: `${rule.dimension || 'สมุฏฐาน'}: ${rule.condition || ''}`,
+        subtitle: rule.outputDhatu || 'ธาตุสมุฏฐาน',
+        content: rule.pathologyAndCitation || '',
+        quote: `[${rule.book || 'ตำราพื้นฐานฯ'} หน้า ${rule.page || 80}] ${rule.pathologyAndCitation || ''}`,
+        image: `/scans/page_${rule.page || 80}.jpg`,
+        tags: [rule.dimension, rule.outputDhatu, 'สมุฏฐาน'].filter(Boolean),
+        dhatu: rule.outputDhatu,
       });
     });
 
     // 4. Formulas (100 ตำรับยา & รสยา)
     (formulasData as any[]).forEach((form) => {
+      const formName = form.herbName || form.name || 'ตำรับยา';
+      const indicationText = typeof form.indication === 'string'
+        ? form.indication
+        : Array.isArray(form.indications)
+        ? form.indications.join(', ')
+        : 'ใช้ตามดุลยพินิจของแพทย์แผนไทย';
+      const contraText = typeof form.contraindication === 'string'
+        ? form.contraindication
+        : Array.isArray(form.contraindications)
+        ? form.contraindications.join(', ')
+        : 'ไม่มีข้อห้ามเฉพาะ';
+
       list.push({
         id: `FORMULA_${form.id}`,
         category: 'FORMULAS',
         categoryLabel: 'ตำรับยาแห่งชาติ & รสยา',
         book: form.citation?.book || 'ประกาศกระทรวงสาธารณสุข เรื่อง บัญชียาหลักแห่งชาติ',
         page: form.citation?.page || 'หน้า 127',
-        title: form.name,
-        subtitle: `รสยาประธาน: ${form.rasa} | ธาตุเป้าหมาย: ${form.targetElement}`,
-        content: `สรรพคุณ/ข้อบ่งใช้: ${form.indications.join(', ')}\nข้อห้าม/ข้อควรระวัง: ${
-          form.contraindications?.join(', ') || 'ไม่มีข้อห้ามเฉพาะ'
-        }`,
-        quote: `ตำรับยา ${form.name} (รส ${form.rasa}) ใช้สำหรับบรรเทาอาการในกลุ่มธาตุ ${form.targetElement}`,
-        image: form.citation?.image || '/scans/page_127.jpg',
-        tags: [form.rasa, form.targetElement, 'บัญชียาหลัก'],
+        title: formName,
+        subtitle: `รสยาประธาน: ${form.rasa || '-'} | ธาตุเป้าหมาย: ${form.targetElement || '-'}`,
+        content: `สรรพคุณ/ข้อบ่งใช้: ${indicationText}\nข้อห้าม/ข้อควรระวัง: ${contraText}`,
+        quote: `ตำรับยา ${formName} (รส ${form.rasa || 'สุขุม'}) ใช้สำหรับ: ${indicationText}`,
+        image: form.citation?.page ? `/scans/page_${form.citation.page}.jpg` : '/scans/page_127.jpg',
+        tags: [form.rasa, form.targetElement, form.category, 'บัญชียาหลัก'].filter(Boolean),
         rasa: form.rasa,
       });
     });
 
     // 5. Interactions (105 Herb-Drug Interactions)
     (interactionsData as any[]).forEach((inter, idx) => {
+      const herb = inter.herb || inter.herbName || 'สมุนไพร';
+      const drug = inter.drug || inter.modernDrug || 'ยาแผนปัจจุบัน';
+      const effect = inter.effect || inter.mechanism || 'อาจเกิดปฏิกิริยาระหว่างกัน';
+      const action = inter.action || inter.clinicalAction || 'ติดตามอาการอย่างใกล้ชิด';
+
       list.push({
-        id: `INTERACTION_${idx}`,
+        id: `INTERACTION_${inter.id || idx}`,
         category: 'INTERACTIONS',
         categoryLabel: 'ปฏิกิริยาสมุนไพร-ยาแผนปัจจุบัน',
         book: inter.evidenceSource || 'แนวทางความปลอดภัยด้านสมุนไพร กรมการแพทย์แผนไทยฯ',
         page: 'หน้า 194',
-        title: `${inter.herbName} ⚡ ${inter.modernDrug}`,
-        subtitle: `ระดับความเสี่ยง: ${inter.severity}`,
-        content: `กลไกทางเภสัชวิทยา: ${inter.mechanism}\nคำแนะนำทางคลินิก: ${inter.clinicalAction}`,
-        quote: `การใช้ร่วมกันระหว่าง ${inter.herbName} และ ${inter.modernDrug}: ${inter.clinicalAction}`,
+        title: `${herb} ⚡ ${drug}`,
+        subtitle: `ระดับความเสี่ยง: ${inter.severity || 'WARNING'} (${inter.riskLabel || ''})`,
+        content: `กลไกทางเภสัชวิทยา: ${effect}\nคำแนะนำทางคลินิก: ${action}`,
+        quote: `การใช้ร่วมกันระหว่าง ${herb} และ ${drug}: ${action}`,
         image: '/scans/page_194.jpg',
-        tags: [inter.herbName, inter.modernDrug, inter.severity, 'ความปลอดภัยยา'],
+        tags: [herb, drug, inter.severity, 'ความปลอดภัยยา'].filter(Boolean),
         severity: inter.severity,
       });
     });
 
     // 6. ICD-10-TM & U-Codes (98 รายการ)
     (icd10Data as any[]).forEach((icd, idx) => {
+      const code = icd.ttmCode || icd.code || 'U-Code';
+      const name = icd.ttmName || icd.thaiName || 'การแพทย์แผนไทย';
+      const icd10 = icd.icd10tm ? `${icd.icd10tm} (${icd.icd10Name || ''})` : '';
+
       list.push({
-        id: `ICD_${icd.code}_${idx}`,
+        id: `ICD_${code}_${idx}`,
         category: 'ICD10',
         categoryLabel: 'รหัสโรค ICD-10-TM & U-Codes',
         book: 'คู่มือรหัสมาตรฐานการแพทย์แผนไทย (ICD-10-TM) กรมการแพทย์แผนไทยฯ',
         page: 'หน้า 1',
-        title: `${icd.code}: ${icd.thaiName}`,
-        subtitle: `English: ${icd.englishName || '-'} | หมวด: ${icd.category}`,
-        content: `รหัสมาตรฐานสำหรับการตรวจวินิจฉัยและส่งออกรายงาน 43 แฟ้ม (HDC) สอดคล้องกับพยาธิสภาพ: ${icd.thaiName}`,
-        quote: `รหัส ${icd.code} (${icd.thaiName}) ใช้ลงรหัสการตรวจรักษาเวชกรรมไทยในระบบสารสนเทศโรงพยาบาล (HIS/HOSxP)`,
+        title: `${code}: ${name}`,
+        subtitle: icd10 ? `รหัสแผนปัจจุบันเทียบเคียง: ${icd10}` : 'รหัสมาตรฐานเวชกรรมไทย',
+        content: icd.fullDescription || `รหัสมาตรฐานสำหรับการตรวจวินิจฉัยและส่งออกรายงาน 43 แฟ้ม (HDC) สอดคล้องกับพยาธิสภาพ: ${name}`,
+        quote: `รหัส ${code} (${name}) ใช้ลงรหัสการตรวจรักษาเวชกรรมไทยในระบบสารสนเทศโรงพยาบาล (HIS/HOSxP)`,
         image: '/scans/page_1.jpg',
-        tags: [icd.code, icd.category, 'ICD-10-TM'],
+        tags: [code, icd.icd10tm, 'ICD-10-TM'].filter(Boolean),
       });
     });
 
@@ -213,7 +227,6 @@ export default function KnowledgeArchive() {
     const targetPage = direction === 'next' ? curPage + 1 : curPage - 1;
     if (targetPage < 1) return;
 
-    // หา item ที่มี page นี้ในหนังสือเดียวกัน หรือเปลี่ยน page ชั่วคราว
     const sibling = allItems.find(
       (item) => item.book === selectedItem.book && (item.page === targetPage || String(item.page) === String(targetPage))
     );
@@ -241,7 +254,7 @@ export default function KnowledgeArchive() {
       subtitle: `บันทึกโดย พท.ว. ชำนาญการ · ${newBook}`,
       content: newContent,
       quote: newContent,
-      image: `/scans/book1_page_${String(newPage).padStart(3, '0')}.png`,
+      image: `/scans/page_${newPage}.jpg`,
       tags: tagsArray,
       isCustom: true,
     };
@@ -264,7 +277,7 @@ export default function KnowledgeArchive() {
       <div className="space-y-5">
         {/* Banner แจ้งเตือนความสำเร็จเมื่อเพิ่มตำรา */}
         {showAddSuccess && (
-          <div className="bg-[#1E4635] text-white px-4 py-3 rounded-xl flex items-center justify-between shadow-md border border-[#E5C483]/40 animate-fade-in">
+          <div className="bg-[#1E4635] text-white px-4 py-3 rounded-xl flex items-center justify-between shadow-md border border-[#E5C483]/40">
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#E5C483]" />
               <div>
@@ -391,7 +404,7 @@ export default function KnowledgeArchive() {
               'หน้า 89 ตารางสมุฏฐาน',
               'หน้า 90 มูลเหตุ 8',
               'หน้า 91 กลไกโรค',
-              'ศิโรวาตะ (หน้า 80)',
+              'ศิโรวาตะ',
               'ขมิ้นชัน',
               'ปราบชมพูทวีป',
               'Warfarin',
@@ -493,10 +506,10 @@ export default function KnowledgeArchive() {
 
                     <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-dashed border-gray-200/40 text-[10px]">
                       <span className={isSelected ? 'text-[#E5C483]' : 'text-[#8C9E94]'}>
-                        📖 {item.book}
+                        อ้างอิง: {item.book}
                       </span>
                       <span className="flex items-center gap-1 font-semibold">
-                        <Eye className="w-3 h-3" /> เปิดดู
+            
                       </span>
                     </div>
                   </div>
@@ -584,7 +597,6 @@ export default function KnowledgeArchive() {
                         alt={`Scan ${selectedItem.book} หน้า ${selectedItem.page}`}
                         className="max-w-full h-auto object-contain block mx-auto"
                         onError={(e) => {
-                          // Fallback ถ้าภาพหาไม่เจอ
                           (e.target as HTMLImageElement).src = '/scans/page_12.jpg';
                         }}
                       />
@@ -599,7 +611,6 @@ export default function KnowledgeArchive() {
                     </div>
                   )}
 
-                  {/* ลอยปุ่มเปิดแท็บใหม่ */}
                   {selectedItem.image && (
                     <a
                       href={selectedItem.image}
@@ -682,7 +693,7 @@ export default function KnowledgeArchive() {
       {/* Modal สำหรับ นำเข้า / เพิ่มตำราใหม่ */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#DCE5DF] animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#DCE5DF]">
             <div className="flex items-center justify-between pb-3 border-b border-[#DCE5DF]">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-[#1E4635]" />

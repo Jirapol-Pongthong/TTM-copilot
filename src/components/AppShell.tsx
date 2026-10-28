@@ -6,6 +6,7 @@ import { useCase } from '@/context/CaseContext';
 import { StepId } from '@/types/clinicalCase';
 import { Check, Sparkles } from 'lucide-react';
 
+
 const CLINICAL_STEPS: { stepId: StepId; number: number; label: string }[] = [
   { stepId: 'S4', number: 1, label: 'ซักประวัติ' },
   { stepId: 'S5', number: 2, label: 'วิเคราะห์สมุฏฐาน' },
@@ -40,9 +41,7 @@ export default function AppShell({
       {/* Left Sidebar */}
       <aside className="w-60 bg-[#123123] text-white flex flex-col justify-between p-5 shrink-0 select-none">
         <div>
-          <div className="mb-8 px-2 cursor-pointer" onClick={() => setCurrentStep('S2')}>
-            <h1 className="text-xl font-bold text-[#E5C483] tracking-tight hover:opacity-90 transition">TTM Copilot</h1>
-            <p className="text-xs text-[#9AB3A6] mt-0.5">ผู้ช่วยเวชกรรมไทย CDSS</p>
+          <div className="mb-7 px-1 cursor-pointer hover:opacity-95 transition" onClick={() => setCurrentStep('S2')}>
           </div>
 
           <nav className="space-y-1.5 text-sm">
