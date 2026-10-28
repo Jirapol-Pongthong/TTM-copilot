@@ -271,22 +271,14 @@ export default function KnowledgeArchive() {
   };
 
   return (
-    <AppShell
-      title="ฐานความรู้ตำราและคัมภีร์เวชกรรมไทย (DTAM Knowledge Archive)"
-      subtitle="คลังสืบค้นตำราดิจิทัล ตรวจสอบพยาธิสภาพ คัมภีร์หลัก 5 เล่ม และภาพสแกนต้นฉบับ 99 หน้า"
-    >
-      <div className="space-y-5">
+    <AppShell title="ฐานความรู้ตำราเวชกรรมไทย">
+      <div className="space-y-4">
         {/* Banner แจ้งเตือนความสำเร็จเมื่อเพิ่มตำรา */}
         {showAddSuccess && (
           <div className="bg-[#1E4635] text-white px-4 py-3 rounded-xl flex items-center justify-between shadow-md border border-[#E5C483]/40">
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#E5C483]" />
-              <div>
-                <p className="font-semibold text-sm">เพิ่มข้อมูลเข้าสู่คลังตำราเรียบร้อยแล้ว!</p>
-                <p className="text-xs text-[#B2C5BB]">
-                  ระบบได้บันทึกดัชนีเข้าฐานความรู้ และพร้อมเชื่อมต่อกับระบบ CDSS ทันที
-                </p>
-              </div>
+              <p className="font-semibold text-sm">เพิ่มข้อมูลเข้าสู่คลังตำราเรียบร้อยแล้ว</p>
             </div>
             <button
               onClick={() => setShowAddSuccess(false)}
@@ -297,83 +289,67 @@ export default function KnowledgeArchive() {
           </div>
         )}
 
-        {/* Top Summary Bar & Action Button */}
-        <div className="bg-[#1B3F30] rounded-2xl p-5 text-white shadow-sm border border-[#E5C483]/20 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-[#E5C483]" />
-              <h3 className="font-bold text-lg text-white">หอสมุดคัมภีร์และแนวทางเวชกรรมไทยดิจิทัล</h3>
-              <span className="bg-[#E5C483]/20 text-[#E5C483] text-xs font-semibold px-2.5 py-0.5 rounded-full border border-[#E5C483]/30">
-                100% Deterministic Grounding
-              </span>
-            </div>
-            <p className="text-xs text-[#B2C5BB] mt-1">
-              สืบค้นคัมภีร์เวชศาสตร์ศึกษา, โรคนิทาน, ธาตุบรรจบ, แนวทางเวชกรรมปฐมภูมิ 2564 พร้อมภาพสแกนต้นฉบับ 99 หน้า
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsAddModalOpen(true)}
-              className="px-4 py-2 bg-[#E5C483] text-[#14261D] hover:bg-[#d6b36f] font-bold text-xs rounded-xl flex items-center gap-2 shadow-xs transition cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-              <span>นำเข้า / เพิ่มตำราใหม่</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Category Pills & Quick Filter Bar */}
-        <div className="flex flex-wrap items-center gap-2">
-          {[
-            { id: 'ALL', label: 'ทั้งหมด', count: allItems.length },
-            {
-              id: 'PRIMARY_CARE',
-              label: 'แนวทางปฐมภูมิ 2564 (หน้า 88-91)',
-              count: allItems.filter((i) => i.category === 'PRIMARY_CARE').length,
-            },
-            {
-              id: 'SCRIPTURES',
-              label: 'ตำราพื้นฐาน เล่ม 1 (คัมภีร์หลัก)',
-              count: allItems.filter((i) => i.category === 'SCRIPTURES').length,
-            },
-            {
-              id: 'FORMULAS',
-              label: 'ตำรับยา 100 ตำรับ & รสยา',
-              count: allItems.filter((i) => i.category === 'FORMULAS').length,
-            },
-            {
-              id: 'INTERACTIONS',
-              label: 'ปฏิกิริยาสมุนไพร-ยา 105 ชนิด',
-              count: allItems.filter((i) => i.category === 'INTERACTIONS').length,
-            },
-            {
-              id: 'ICD10',
-              label: 'ICD-10-TM & U-Codes (98 รายการ)',
-              count: allItems.filter((i) => i.category === 'ICD10').length,
-            },
-          ].map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id as CategoryFilter)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === cat.id
-                  ? 'bg-[#1E4635] text-white font-bold shadow-xs ring-1 ring-[#E5C483]/40'
-                  : 'bg-white text-[#5C7065] border border-[#DCE5DF] hover:bg-[#F2F6F3] hover:text-[#14261D]'
-              }`}
-            >
-              <span>{cat.label}</span>
-              <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+        {/* Category Pills & Action Button */}
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              { id: 'ALL', label: 'ทั้งหมด', count: allItems.length },
+              {
+                id: 'PRIMARY_CARE',
+                label: 'แนวทางปฐมภูมิ 2564',
+                count: allItems.filter((i) => i.category === 'PRIMARY_CARE').length,
+              },
+              {
+                id: 'SCRIPTURES',
+                label: 'คัมภีร์เวชกรรมไทย',
+                count: allItems.filter((i) => i.category === 'SCRIPTURES').length,
+              },
+              {
+                id: 'FORMULAS',
+                label: 'ตำรับยา & รสยา',
+                count: allItems.filter((i) => i.category === 'FORMULAS').length,
+              },
+              {
+                id: 'INTERACTIONS',
+                label: 'อันตรกิริยาสมุนไพร-ยา',
+                count: allItems.filter((i) => i.category === 'INTERACTIONS').length,
+              },
+              {
+                id: 'ICD10',
+                label: 'ICD-10-TM',
+                count: allItems.filter((i) => i.category === 'ICD10').length,
+              },
+            ].map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id as CategoryFilter)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer flex items-center gap-1.5 ${
                   activeCategory === cat.id
-                    ? 'bg-[#E5C483] text-[#14261D] font-bold'
-                    : 'bg-[#F2F6F3] text-[#5C7065]'
+                    ? 'bg-[#1E4635] text-white font-bold shadow-xs ring-1 ring-[#E5C483]/40'
+                    : 'bg-white text-[#5C7065] border border-[#DCE5DF] hover:bg-[#F2F6F3] hover:text-[#14261D]'
                 }`}
               >
-                {cat.count}
-              </span>
-            </button>
-          ))}
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    activeCategory === cat.id
+                      ? 'bg-[#E5C483] text-[#14261D] font-bold'
+                      : 'bg-[#F2F6F3] text-[#5C7065]'
+                  }`}
+                >
+                  {cat.count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="px-3.5 py-1.5 bg-[#E5C483] text-[#14261D] hover:bg-[#d6b36f] font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-xs transition cursor-pointer"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>เพิ่มตำรา</span>
+          </button>
         </div>
 
         {/* Search Bar with Quick Tags */}
@@ -384,7 +360,7 @@ export default function KnowledgeArchive() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="ค้นหาตามอาการ, ชื่อคัมภีร์ (โรคนิทาน, ธาตุบรรจบ), รสยา, หรือพิมพ์เลขหน้า เช่น '89', '80', 'วาโยธาตุ'..."
+              placeholder="ค้นหาอาการ, ชื่อคัมภีร์, ตำรับยา, หรือเลขหน้า..."
               className="w-full pl-9 pr-24 py-2 bg-[#F9FBF9] border border-[#DCE5DF] rounded-xl text-sm text-[#14261D] focus:outline-none focus:ring-2 focus:ring-[#1E4635]/30 focus:border-[#1E4635]"
             />
             {searchQuery && (
@@ -399,17 +375,15 @@ export default function KnowledgeArchive() {
 
           <div className="flex flex-wrap items-center gap-1.5 text-xs">
             <span className="text-[#8C9E94] flex items-center gap-1 text-[11px]">
-              <Sparkles className="w-3 h-3 text-[#E5C483]" /> คำค้นยอดนิยม:
+              <Sparkles className="w-3 h-3 text-[#E5C483]" /> คำค้นแนะนำ:
             </span>
             {[
               'หน้า 89 ตารางสมุฏฐาน',
               'หน้า 90 มูลเหตุ 8',
-              'หน้า 91 กลไกโรค',
               'ศิโรวาตะ',
               'ขมิ้นชัน',
               'ปราบชมพูทวีป',
               'Warfarin',
-              'สุมนาวาตะ',
             ].map((kw) => (
               <button
                 key={kw}
@@ -631,10 +605,10 @@ export default function KnowledgeArchive() {
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-bold text-[#14261D] flex items-center gap-1.5">
                         <FileText className="w-3.5 h-3.5 text-[#1E4635]" />
-                        ข้อความถอดความจากต้นฉบับ (Verified Transcription):
+                        ข้อความอ้างอิงจากตำรา:
                       </span>
                       <span className="text-[10px] text-[#28523F] font-semibold bg-[#EAF1EC] px-2 py-0.5 rounded-full flex items-center gap-1">
-                        <ShieldCheck className="w-3 h-3 text-[#1E4635]" /> DTAM Verified
+                        <ShieldCheck className="w-3 h-3 text-[#1E4635]" /> ตรวจสอบแล้ว
                       </span>
                     </div>
                     <div className="bg-white border border-[#DCE5DF] rounded-xl p-3 text-xs text-[#2A3B31] leading-relaxed font-sans">
@@ -725,7 +699,7 @@ export default function KnowledgeArchive() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-[#14261D] mb-1">เลขหน้า (Page No.)</label>
+                  <label className="block font-semibold text-[#14261D] mb-1">เลขหน้า</label>
                   <input
                     type="text"
                     value={newPage}
@@ -743,10 +717,10 @@ export default function KnowledgeArchive() {
                     className="w-full px-3 py-2 bg-[#F9FBF9] border border-[#DCE5DF] rounded-xl text-xs text-[#14261D] focus:outline-none focus:ring-2 focus:ring-[#1E4635]"
                   >
                     <option value="PRIMARY_CARE">แนวทางปฐมภูมิ 2564</option>
-                    <option value="SCRIPTURES">ตำราพื้นฐาน เล่ม 1 (คัมภีร์)</option>
+                    <option value="SCRIPTURES">คัมภีร์เวชกรรมไทย</option>
                     <option value="FORMULAS">ตำรับยา & รสยา</option>
                     <option value="INTERACTIONS">ปฏิกิริยาสมุนไพร-ยา</option>
-                    <option value="ICD10">ICD-10-TM & U-Codes</option>
+                    <option value="ICD10">ICD-10-TM</option>
                   </select>
                 </div>
               </div>
@@ -765,21 +739,21 @@ export default function KnowledgeArchive() {
 
               <div>
                 <label className="block font-semibold text-[#14261D] mb-1">
-                  ข้อความถอดความ / เนื้อหาทางคลินิก (Transcription)
+                  เนื้อหาในตำรา
                 </label>
                 <textarea
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   rows={4}
                   required
-                  placeholder="พิมพ์หรือวางข้อความเนื้อหาในตำราหน้านั้นอย่างละเอียด..."
+                  placeholder="พิมพ์หรือวางเนื้อหาในตำรา..."
                   className="w-full px-3 py-2 bg-[#F9FBF9] border border-[#DCE5DF] rounded-xl text-xs text-[#14261D] focus:outline-none focus:ring-2 focus:ring-[#1E4635]"
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-[#14261D] mb-1">
-                  คีย์เวิร์ด / แท็ก (คั่นด้วยเครื่องหมายจุลภาค ,)
+                  คีย์เวิร์ด / แท็ก
                 </label>
                 <input
                   type="text"

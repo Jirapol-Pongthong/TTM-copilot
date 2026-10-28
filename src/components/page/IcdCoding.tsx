@@ -72,10 +72,10 @@ export default function Step8IcdCoding() {
 
       return {
         id: mapping.id,
-        description: `${mapping.ttmName} (${mapping.icd10Name})`,
+        description: mapping.ttmName,
         ttmCode: mapping.ttmCode,
         icd10tm: mapping.icd10tm,
-        confidence: isMatch ? 'สูง · ระบบแนะนำ' : 'ตัวเลือกเพิ่มเติม',
+        confidence: isMatch ? 'แนะนำ' : 'ตัวเลือก',
         isRecommended: isMatch,
         checked: isMatch,
       };
@@ -122,10 +122,7 @@ export default function Step8IcdCoding() {
   };
 
   return (
-    <AppShell
-      title="ลงรหัสโรค / หัตถการ (ICD-10-TM)"
-      subtitle="ระบบจับคู่รหัสการวินิจฉัยแพทย์แผนไทยกับ ICD-10-TM อัตโนมัติจากฐานข้อมูล Master TTM Clinical Data"
-    >
+    <AppShell title="ลงรหัสโรค / หัตถการ (ICD-10-TM)">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* คอลัมน์ซ้าย (2 ส่วน): ตารางรหัสโรค */}
         <div className="md:col-span-2 bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs">
@@ -137,7 +134,7 @@ export default function Step8IcdCoding() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="ค้นหารหัสโรค (เช่น U55, U57, K30, R50) หรือชื่อโรค/หัตถการ..."
+                placeholder="ค้นหารหัสโรค (เช่น U55, U57, K30) หรือชื่อโรค/หัตถการ..."
                 className="w-full border border-gray-200 rounded-lg pl-9 pr-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#1E4D38]"
               />
             </div>
@@ -149,10 +146,10 @@ export default function Step8IcdCoding() {
           <table className="w-full text-xs text-left">
             <thead className="bg-[#FAF9F5] text-gray-600 font-semibold border-b border-gray-100">
               <tr>
-                <th className="py-3 px-4 w-12 text-center">ยืนยัน</th>
-                <th className="py-3 px-4">รายการ (โรค / อาการ / หัตถการ)</th>
+                <th className="py-3 px-4 w-12 text-center">เลือก</th>
+                <th className="py-3 px-4">รายการ</th>
                 <th className="py-3 px-4">รหัสแผนไทย → ICD-10-TM</th>
-                <th className="py-3 px-4">ความเหมาะสม</th>
+                <th className="py-3 px-4">สถานะ</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -193,7 +190,7 @@ export default function Step8IcdCoding() {
                   <td className="py-3.5 px-4">
                     <span
                       className={`px-2 py-0.5 rounded-full font-bold text-[10px] ${
-                        item.confidence.includes('สูง')
+                        item.isRecommended
                           ? 'bg-[#EAF3EE] text-[#1E4D38]'
                           : 'bg-gray-100 text-gray-500'
                       }`}
@@ -207,27 +204,26 @@ export default function Step8IcdCoding() {
           </table>
         </div>
 
-        {/* คอลัมน์ขวา: คำอธิบายระบบมาตรฐาน ICD-10-TM */}
-        <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs space-y-4 shadow-xs">
-          <div>
-            <h4 className="font-bold text-[#7A5214] mb-1.5 flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#C08A3E]" />
-              ระบบเลือกรหัสอย่างไร?
-            </h4>
-            <p className="text-gray-600 leading-relaxed text-[11px]">
-              ระบบทำการจับคู่อัตโนมัติจากฐานข้อมูล <strong>TTM Clinical Master Mapping</strong>{' '}
-              ร่วมกับคู่มือรหัสสถิติสุขภาพ ICD-10-TM ฉบับปี 2568 โดยใช้ทั้งศัพท์อาการ (CC) และแผนการรักษา
-            </p>
-          </div>
-
-          <div className="bg-[#FAF9F5] p-3.5 rounded-xl border border-gray-100 text-[11px] text-gray-600 space-y-1.5">
-            <p className="font-bold text-[#14261D]">หลักการกำกับดูแลโดยแพทย์ (Human-in-the-loop):</p>
-            <p>
-              • ติ๊กเลือกเฉพาะรหัสที่ตรงกับอาการจริงของผู้ป่วยในมื้อตรวจนี้
-            </p>
-            <p>
-              • รหัสที่แพทย์ยืนยันจะถูกส่งต่อเข้าสู่หน้าสรุปเคส (S9) และพร้อม Export เป็นชุดข้อมูลมาตรฐาน FHIR/HDC ทันที
-            </p>
+        {/* คอลัมน์ขวา: สรุปรหัสที่เลือก */}
+        <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs space-y-3 shadow-xs h-fit">
+          <h4 className="font-bold text-[#14261D] flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-[#1E4D38]" />
+            รหัสที่เลือก ({codesList.filter((c) => c.checked).length} รายการ)
+          </h4>
+          <div className="space-y-1.5">
+            {codesList
+              .filter((c) => c.checked)
+              .map((c) => (
+                <div
+                  key={c.id}
+                  className="bg-[#FAF9F5] p-2.5 rounded-xl border border-gray-100 flex items-center justify-between gap-2"
+                >
+                  <span className="font-medium text-[#14261D] truncate">{c.description}</span>
+                  <span className="font-mono font-bold text-[#1E4D38] shrink-0">
+                    {c.ttmCode} → {c.icd10tm}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </div>
@@ -239,14 +235,14 @@ export default function Step8IcdCoding() {
           onClick={() => setCurrentStep('S7')}
           className="px-4 py-2 border border-gray-300 hover:bg-gray-100 rounded-lg text-xs font-semibold cursor-pointer transition"
         >
-          ← ย้อนกลับไปหน้าตรวจความปลอดภัย
+          ← ย้อนกลับ
         </button>
         <button
           type="button"
           onClick={handleConfirmAndProceed}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
         >
-          ยืนยันรหัสและสรุปเคส (S9) <ArrowRight className="w-3.5 h-3.5" />
+          ยืนยันรหัสและสรุปเคส <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
     </AppShell>

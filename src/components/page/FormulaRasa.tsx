@@ -180,17 +180,14 @@ export default function Step6FormulaRasa() {
   }, [formulaSearch, filterCategory, primaryElement, patientCase]);
 
   return (
-    <AppShell
-      title="เลือกตำรับยา / รสยา"
-      subtitle="ขั้นตอนที่ 6 ตามตำรา: เลือกรสยาและตำรับที่ตรงกับสมุฏฐาน · แพทย์แผนไทยเป็นผู้เลือกและปรับขนาดยาเอง"
-    >
+    <AppShell title="เลือกตำรับยา / รสยา">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* คอลัมน์ซ้าย: การ์ดรสยา 9 รส และคำอธิบายความสัมพันธ์กับสมุฏฐาน */}
+        {/* คอลัมน์ซ้าย: การ์ดรสยา 9 รส */}
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-bold text-xs text-[#14261D]">
-                รสยา 9 รส ที่สัมพันธ์กับสมุฏฐาน
+                รสยา 9 รส
               </h4>
               <span className="text-[10px] bg-[#EAF3EE] text-[#1E4D38] px-2 py-0.5 rounded-full font-bold">
                 {primaryElement === 'ลม'
@@ -226,38 +223,22 @@ export default function Step6FormulaRasa() {
               })}
             </div>
 
-            {/* คำอธิบายชัดเจน: ไฮไลต์ (★) คืออะไร */}
+            {/* คำอธิบายสั้นกระชับ */}
             <div className="mt-4 pt-3 border-t border-gray-100 bg-[#FFFDF9] -mx-2 -mb-2 p-3 rounded-xl border border-[#F3E2BD]">
               <div className="flex items-start gap-2">
                 <Sparkles className="w-4 h-4 text-[#C08A3E] shrink-0 mt-0.5" />
                 <div className="text-[11px] text-[#7A5214] leading-relaxed">
-                  <strong className="block font-bold">★ ที่ Highlight สีทอง คืออะไร?</strong>
-                  คือ <strong>รสยาเป้าหมาย (Target Rasa)</strong> ที่คัมภีร์สรรพคุณเภสัชระบุว่าใช้บำบัด{' '}
-                  <span className="underline font-bold">
-                    {primaryElement === 'ลม'
-                      ? 'วาโยธาตุ (ขับลม คลายกล้ามเนื้อเส้นเอ็น)'
-                      : primaryElement === 'ไฟ'
-                      ? 'เตโชธาตุ (แก้ไข้ ดับพิษร้อน)'
-                      : primaryElement === 'น้ำ'
-                      ? 'อาโปธาตุ (กัดเสมหะ แก้ไอ)'
-                      : 'ปถวีธาตุ (สมานแผล บำรุงเอ็นข้อ)'}
-                  </span>{' '}
-                  ซึ่งเป็นธาตุหลักที่แปรปรวนในเคสนี้
+                  <strong>★ รสยาตรงสมุฏฐาน:</strong>{' '}
+                  {primaryElement === 'ลม'
+                    ? 'วาโยธาตุ (ขับลม คลายเส้น)'
+                    : primaryElement === 'ไฟ'
+                    ? 'เตโชธาตุ (แก้ไข้ ดับพิษร้อน)'
+                    : primaryElement === 'น้ำ'
+                    ? 'อาโปธาตุ (กัดเสมหะ แก้ไอ)'
+                    : 'ปถวีธาตุ (สมานแผล บำรุงข้อ)'}
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* การ์ดทฤษฎีอ้างอิงเภสัชกรรมไทย */}
-          <div className="bg-[#FAF9F5] border border-gray-200 p-4 rounded-2xl text-xs space-y-2">
-            <h4 className="font-bold text-[#14261D] flex items-center gap-1.5">
-              <Info className="w-3.5 h-3.5 text-[#1E4D38]" />
-              หลักเภสัชกรรมไทย (สมุฏฐาน 4 → รสยา)
-            </h4>
-            <p className="text-gray-600 text-[11px] leading-relaxed">
-              &quot;รสยาเป็นหัวใจของการปรุงยาไทย ยารสร้อนขับลม ยารสขมแก้ไข้ ยารสเปรี้ยวแก้เสมหะ&quot;
-              ระบบช่วยคำนวณรสยาที่สอดคล้องกับพยาธิสภาพเพื่อให้แพทย์พิจารณาจ่ายยาได้อย่างแม่นยำ
-            </p>
           </div>
         </div>
 
@@ -266,7 +247,7 @@ export default function Step6FormulaRasa() {
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h4 className="font-bold text-xs text-[#14261D]">
-                ตัวเลือกตำรับยาและหัตถการ (คลิกเพื่อเลือกและตรวจอันตรกิริยา)
+                ตำรับยาและหัตถการ
               </h4>
               <span className="text-[11px] text-gray-400">
                 พบ {filteredFormulas.length} รายการ
@@ -394,7 +375,7 @@ export default function Step6FormulaRasa() {
             {/* ช่องปรับขนาดและวิธีใช้ */}
             <div className="mt-4 pt-3.5 border-t border-gray-100 text-xs">
               <label className="font-bold text-[#14261D] block mb-1">
-                ขนาดและวิธีใช้ (แพทย์แผนไทยปรับแก้ได้ตามดุลยพินิจ)
+                ขนาดและวิธีใช้
               </label>
               <input
                 type="text"
@@ -414,14 +395,14 @@ export default function Step6FormulaRasa() {
           onClick={() => setCurrentStep('S5')}
           className="px-4 py-2 border border-gray-300 hover:bg-gray-100 rounded-lg text-xs font-semibold cursor-pointer transition"
         >
-          ← ย้อนกลับไปหน้าสมุฏฐาน
+          ← ย้อนกลับ
         </button>
         <button
           type="button"
           onClick={handleCheckDrugSafety}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
         >
-          ตรวจความปลอดภัยอันตรกิริยาของยา →
+          ตรวจความปลอดภัยของยา →
         </button>
       </div>
 

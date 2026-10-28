@@ -120,7 +120,7 @@ export const DEMO_SOMSRI_CASE: PatientCase = {
     pulse: 78,
     temp: 36.8,
   },
-  underlyingDiseases: ['เบาหวานชนิดที่ 2 (Type 2 DM)', 'ไขมันในเลือดสูง (Dyslipidemia)'],
+  underlyingDiseases: ['เบาหวานชนิดที่ 2', 'ไขมันในเลือดสูง'],
   currentMeds: ['Metformin 500mg', 'Warfarin 3mg', 'Aspirin 81mg'],
   rawNote: 'คนไข้ท้องอืด แน่นเฟ้อหลังอาหาร เรอเปรี้ยว ร่วมกับปวดตึงคอบ่าสะบักและหลังส่วนล่างมา 4 วัน ระดับความปวด 7/10',
   extractedSymptoms: {
@@ -146,7 +146,7 @@ export const DEMO_SOMCHAI_CASE: PatientCase = {
     humidityPct: 78,
     conditionLabel: 'เมฆมาก ความชื้นสูง',
     precipitationMm: 1.2,
-    locationName: 'นนทบุรี (กรมการแพทย์แผนไทยฯ)',
+    locationName: 'นนทบุรี',
     isLiveApi: false,
   },
   vitals: {
@@ -154,7 +154,7 @@ export const DEMO_SOMCHAI_CASE: PatientCase = {
     pulse: 74,
     temp: 36.6,
   },
-  underlyingDiseases: ['ข้อเข่าเสื่อม (OA Knee)', 'ความดันโลหิตสูง (Hypertension)'],
+  underlyingDiseases: ['ข้อเข่าเสื่อม', 'ความดันโลหิตสูง'],
   currentMeds: ['Amlodipine 5mg 1 tab od pc'],
   rawNote: 'คนไข้มีอาการปวดขัดข้อเข่าทั้งสองข้างเรื้อรัง นั่งยองไม่ได้ ลุกยืนลำบาก ปวดตึงบั้นเอวและกล้ามเนื้อขา 2 สัปดาห์ ระดับความปวด 8/10',
   extractedSymptoms: {

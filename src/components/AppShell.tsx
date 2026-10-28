@@ -6,7 +6,6 @@ import { useCase } from '@/context/CaseContext';
 import { StepId } from '@/types/clinicalCase';
 import { Check, Sparkles } from 'lucide-react';
 
-
 const CLINICAL_STEPS: { stepId: StepId; number: number; label: string }[] = [
   { stepId: 'S4', number: 1, label: 'ซักประวัติ' },
   { stepId: 'S5', number: 2, label: 'วิเคราะห์สมุฏฐาน' },
@@ -24,10 +23,10 @@ export default function AppShell({
   children,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: React.ReactNode;
 }) {
-  const { currentStep, setCurrentStep, patientCase, loadDemoCase } = useCase();
+  const { currentStep, setCurrentStep, patientCase } = useCase();
 
   if (currentStep === 'S1') {
     return <div className="min-h-screen flex">{children}</div>;
@@ -41,8 +40,22 @@ export default function AppShell({
       {/* Left Sidebar */}
       <aside className="w-60 bg-[#123123] text-white flex flex-col justify-between p-5 shrink-0 select-none">
         <div>
-          <h3 className="text-xl font-extrabold text-[#E5C483] tracking-tight">TTM Copilot </h3>
-          <div className="mb-7 px-1 cursor-pointer hover:opacity-95 transition" onClick={() => setCurrentStep('S2')}>
+          {/* Brand Header: GENESIS */}
+          <div
+            onClick={() => setCurrentStep('S2')}
+            className="mb-6 px-1.5 py-1.5 -mx-1.5 rounded-xl cursor-pointer hover:bg-white/5 transition-all duration-200 group flex items-center gap-2.5"
+            title="กลับไปหน้าหลัก (ผู้ป่วยวันนี้)"
+          >
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg font-black tracking-wider bg-gradient-to-r from-[#FFF5DC] via-[#E5C483] to-[#D4A247] bg-clip-text text-transparent font-serif leading-tight">
+                  GENESIS
+                </span>
+              </div>
+              <span className="text-[10px] text-[#8BA497] font-medium tracking-wide">
+                Thai Traditional Medicine
+              </span>
+            </div>
           </div>
 
           <nav className="space-y-1.5 text-sm">
@@ -110,7 +123,7 @@ export default function AppShell({
 
         {/* การ์ดผู้ใช้งานด้านล่าง */}
         <div className="bg-[#1B3F30] rounded-xl p-3.5 text-xs border border-teal-900/40">
-          <p className="font-semibold text-white">พท.ว. ชำนาญการ (ประจำห้องตรวจ)</p>
+          <p className="font-semibold text-white">พท.ว. ชำนาญการ</p>
           <p className="text-[#9AB3A6] mt-0.5">รพ.สต. ปฐมภูมิสาธิต</p>
         </div>
       </aside>
@@ -122,7 +135,7 @@ export default function AppShell({
           <div className="flex items-start justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold text-[#14261D]">{title}</h2>
-              <p className="text-sm text-[#5C7065] mt-0.5">{subtitle}</p>
+              {subtitle && <p className="text-sm text-[#5C7065] mt-0.5">{subtitle}</p>}
             </div>
           </div>
 
@@ -145,7 +158,7 @@ export default function AppShell({
                     ยาประจำ: {patientCase.currentMeds.length > 0 ? patientCase.currentMeds.join(', ') : 'Metformin 500mg, Aspirin 81mg'}
                   </span>
                 </div>
-                <span className="text-[#6E8277] text-[11px] font-medium">เวชระเบียนผู้ป่วยนอก (OPD Case)</span>
+                <span className="text-[#6E8277] text-[11px] font-medium">เวชระเบียนผู้ป่วยนอก</span>
               </div>
 
               {/* 6-Step Clinical Stepper */}

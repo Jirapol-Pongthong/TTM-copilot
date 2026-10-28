@@ -143,6 +143,7 @@ export function checkHerbDrugInteraction(
   const normSelectedHerb = selectedHerbName.toLowerCase();
 
   for (const rule of interactions) {
+    if (!rule.drug || rule.drug.toLowerCase() === 'none') continue;
     // 1. ตรวจสอบว่าสมุนไพรที่เลือกตรงกับกฎนี้หรือไม่
     const herbKeywords = rule.herbKeywords && rule.herbKeywords.length > 0
       ? rule.herbKeywords

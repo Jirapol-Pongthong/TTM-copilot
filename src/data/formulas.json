@@ -6,9 +6,9 @@
     "rasa": "สุขุม เผ็ดร้อน",
     "targetElement": "ลม",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมกุจฉิสยาวาตะ ท้องอืดเฟ้อ ปวดมวนท้อง แก้อุจจาระธาตุพิการ",
+    "indication": "แก้ลมกุจฉิสยาวาตะ ท้องอืดเฟ้อ ปวดมวนท้อง แก้อุจจาระธาตุพิการ / บรรเทาอาการท้องอืด ท้องเฟ้อ ท้องเสีย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ และผู้ที่มีไข้สูง",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ และผู้ที่มีไข้สูง (ห้ามใช้ในผู้ที่มีไข้)\nDrug Interactions: Clopidogrel [SAFE], Simvastatin / Atorvastatin [SAFE], Phenytoin / Carbamazepine [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 12
@@ -21,9 +21,9 @@
     "rasa": "ฝาด กลิ่นหอม",
     "targetElement": "ดิน",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการจุกเสียด แน่นเฟ้อ สมานแผลในกระเพาะอาหาร",
+    "indication": "บรรเทาอาการจุกเสียด แน่นเฟ้อ สมานแผลในกระเพาะอาหาร / บรรเทาอาการท้องอืด ท้องเฟ้อ โรคกระเพาะ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยท่อน้ำดีอุดตัน ระวังใช้ร่วมกับยาต้านการแข็งตัวของเลือด",
+    "contraindication": "ห้ามใช้ในผู้ป่วยท่อน้ำดีอุดตัน ระวังใช้ร่วมกับยาต้านการแข็งตัวของเลือด (ระวังในผู้ป่วยท่อน้ำดีอุดตัน)\nDrug Interactions: Aspirin 81 mg [SAFE], Metformin [SAFE], Enalapril / Perindopril [SAFE], Rosuvastatin(>2000 mg/day) [WARNING], Ibuprofen / Naproxen [SAFE], Omeprazole / Pantoprazole / Esomeprazole (PPIs) [SAFE], Pembrolizumab / Nivolumab (Immune Checkpoint Inhibitors) [WARNING], Ketoconazole / Itraconazole [SAFE], Warfarin [CRITICAL], Clopidogrel [WARNING], Omeprazole [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย",
       "page": 20
@@ -38,7 +38,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดกล้ามเนื้อ ลดอักเสบ ปวดเมื่อยตามร่างกาย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังแผลในกระเพาะอาหาร ตีกับยากลุ่ม NSAIDs/Aspirin",
+    "contraindication": "ระวังแผลในกระเพาะอาหาร ตีกับยากลุ่ม NSAIDs/Aspirin\nDrug Interactions: Ibuprofen / Naproxen / Diclofenac [CRITICAL], Celecoxib / Etoricoxib [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 33
@@ -51,9 +51,9 @@
     "rasa": "สุขุม หอมเย็น",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน หน้ามืด คลื่นไส้ ลมพัดขึ้นเบื้องสูง",
+    "indication": "แก้ลมวิงเวียน หน้ามืด คลื่นไส้ ลมพัดขึ้นเบื้องสูง / แก้ลมวิงเวียน แก้หน้ามืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยา Antiplatelet/Anticoagulant",
+    "contraindication": "ระวังการใช้ร่วมกับยา Antiplatelet/Anticoagulant (ระวังในผู้ป่วยที่แพ้เกสรดอกไม้)\nDrug Interactions: Empagliflozin / Dapagliflozin [SAFE], Diazepam / Lorazepam [SAFE], Lithium Carbonate [SAFE], Nadolol [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 45
@@ -66,9 +66,9 @@
     "rasa": "ขมจัด",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการไข้ หวัด เจ็บคอ (แก้ปิตตะกำเริบ)",
+    "indication": "บรรเทาอาการไข้ หวัด เจ็บคอ (แก้ปิตตะกำเริบ) / บรรเทาอาการไข้หวัด เจ็บคอ ท้องเสีย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์/ให้นมบุตร และผู้ที่มีประวัติแพ้",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์/ให้นมบุตร และผู้ที่มีประวัติแพ้ (ห้ามใช้ในหญิงตั้งครรภ์ ให้นมบุตร)\nDrug Interactions: Rivaroxaban / Apixaban (DOACs) [WARNING], Glibenclamide / Glipizide [WARNING], Methotrexate [WARNING], Ritonavir / Lopinavir / Efavirenz (Antiretrovirals) [WARNING], Warfarin [CRITICAL], Aspirin [WARNING], Antihypertensives [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 8
@@ -81,9 +81,9 @@
     "rasa": "ขม เย็น",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการไข้ตัวร้อน ไข้เปลี่ยนฤดู ลดปิตตะธาตุ",
+    "indication": "บรรเทาอาการไข้ตัวร้อน ไข้เปลี่ยนฤดู ลดปิตตะธาตุ / แก้ไข้ตัวร้อน ไข้เปลี่ยนฤดู",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่สงสัยว่าเป็นไข้เลือดออก หรือมีภาวะตับบกพร่องรุนแรง",
+    "contraindication": "ห้ามใช้ในผู้ที่สงสัยว่าเป็นไข้เลือดออก หรือมีภาวะตับบกพร่องรุนแรง (ระวังในผู้ป่วยที่สงสัยว่าเป็นไข้เลือดออก)\nDrug Interactions: Rivaroxaban / Apixaban [SAFE], Glibenclamide / Glipizide [SAFE], Methotrexate [SAFE], Ritonavir / Lopinavir [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 15
@@ -98,7 +98,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ระบายถ่ายพิษเสมหะ ปปรับสมดุลธาตุน้ำและลม เสมหะค้างคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ในผู้ป่วยที่มีภาวะท้องเสียรุนแรง หรือเสี่ยงต่อภาวะขาดน้ำ",
+    "contraindication": "ระวังการใช้ในผู้ป่วยที่มีภาวะท้องเสียรุนแรง หรือเสี่ยงต่อภาวะขาดน้ำ\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย",
       "page": 40
@@ -111,9 +111,9 @@
     "rasa": "เผ็ดร้อน",
     "targetElement": "ลม",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการหวัดคัดจมูกเนื่องจากแพ้อากาศ แก้ลมกษัยปราบ",
+    "indication": "บรรเทาอาการหวัดคัดจมูกเนื่องจากแพ้อากาศ แก้ลมกษัยปราบ / บรรเทาอาการหวัด คัดจมูก แพ้อากาศ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ตัวร้อนจัด หญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ตัวร้อนจัด หญิงตั้งครรภ์ (ห้ามใช้ในผู้ป่วยไข้สูง หญิงตั้งครรภ์)\nDrug Interactions: Propranolol / Bisoprolol / Atenolol [CRITICAL], Salbutamol Inhaler / Formoterol [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 52
@@ -128,7 +128,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ท้องอืด ท้องเฟ้อ จุกเสียด แก้ลมจุกแน่นในเด็กและผู้ใหญ่",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ตัวร้อน ระวังแผลในทางเดินอาหาร",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ตัวร้อน ระวังแผลในทางเดินอาหาร\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 28
@@ -143,7 +143,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมวิงเวียน บำรุงหัวใจ แก้หน้ามืดตาลาย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยาที่มีผลต่อระบบประสาทศูนย์กลาง",
+    "contraindication": "ระวังการใช้ร่วมกับยาที่มีผลต่อระบบประสาทศูนย์กลาง (ระวังในผู้ป่วยที่แพ้เกสรดอกไม้)\nDrug Interactions: Amlodipine / Nifedipine [SAFE], Diazepam / Lorazepam [SAFE], Phenelzine [SAFE], Levothyroxine [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 42
@@ -158,7 +158,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ปวดประจำเดือน ขับน้ำคาวปลา ปปรับสมดุลโลหิตสตรี",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ และผู้ที่มีไข้สูง",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ และผู้ที่มีไข้สูง\nDrug Interactions: Fluoxetine / Sertraline [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 18
@@ -173,7 +173,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "คลายกล้ามเนื้อ ลดปวด บวม อักเสบ เพิ่มการไหลเวียนโลหิต",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการประคบบริเวณที่มีแผลเปิด หรือบริเวณผิวหนังอักเสบรุนแรง",
+    "contraindication": "ระวังการประคบบริเวณที่มีแผลเปิด หรือบริเวณผิวหนังอักเสบรุนแรง\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย",
       "page": 60
@@ -188,7 +188,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "ขับเหงื่อ กระตุ้นการไหลเวียนโลหิต บรรเทาอาการหวัด ปวดเมื่อย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ความดันโลหิตสูงรุนแรง โรคหัวใจรุนแรง",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง ความดันโลหิตสูงรุนแรง โรคหัวใจรุนแรง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย",
       "page": 65
@@ -203,7 +203,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "ลดปวด อักเสบ บวม ฟกช้ำ กล้ามเนื้อยอก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกบริเวณแผลเปิด หรือผิวหนังเป็นผื่นแพ้",
+    "contraindication": "ห้ามพอกบริเวณแผลเปิด หรือผิวหนังเป็นผื่นแพ้\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย",
       "page": 68
@@ -216,9 +216,9 @@
     "rasa": "หอมเย็น",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "ดับพิษไข้ แก้ไข้ตัวร้อน แก้ร้อนในกระศาษ",
+    "indication": "ดับพิษไข้ แก้ไข้ตัวร้อน แก้ร้อนในกระศาษ / บรรเทาอาการไข้ ร้อนใน กระหายน้ำ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีอาการหนาวสั่นเนื่องจากไข้ลม",
+    "contraindication": "ห้ามใช้ในผู้ที่มีอาการหนาวสั่นเนื่องจากไข้ลม (ไม่มีข้อห้ามใช้ที่ชัดเจน)\nDrug Interactions: Sitagliptin / Linagliptin [SAFE], Atorvastatin [SAFE], Paracetamol [SAFE], Antacids [SAFE], Pembrolizumab / Nivolumab [SAFE], Rifampicin / Ciprofloxacin [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 10
@@ -231,9 +231,9 @@
     "rasa": "หอมเย็น สุขุม",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน เวียนศีรษะ หน้ามืด สลบแน่น",
+    "indication": "แก้ลมวิงเวียน เวียนศีรษะ หน้ามืด สลบแน่น / แก้ลมวิงเวียน อ่อนเพลีย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยาขับปัสสาวะและยาความดัน",
+    "contraindication": "ระวังการใช้ร่วมกับยาขับปัสสาวะและยาความดัน (ระวังในผู้ป่วยที่แพ้เกสรดอกไม้)\nDrug Interactions: Diltiazem / Verapamil [SAFE], Propranolol / Bisoprolol [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 44
@@ -248,7 +248,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้อุจจาระธาตุพิการ ท้องเสียชนิดไม่ติดเชื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยที่มีไข้สูง ถ่ายเป็นมูกเลือด",
+    "contraindication": "ห้ามใช้ในผู้ป่วยที่มีไข้สูง ถ่ายเป็นมูกเลือด\nDrug Interactions: Omeprazole / Pantoprazole [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 22
@@ -261,9 +261,9 @@
     "rasa": "ฝาด สุขุม",
     "targetElement": "ลม",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ท้องเสีย ถ่ายเหลว บิดมูกเลือดระยะแรก",
+    "indication": "แก้ท้องเสีย ถ่ายเหลว บิดมูกเลือดระยะแรก / บรรเทาอาการท้องเสียชนิดที่ไม่ติดเชื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยที่มีภาวะลำไส้อุดตัน",
+    "contraindication": "ห้ามใช้ในผู้ป่วยที่มีภาวะลำไส้อุดตัน (ห้ามใช้ในผู้ป่วยท้องเสียที่มีไข้ หรือถ่ายเป็นเลือด)\nDrug Interactions: Rosuvastatin [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 25
@@ -278,7 +278,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมบิดมูกเลือด แก้ท้องอืด ปวดมวนท้อง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: Losartan / Valsartan [SAFE], Valproic Acid [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 14
@@ -293,7 +293,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมกษัย ลมในลำไส้ จุกเสียด แน่นหน้าอก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง หรือสตรีตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง หรือสตรีตั้งครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ สมุนไพร 2566",
       "page": 30
@@ -306,9 +306,9 @@
     "rasa": "หอม หวาน สุขุม",
     "targetElement": "ลม",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บำรุงธาตุ บำรุงโลหิต แก้เวียนศีรษะ อ่อนเพลีย",
+    "indication": "บำรุงธาตุ บำรุงโลหิต แก้เวียนศีรษะ อ่อนเพลีย / บำรุงเลือด แก้เบื่ออาหาร อ่อนเพลีย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยเบาหวาน",
+    "contraindication": "ระวังในผู้ป่วยเบาหวาน (ห้ามใช้ในผู้ที่มีไข้สูง)\nDrug Interactions: Sildenafil [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -323,7 +323,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ระบายเสมหะ คลายเมือกคั่งค้างในลำคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยขาดน้ำ",
+    "contraindication": "ห้ามใช้ในผู้ป่วยขาดน้ำ\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -338,7 +338,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไอ ขับเสมหะ บรรเทาอาการคันคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังแผลในกระเพาะอาหาร",
+    "contraindication": "ระวังแผลในกระเพาะอาหาร\nDrug Interactions: Salbutamol Inhaler [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -353,7 +353,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการไอเรื้อรัง ขับเสมหะเหนียวข้น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ติดกันเกิน 2 สัปดาห์",
+    "contraindication": "ระวังการใช้ติดกันเกิน 2 สัปดาห์\nDrug Interactions: Theophylline [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -368,7 +368,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไข้ตัวร้อนช่วงมีประจำเดือน ปรับสมดุลเลือด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก",
+    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -383,7 +383,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ปวดท้องเกร็ง ท้องขึ้น จุกเสียด ลมอั้น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์/ไข้สูง",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์/ไข้สูง\nDrug Interactions: Domperidone / Metoclopramide [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -398,7 +398,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไข้ความร้อน ดับพิษไข้ แก้ร้อนใน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้หวัดลมหนาว",
+    "contraindication": "ห้ามใช้ในผู้ป่วยไข้หวัดลมหนาว\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -413,7 +413,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ระบายท้อง ขับลมกษัยปวดเมื่อยเส้นเอ็น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์/โรคไต",
+    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์/โรคไต\nDrug Interactions: Digoxin [CRITICAL], Hydrochlorothiazide (HCTZ) / Furosemide [CRITICAL], Allopurinol / Febuxostat [WARNING], Diuretics [WARNING], Warfarin [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -428,7 +428,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมจุกเสียด คลื่นไส้ แน่นหน้าอก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีแผลทางเดินอาหาร",
+    "contraindication": "ห้ามใช้ในผู้มีแผลทางเดินอาหาร\nDrug Interactions: Clopidogrel [SAFE], Simvastatin / Atorvastatin [SAFE], Phenytoin / Carbamazepine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -443,7 +443,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บำรุงธาตุทั้ง 4 ปรับสมดุลไฟย่อยอาหาร",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์/ไข้สูง",
+    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์/ไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -458,7 +458,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "ลดอักเสบ คลายเอ็นกล้ามเนื้อ กระตุ้นเลือดลม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้กับแผลเปิดสด",
+    "contraindication": "ห้ามใช้กับแผลเปิดสด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -473,7 +473,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ขับลมในกระเพาะ แก้จุกแน่น แก้ปวดท้องเกร็ง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีแผลกระเพาะ/ไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้มีแผลกระเพาะ/ไข้สูง\nDrug Interactions: Domperidone / Metoclopramide [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -488,7 +488,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมกุจฉิสยาวาตะ ลมดันอุทร ท้องอืดรุนแรง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: Clopidogrel [SAFE], Simvastatin / Atorvastatin [SAFE], Phenytoin / Carbamazepine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -503,7 +503,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ปรับสมดุลธาตุทั้ง 4 บำรุงไฟธาตุย่อยอาหาร",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีไข้สูง/มีครรภ์",
+    "contraindication": "ห้ามใช้ในผู้มีไข้สูง/มีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -518,7 +518,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ล้างพิษเสมหะ ล้างลำไส้ ปรับสมดุลธาตุ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ป่วยท้องเสียง่าย",
+    "contraindication": "ระวังผู้ป่วยท้องเสียง่าย\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -533,7 +533,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการไอ ขับเสมหะ ช่วยให้ชุ่มคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ป่วยเบาหวาน",
+    "contraindication": "ระวังผู้ป่วยเบาหวาน\nDrug Interactions: Fenofibrate / Ezetimibe [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -548,7 +548,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไอ แก้ขับเสมหะเหนียวค้างคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ติดกันนานเกิน 14 วัน",
+    "contraindication": "ห้ามใช้ติดกันนานเกิน 14 วัน\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -561,9 +561,9 @@
     "rasa": "หอมเย็น สุขุม",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน คลื่นเหียน ถอนหายใจบ่อย",
+    "indication": "แก้ลมวิงเวียน คลื่นเหียน ถอนหายใจบ่อย / แก้ลมวิงเวียน คลื่นไส้ อาเจียน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยาความดัน",
+    "contraindication": "ระวังการใช้ร่วมกับยาความดัน (ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด)\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -578,7 +578,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมกษัย ลมในเอ็น กล้ามเนื้ออ่อนแรง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีตั้งครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -593,7 +593,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมจุกแน่น ถ่ายลมไม่สะดวก จุกคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -608,7 +608,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ลดอาการคัน ผื่นคัน ผิวหนังอักเสบ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามทาบริเวณตาและแผลเปิด",
+    "contraindication": "ห้ามทาบริเวณตาและแผลเปิด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -623,7 +623,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ถูนวดบรรเทาปวดเมื่อย เคล็ดขัดยอก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามทาบริเวณผิวหนังถลอก",
+    "contraindication": "ห้ามทาบริเวณผิวหนังถลอก\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -638,7 +638,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "ลดบวม ปวดขัดข้อเข่า ข้อเข่าเสื่อม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกบริเวณผิวหนังมีแผล",
+    "contraindication": "ห้ามพอกบริเวณผิวหนังมีแผล\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -653,7 +653,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "คลายเส้นอัมพฤกษ์ ชาปลายมือปลายเท้า",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังแผลกดทับในผู้ป่วยเบาหวาน",
+    "contraindication": "ระวังแผลกดทับในผู้ป่วยเบาหวาน\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -668,7 +668,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "กวาดคอเด็กแก้เสมหะค้าง แก้เจ็บคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ต้องทำโดยผู้ประกอบวิชาชีพ",
+    "contraindication": "ต้องทำโดยผู้ประกอบวิชาชีพ\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -679,11 +679,11 @@
     "herbName": "ยาแก้กษัยจุกแน่น",
     "shortKey": "แก้กษัยจุกแน่น",
     "rasa": "เผ็ดร้อน ระบาย",
-    "targetElement": "ลม",
+    "targetElement": "น้ำ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมจุกเสียด ลมอั้นในท้อง ท้องผูก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -698,7 +698,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดท้องประจำเดือน ขับลม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: Fluoxetine / Sertraline [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -713,7 +713,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ช่วยย่อยอาหาร แก้ท้องอืดเฟ้อเรื้อรัง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีแผลกระเพาะอาหาร",
+    "contraindication": "ห้ามใช้ในผู้มีแผลกระเพาะอาหาร\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -728,7 +728,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "แก้วิงเวียน แก้น่ามืด คลายเครียด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังเยื่อบุจมูกอักเสบ",
+    "contraindication": "ระวังเยื่อบุจมูกอักเสบ\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -743,7 +743,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "อมบรรเทาอาการไอ คันคอ ชุ่มคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้มีแผลในปาก",
+    "contraindication": "ระวังผู้มีแผลในปาก\nDrug Interactions: Salbutamol Inhaler [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -758,7 +758,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ถอนพิษไข้ แก้ไข้ตัวร้อนในเด็ก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในเด็กที่มีอาการหนาวสั่น",
+    "contraindication": "ห้ามใช้ในเด็กที่มีอาการหนาวสั่น\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -773,7 +773,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ปรับสมดุลธาตุลมและไฟ บำรุงธาตุย่อย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้มีไข้สูง\nDrug Interactions: Salbutamol Inhaler [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -788,7 +788,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "กระตุ้นการทำงานของกระเพาะอาหารและลำไส้",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -803,7 +803,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไอเรื้อรัง ไอเสมหะค้างคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังระคายเคืองกระเพาะอาหาร",
+    "contraindication": "ระวังระคายเคืองกระเพาะอาหาร\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -818,7 +818,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ระบายน้ำเหลืองและเสียของเสียในเลือด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยขาดน้ำ",
+    "contraindication": "ห้ามใช้ในผู้ป่วยขาดน้ำ\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -833,7 +833,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมจุกแน่น แก้วิงเวียน หน้ามืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยาความดัน",
+    "contraindication": "ระวังการใช้ร่วมกับยาความดัน\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -848,7 +848,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ปวดตึงเส้นเอ็น ปวดบั้นเอวเรื้อรัง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -863,7 +863,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดประจำเดือน ขับลม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: Fluoxetine / Sertraline [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -878,7 +878,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมท้องขึ้น ท้องอืด ท้องเฟ้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: Clopidogrel [SAFE], Simvastatin / Atorvastatin [SAFE], Phenytoin / Carbamazepine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -893,7 +893,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการท้องเสียชนิดไม่ติดเชื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยถ่ายมูกเลือด",
+    "contraindication": "ห้ามใช้ในผู้ป่วยถ่ายมูกเลือด\nDrug Interactions: Omeprazole / Pantoprazole [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -908,7 +908,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการจุกเสียด ท้องอืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในท่อน้ำดีอุดตัน",
+    "contraindication": "ห้ามใช้ในท่อน้ำดีอุดตัน\nDrug Interactions: Aspirin 81 mg [SAFE], Metformin [SAFE], Enalapril / Perindopril [SAFE], Rosuvastatin(>2000 mg/day) [WARNING], Ibuprofen / Naproxen [SAFE], Omeprazole / Pantoprazole / Esomeprazole (PPIs) [SAFE], Pembrolizumab / Nivolumab (Immune Checkpoint Inhibitors) [WARNING], Ketoconazole / Itraconazole [SAFE], Warfarin [CRITICAL], Clopidogrel [WARNING], Omeprazole [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -923,7 +923,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการหวัด เจ็บคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์/ให้นมบุตร",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์/ให้นมบุตร\nDrug Interactions: Rivaroxaban / Apixaban (DOACs) [WARNING], Glibenclamide / Glipizide [WARNING], Methotrexate [WARNING], Ritonavir / Lopinavir / Efavirenz (Antiretrovirals) [WARNING], Warfarin [CRITICAL], Aspirin [WARNING], Antihypertensives [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -938,7 +938,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการไข้ตัวร้อน ไข้เปลี่ยนฤดู",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก",
+    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก\nDrug Interactions: Rivaroxaban / Apixaban [SAFE], Glibenclamide / Glipizide [SAFE], Methotrexate [SAFE], Ritonavir / Lopinavir [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -953,7 +953,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้วิงเวียน ลมพัดขึ้นเบื้องสูง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ใช้ยาต้านการแข็งตัวของเลือด",
+    "contraindication": "ระวังผู้ใช้ยาต้านการแข็งตัวของเลือด\nDrug Interactions: Empagliflozin / Dapagliflozin [SAFE], Diazepam / Lorazepam [SAFE], Lithium Carbonate [SAFE], Nadolol [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -968,7 +968,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บำรุงหัวใจ แก้วิงเวียน หน้ามืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังใช้ร่วมกับยากดประสาท",
+    "contraindication": "ระวังใช้ร่วมกับยากดประสาท\nDrug Interactions: Amlodipine / Nifedipine [SAFE], Diazepam / Lorazepam [SAFE], Phenelzine [SAFE], Levothyroxine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -983,7 +983,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ดับพิษไข้ แก้ร้อนใน ดับพิษร้อน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ไข้หนาวสั่น",
+    "contraindication": "ห้ามใช้ในผู้ไข้หนาวสั่น\nDrug Interactions: Sitagliptin / Linagliptin [SAFE], Atorvastatin [SAFE], Paracetamol [SAFE], Antacids [SAFE], Pembrolizumab / Nivolumab [SAFE], Rifampicin / Ciprofloxacin [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -998,7 +998,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "นวดประคบคลายกล้ามเนื้อ ปวดเมื่อย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังแผลเปิด",
+    "contraindication": "ระวังแผลเปิด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1013,7 +1013,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "พอกลดปวด อักเสบ บวม ฟกช้ำ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกบริเวณแผลเปิด",
+    "contraindication": "ห้ามพอกบริเวณแผลเปิด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1028,7 +1028,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "พอกข้อเข่าลดปวดบวม ข้อเสื่อม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกบริเวณแผล",
+    "contraindication": "ห้ามพอกบริเวณแผล\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1043,7 +1043,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "อบตัวกระตุ้นการไหลเวียน เลือดลมเดินสะดวก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1058,7 +1058,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "แช่เท้าคลายตึงเส้นเอ็น ชาปลายเท้า",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ป่วยเบาหวาน",
+    "contraindication": "ระวังผู้ป่วยเบาหวาน\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1073,7 +1073,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "กวาดคอบบรรเทาเสมหะค้างคอในเด็ก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ต้องกวาดโดยผู้เชี่ยวชาญ",
+    "contraindication": "ต้องกวาดโดยผู้เชี่ยวชาญ\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1088,7 +1088,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไอจากลมและเสมหะ บำรุงธาตุ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1103,7 +1103,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้อาการท้องอืด ปวดท้องมวน จุกแน่น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: Clopidogrel [SAFE], Simvastatin / Atorvastatin [SAFE], Phenytoin / Carbamazepine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1118,7 +1118,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ล้างพิษเสมหะ ปรับสมดุลระบบขับถ่าย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังท้องเสีย",
+    "contraindication": "ระวังท้องเสีย\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1133,7 +1133,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมวิงเวียน สลบแน่น หน้ามืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ใช้ยาขับปัสสาวะ",
+    "contraindication": "ระวังผู้ใช้ยาขับปัสสาวะ\nDrug Interactions: Diltiazem / Verapamil [SAFE], Propranolol / Bisoprolol [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1148,7 +1148,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ท้องอืด ท้องเฟ้อ จุกเสียด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้มีไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้มีไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1163,7 +1163,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดกล้ามเนื้อ ปวดข้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังแผลในกระเพาะ",
+    "contraindication": "ระวังแผลในกระเพาะ\nDrug Interactions: Ibuprofen / Naproxen / Diclofenac [CRITICAL], Celecoxib / Etoricoxib [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1178,7 +1178,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บำรุงธาตุย่อยอาหาร ปรับสมดุลร่างกาย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1193,7 +1193,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ช่วยขับถ่าย ระบายเสมหะ ล้างพิษลำไส้",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังภาวะขาดน้ำ",
+    "contraindication": "ระวังภาวะขาดน้ำ\nDrug Interactions: Insulin Injection [WARNING], Digoxin [SAFE], Furosemide [SAFE], Allopurinol / Febuxostat [SAFE], Lithium Carbonate [WARNING], Tamoxifen [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1208,7 +1208,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ถูนวดลดอาการปวดตึงกล้ามเนื้อลึก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามทาแผลเปิด",
+    "contraindication": "ห้ามทาแผลเปิด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1223,7 +1223,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "พอกผิวลดการอักเสบ สมานแผลผื่น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกแผลติดเชื้อรุนแรง",
+    "contraindication": "ห้ามพอกแผลติดเชื้อรุนแรง\nDrug Interactions: Aspirin 81 mg [SAFE], Metformin [SAFE], Enalapril / Perindopril [SAFE], Rosuvastatin(>2000 mg/day) [WARNING], Ibuprofen / Naproxen [SAFE], Omeprazole / Pantoprazole / Esomeprazole (PPIs) [SAFE], Pembrolizumab / Nivolumab (Immune Checkpoint Inhibitors) [WARNING], Ketoconazole / Itraconazole [SAFE], Warfarin [CRITICAL], Clopidogrel [WARNING], Omeprazole [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1238,7 +1238,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการเจ็บคอ ชุ่มคอ ขับเสมหะ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ป่วยเบาหวาน",
+    "contraindication": "ระวังผู้ป่วยเบาหวาน\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1253,7 +1253,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "แก้วิงเวียน คลื่นไส้ สดชื่น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้แพ้เปราะหอม",
+    "contraindication": "ระวังผู้แพ้เปราะหอม\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1268,7 +1268,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "อาบกระตุ้นเลือดลม ขับน้ำคาวปลา",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1283,7 +1283,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "พอกท้องขับลม แน่นท้อง ท้องอืด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกบริเวณผิวอักเสบ",
+    "contraindication": "ห้ามพอกบริเวณผิวอักเสบ\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1298,7 +1298,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "แช่มือคลายเอ็นฝ่ามือ นิ้วล็อค",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังความร้อนสูงเกิน",
+    "contraindication": "ระวังความร้อนสูงเกิน\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1313,7 +1313,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "นวดแก้อัมพฤกษ์ คลายเส้นเอ็น",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามทาแผลเปิด",
+    "contraindication": "ห้ามทาแผลเปิด\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1328,7 +1328,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "กวาดคอบบรรเทาอาการไอ เสมหะเหนียว",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ต้องกระทำโดยผู้เชี่ยวชาญ",
+    "contraindication": "ต้องกระทำโดยผู้เชี่ยวชาญ\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1343,7 +1343,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดหลัง บั้นเอว สลักเพชร",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1358,7 +1358,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "อบคลายเครียด แก้วิงเวียน คลายกล้ามเนื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1373,7 +1373,7 @@
     "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
     "indication": "ลดบวมข้อเข่าอักเสบ ข้อร้อน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามพอกแผลเปิด",
+    "contraindication": "ห้ามพอกแผลเปิด\nDrug Interactions: Colchicine [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1388,7 +1388,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ขับน้ำคาวปลา แก้ปวดประจำเดือน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: Fluoxetine / Sertraline [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1403,7 +1403,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมบิดมูกเลือด ปวดมวนท้อง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: Losartan / Valsartan [SAFE], Valproic Acid [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1418,7 +1418,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ลมวิงเวียน สลบแน่น คลื่นไส้",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังผู้ใช้ยาต้านเกล็ดเลือด",
+    "contraindication": "ระวังผู้ใช้ยาต้านเกล็ดเลือด\nDrug Interactions: Empagliflozin / Dapagliflozin [SAFE], Diazepam / Lorazepam [SAFE], Lithium Carbonate [SAFE], Nadolol [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1433,7 +1433,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไข้ เจ็บคอ แก้ปิตตะกำเริบ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในสตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์\nDrug Interactions: Rivaroxaban / Apixaban (DOACs) [WARNING], Glibenclamide / Glipizide [WARNING], Methotrexate [WARNING], Ritonavir / Lopinavir / Efavirenz (Antiretrovirals) [WARNING], Warfarin [CRITICAL], Aspirin [WARNING], Antihypertensives [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1448,7 +1448,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไข้เปลี่ยนฤดู ไข้ตัวร้อน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก",
+    "contraindication": "ห้ามใช้ในผู้สงสัยไข้เลือดออก\nDrug Interactions: Rivaroxaban / Apixaban [SAFE], Glibenclamide / Glipizide [SAFE], Methotrexate [SAFE], Ritonavir / Lopinavir [SAFE]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1463,7 +1463,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ปวดท้องเกร็ง จุกเสียด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์\nDrug Interactions: Domperidone / Metoclopramide [WARNING]",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1478,7 +1478,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บำรุงธาตุย่อยอาหาร แก้อ่อนเพลีย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1493,7 +1493,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ระบายแก้มือบวมเท้าบวม ขับลมกษัย",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในโรคไต/สตรีมีครรภ์",
+    "contraindication": "ห้ามใช้ในโรคไต/สตรีมีครรภ์\nDrug Interactions: None",
     "citation": {
       "book": "คู่มือเวชปฏิบัติปฐมภูมิแผนไทย / บัญชียาหลักแห่งชาติ 2566",
       "page": 1
@@ -1508,7 +1508,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการไอ ขับเสมหะ ทำให้ชุ่มคอ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่แพ้ส่วนประกอบ หญิงตั้งครรภ์ควรระวัง",
+    "contraindication": "ห้ามใช้ในผู้ที่แพ้ส่วนประกอบ หญิงตั้งครรภ์ควรระวัง\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
@@ -1523,7 +1523,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดท้อง จุกเสียด แน่นเฟ้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยแผลในกระเพาะอาหาร",
+    "contraindication": "ระวังในผู้ป่วยแผลในกระเพาะอาหาร\nDrug Interactions: Domperidone / Metoclopramide [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
@@ -1538,7 +1538,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ไข้ตัวร้อน แก้กระหายน้ำ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
@@ -1553,7 +1553,7 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้เด็กท้องผูก ระบายพิษไข้",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้เมื่อมีไข้สูง หรือท้องเสีย",
+    "contraindication": "ห้ามใช้เมื่อมีไข้สูง หรือท้องเสีย\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
@@ -1561,21 +1561,6 @@
   },
   {
     "id": "FORM-105",
-    "herbName": "ยาปราบชมพูทวีป",
-    "shortKey": "ปราบชมพูทวีป",
-    "rasa": "รสเผ็ดร้อน",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการหวัด คัดจมูก แพ้อากาศ",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยไข้สูง หญิงตั้งครรภ์",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-106",
     "herbName": "ยาอัมฤควาที",
     "shortKey": "อัมฤควาที",
     "rasa": "รสขม หวาน",
@@ -1583,14 +1568,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการไอ ขับเสมหะ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-107",
+    "id": "FORM-106",
     "herbName": "ยาไฟประลัยกัลป์",
     "shortKey": "ไฟประลัยกัลป์",
     "rasa": "รสเผ็ดร้อนมาก",
@@ -1598,14 +1583,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "ขับน้ำคาวปลา ช่วยให้มดลูกเข้าอู่",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ และผู้ที่มีไข้",
+    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ และผู้ที่มีไข้\nDrug Interactions: None",
     "citation": {
       "book": "ตำราแพทยศาสตร์สงเคราะห์",
       "page": 1
     }
   },
   {
-    "id": "FORM-108",
+    "id": "FORM-107",
     "herbName": "ยาวิสัมพยาใหญ่",
     "shortKey": "วิสัมพยาใหญ่",
     "rasa": "รสเผ็ดร้อน สุขุม",
@@ -1613,14 +1598,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้จุกเสียด ท้องอืด ท้องเฟ้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ในผู้ป่วยโรคตับ",
+    "contraindication": "ระวังการใช้ในผู้ป่วยโรคตับ\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-109",
+    "id": "FORM-108",
     "herbName": "ยาประสะไพล",
     "shortKey": "ประสะไพล",
     "rasa": "รสเผ็ดร้อน",
@@ -1628,14 +1613,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้ระดูมาไม่ปกติ บรรเทาปวดประจำเดือน",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ ผู้ที่มีไข้",
+    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ ผู้ที่มีไข้\nDrug Interactions: Fluoxetine / Sertraline [SAFE]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-110",
+    "id": "FORM-109",
     "herbName": "ยาไฟห้ากอง",
     "shortKey": "ไฟห้ากอง",
     "rasa": "รสเผ็ดร้อน",
@@ -1643,44 +1628,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดเมื่อย ขับลม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง",
+    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง\nDrug Interactions: None",
     "citation": {
       "book": "ตำราเวชศึกษา",
       "page": 1
     }
   },
   {
-    "id": "FORM-111",
-    "herbName": "ยาหอมอินทจักร์",
-    "shortKey": "หอมอินทจักร์",
-    "rasa": "รสหอมเย็น สุขุม",
-    "targetElement": "ไฟ",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน คลื่นไส้ อาเจียน",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-112",
-    "herbName": "ยาหอมนวโกฐ",
-    "shortKey": "หอมนวโกฐ",
-    "rasa": "รสหอมสุขุม",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน แก้หน้ามืด",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยที่แพ้เกสรดอกไม้",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-113",
+    "id": "FORM-110",
     "herbName": "ยาธรณีสันฑะฆาต",
     "shortKey": "ธรณีสันฑะฆาต",
     "rasa": "รสเผ็ดร้อน เมาเบื่อ",
@@ -1688,14 +1643,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้เถาดาน ท้องผูก ขับลม",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ เด็ก และผู้ที่มีไข้",
+    "contraindication": "ห้ามใช้ในหญิงมีครรภ์ เด็ก และผู้ที่มีไข้\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-114",
+    "id": "FORM-111",
     "herbName": "ยาเถาวัลย์เปรียง",
     "shortKey": "เถาวัลย์เปรียง",
     "rasa": "รสเมาเอียน",
@@ -1703,44 +1658,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการปวดกล้ามเนื้อ ปวดหลัง",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยโรคกระเพาะ",
+    "contraindication": "ระวังในผู้ป่วยโรคกระเพาะ\nDrug Interactions: Ibuprofen / Naproxen / Diclofenac [CRITICAL], Celecoxib / Etoricoxib [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-115",
-    "herbName": "ยาขมิ้นชัน",
-    "shortKey": "ขมิ้นชัน",
-    "rasa": "รสฝาด เผ็ดร้อน",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการท้องอืด ท้องเฟ้อ โรคกระเพาะ",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยท่อน้ำดีอุดตัน",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-116",
-    "herbName": "ยาฟ้าทะลายโจร",
-    "shortKey": "ฟ้าทะลายโจร",
-    "rasa": "รสขมจัด",
-    "targetElement": "ไฟ",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการไข้หวัด เจ็บคอ ท้องเสีย",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ ให้นมบุตร",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-117",
+    "id": "FORM-112",
     "herbName": "ยามะขามแขก",
     "shortKey": "มะขามแขก",
     "rasa": "รสเปรี้ยว หวาน ชุ่ม",
@@ -1748,14 +1673,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการท้องผูก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยลำไส้อุดตัน",
+    "contraindication": "ห้ามใช้ในผู้ป่วยลำไส้อุดตัน\nDrug Interactions: Digoxin [CRITICAL], Hydrochlorothiazide (HCTZ) / Furosemide [CRITICAL], Allopurinol / Febuxostat [WARNING], Diuretics [WARNING], Warfarin [WARNING]",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-118",
+    "id": "FORM-113",
     "herbName": "ยาเพชรสังฆาต",
     "shortKey": "เพชรสังฆาต",
     "rasa": "รสขม เผ็ดร้อน",
@@ -1763,89 +1688,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการริดสีดวงทวาร",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-119",
-    "herbName": "ยาจันทน์ลีลา",
-    "shortKey": "จันทน์ลีลา",
-    "rasa": "รสขม เย็น",
-    "targetElement": "ไฟ",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ไข้ตัวร้อน ไข้เปลี่ยนฤดู",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยที่สงสัยว่าเป็นไข้เลือดออก",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-120",
-    "herbName": "ยาเขียวหอม",
-    "shortKey": "เขียวหอม",
-    "rasa": "รสขม เย็น",
-    "targetElement": "ไฟ",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการไข้ ร้อนใน กระหายน้ำ",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-121",
-    "herbName": "ยาหอมเทพจิตร",
-    "shortKey": "หอมเทพจิตร",
-    "rasa": "รสหอมเย็น",
-    "targetElement": "ไฟ",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน บำรุงหัวใจ",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยที่แพ้เกสรดอกไม้",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-122",
-    "herbName": "ยาธาตุบรรจบ",
-    "shortKey": "ธาตุบรรจบ",
-    "rasa": "รสเผ็ดร้อน สุขุม",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการท้องอืด ท้องเฟ้อ ท้องเสีย",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-123",
-    "herbName": "ยาเหลืองปิดสมุทร",
-    "shortKey": "เหลืองปิดสมุทร",
-    "rasa": "รสฝาด",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บรรเทาอาการท้องเสียชนิดที่ไม่ติดเชื้อ",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ป่วยท้องเสียที่มีไข้ หรือถ่ายเป็นเลือด",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-124",
+    "id": "FORM-114",
     "herbName": "ยาประสะกะเพรา",
     "shortKey": "ประสะกะเพรา",
     "rasa": "รสเผ็ดร้อน",
@@ -1853,29 +1703,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "บรรเทาอาการท้องอืด จุกเสียด",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยโรคกระเพาะ",
+    "contraindication": "ระวังในผู้ป่วยโรคกระเพาะ\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-125",
-    "herbName": "ยาบำรุงโลหิต",
-    "shortKey": "บำรุงโลหิต",
-    "rasa": "รสขม สุขุม",
-    "targetElement": "ลม",
-    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "บำรุงเลือด แก้เบื่ออาหาร อ่อนเพลีย",
-    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในผู้ที่มีไข้สูง",
-    "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
-      "page": 1
-    }
-  },
-  {
-    "id": "FORM-126",
+    "id": "FORM-115",
     "herbName": "ยาประสะเจตพังคี",
     "shortKey": "ประสะเจตพังคี",
     "rasa": "รสเผ็ดร้อน ขม",
@@ -1883,14 +1718,14 @@
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
     "indication": "แก้กษัยจุกเสียด ขับลมในลำไส้",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ ผู้ที่มีไข้",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ ผู้ที่มีไข้\nDrug Interactions: None",
     "citation": {
       "book": "บัญชียาหลักแห่งชาติ",
       "page": 1
     }
   },
   {
-    "id": "FORM-127",
+    "id": "FORM-116",
     "herbName": "ยานวดสมุนไพร",
     "shortKey": "นวดสมุนไพร",
     "rasa": "รสร้อน",
@@ -1898,14 +1733,14 @@
     "category": "ยาสามัญประจำบ้านแผนโบราณ",
     "indication": "บรรเทาอาการปวดเมื่อยกล้ามเนื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามทาบริเวณแผลเปิด หรือผิวหนังอักเสบ",
+    "contraindication": "ห้ามทาบริเวณแผลเปิด หรือผิวหนังอักเสบ\nDrug Interactions: Warfarin [SAFE], Insulin Injection [SAFE], Celecoxib / Etoricoxib [SAFE], Tacrolimus / Cyclosporine [SAFE], Adalimumab / Infliximab [SAFE]",
     "citation": {
       "book": "ยาสามัญประจำบ้าน",
       "page": 1
     }
   },
   {
-    "id": "FORM-128",
+    "id": "FORM-117",
     "herbName": "น้ำยาบ้วนปากสมุนไพร",
     "shortKey": "น้ำยาบ้วนปากสมุนไพร",
     "rasa": "รสฝาด หอมเย็น",
@@ -1913,14 +1748,14 @@
     "category": "ยาสามัญประจำบ้านแผนโบราณ",
     "indication": "รักษาความสะอาดช่องปาก ลดกลิ่นปาก",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ห้ามกลืน",
+    "contraindication": "ห้ามกลืน\nDrug Interactions: None",
     "citation": {
       "book": "ยาสามัญประจำบ้าน",
       "page": 1
     }
   },
   {
-    "id": "FORM-129",
+    "id": "FORM-118",
     "herbName": "ยาอมมะแว้ง",
     "shortKey": "อมมะแว้ง",
     "rasa": "รสขม เปรี้ยว",
@@ -1928,24 +1763,339 @@
     "category": "ยาสามัญประจำบ้านแผนโบราณ",
     "indication": "บรรเทาอาการไอ ขับเสมหะ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน\nDrug Interactions: None",
     "citation": {
       "book": "ยาสามัญประจำบ้าน",
       "page": 1
     }
   },
   {
-    "id": "FORM-130",
-    "herbName": "ยาหอมทิพโอสถ",
-    "shortKey": "หอมทิพโอสถ",
-    "rasa": "รสหอมเย็น",
+    "id": "FORM-119",
+    "herbName": "ขมิ้นชัน",
+    "shortKey": "ขมิ้นชัน",
+    "rasa": "เผ็ดร้อน ฝาด",
+    "targetElement": "ดิน",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "บรรเทาอาการท้องอืด ท้องเฟ้อ แน่นจุกเสียด สมานแผลในกระเพาะอาหาร",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในผู้ที่มีท่อน้ำดีอุดตัน ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด\nDrug Interactions: Aspirin 81 mg [SAFE], Metformin [SAFE], Enalapril / Perindopril [SAFE], Rosuvastatin(>2000 mg/day) [WARNING], Ibuprofen / Naproxen [SAFE], Omeprazole / Pantoprazole / Esomeprazole (PPIs) [SAFE], Pembrolizumab / Nivolumab (Immune Checkpoint Inhibitors) [WARNING], Ketoconazole / Itraconazole [SAFE], Warfarin [CRITICAL], Clopidogrel [WARNING], Omeprazole [SAFE]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-120",
+    "herbName": "ฟ้าทะลายโจร",
+    "shortKey": "ฟ้าทะลายโจร",
+    "rasa": "ขม เย็น",
     "targetElement": "ไฟ",
     "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
-    "indication": "แก้ลมวิงเวียน อ่อนเพลีย",
+    "indication": "บรรเทาอาการไข้หวัด เจ็บคอ ท้องเสียชนิดไม่ติดเชื้อ",
     "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
-    "contraindication": "ระวังในผู้ป่วยที่แพ้เกสรดอกไม้",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์และให้นมบุตร ระวังการใช้ร่วมกับยาลดความดัน\nDrug Interactions: Rivaroxaban / Apixaban (DOACs) [WARNING], Glibenclamide / Glipizide [WARNING], Methotrexate [WARNING], Ritonavir / Lopinavir / Efavirenz (Antiretrovirals) [WARNING], Warfarin [CRITICAL], Aspirin [WARNING], Antihypertensives [WARNING]",
     "citation": {
-      "book": "บัญชียาหลักแห่งชาติ",
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-121",
+    "herbName": "มะระขี้นก",
+    "shortKey": "มะระขี้นก",
+    "rasa": "ขม เย็น",
+    "targetElement": "ไฟ",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "แก้ไข้ แก้ร้อนใน เจริญอาหาร ช่วยลดน้ำตาลในเลือด",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ (อาจทำให้แท้ง) ระวังการใช้ร่วมกับยาลดน้ำตาลในเลือด\nDrug Interactions: Empagliflozin / Dapagliflozin (SGLT2i) [WARNING], Semaglutide / Dulaglutide (GLP-1 RA) [WARNING], Metformin [WARNING], Insulin [CRITICAL]",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-122",
+    "herbName": "กระเทียม",
+    "shortKey": "กระเทียม",
+    "rasa": "เผ็ดร้อน",
+    "targetElement": "ลม",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "บรรเทาอาการท้องอืด ท้องเฟ้อ ลดระดับไขมันในเลือด",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ในผู้ที่มีปัญหาเลือดแข็งตัวช้า หรือใช้ร่วมกับยา Warfarin\nDrug Interactions: Aspirin 81 mg [CRITICAL], Cilostazol [CRITICAL], Ticagrelor / Prasugrel [CRITICAL], Warfarin [CRITICAL], Protease Inhibitors [CRITICAL], Insulin [WARNING]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-123",
+    "herbName": "ขิง",
+    "shortKey": "ขิง",
+    "rasa": "เผ็ดร้อน",
+    "targetElement": "ลม",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "บรรเทาอาการท้องอืด ท้องเฟ้อ คลื่นไส้ อาเจียน",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด ระวังในผู้ป่วยโรคนิ่วในถุงน้ำดี\nDrug Interactions: Clopidogrel [CRITICAL], Cilostazol [CRITICAL], Warfarin [WARNING], Aspirin [WARNING], Antidiabetic drugs [WARNING]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-124",
+    "herbName": "แปะก๊วย",
+    "shortKey": "แปะก๊วย",
+    "rasa": "ขม หวาน",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "บำรุงสมอง เพิ่มการไหลเวียนโลหิต",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด ห้ามใช้ในผู้ที่มีภาวะเลือดออกผิดปกติ\nDrug Interactions: Dabigatran [CRITICAL], Enoxaparin / Fondaparinux (LMWH) [CRITICAL]",
+    "citation": {
+      "book": "ตำรายาจีน",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-125",
+    "herbName": "กะเพรา",
+    "shortKey": "กะเพรา",
+    "rasa": "เผ็ดร้อน",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "แก้ปวดท้อง ท้องอืด ท้องเฟ้อ ขับลม",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจนในขนาดรับประทานปกติ\nDrug Interactions: None",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-126",
+    "herbName": "ใบบัวบก",
+    "shortKey": "ใบบัวบก",
+    "rasa": "ขม เย็น",
+    "targetElement": "ไฟ",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "แก้ช้ำใน ลดอาการอักเสบ บำรุงสมอง",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ในผู้ป่วยที่มีภาวะตับผิดปกติ\nDrug Interactions: Pioglitazone [WARNING], Fluoxetine / Sertraline / Escitalopram (SSRIs) [WARNING], Pembrolizumab / Nivolumab [WARNING]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-127",
+    "herbName": "ชาใบหม่อน",
+    "shortKey": "ชาใบหม่อน",
+    "rasa": "จืด เย็น",
+    "targetElement": "ไฟ",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "ลดน้ำตาลในเลือด ลดความดันโลหิต",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาลดน้ำตาลในเลือด\nDrug Interactions: Sitagliptin / Linagliptin (DPP-4i) [WARNING]",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-128",
+    "herbName": "หญ้าหนวดแมว",
+    "shortKey": "หญ้าหนวดแมว",
+    "rasa": "จืด",
+    "targetElement": "ลม",
+    "category": "หัตถการและตำรับเวชปฏิบัติปฐมภูมิ",
+    "indication": "ขับปัสสาวะ บรรเทาอาการนิ่วขนาดเล็ก",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในผู้ป่วยโรคหัวใจและโรคไต\nDrug Interactions: Metformin [WARNING], Losartan / Valsartan (ARBs) [WARNING]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-129",
+    "herbName": "ลูกยอ",
+    "shortKey": "ลูกยอ",
+    "rasa": "เผ็ดร้อน",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "ขับลม บำรุงเลือด คลื่นไส้อาเจียน",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในหญิงตั้งครรภ์ ผู้ป่วยโรคไต (โพแทสเซียมสูง)\nDrug Interactions: Enalapril / Perindopril (ACEi) [CRITICAL], Sacubitril / Valsartan (ARNI) [CRITICAL], Ciprofloxacin / Tetracycline / Doxycycline [WARNING]",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-130",
+    "herbName": "ตังกุย",
+    "shortKey": "ตังกุย",
+    "rasa": "หวาน เผ็ด อุ่น",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "บำรุงเลือด ปรับสมดุลประจำเดือน",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาต้านการแข็งตัวของเลือด สตรีมีครรภ์\nDrug Interactions: Warfarin [CRITICAL]",
+    "citation": {
+      "book": "ตำรายาจีน",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-131",
+    "herbName": "โสม",
+    "shortKey": "โสม",
+    "rasa": "หวาน ขม อุ่น",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "บำรุงกำลัง บำรุงร่างกาย ลดความอ่อนเพลีย",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาลดน้ำตาล ยาต้านการแข็งตัวของเลือด\nDrug Interactions: Dabigatran [CRITICAL], Warfarin [CRITICAL], Amlodipine / Nifedipine (CCB) [WARNING], Phenelzine / Tranylcypromine (MAOIs) [CRITICAL], Adalimumab / Infliximab (Anti-TNF Biologics) [WARNING], Antidiabetic drugs [WARNING], MAOIs [CRITICAL]",
+    "citation": {
+      "book": "ตำรายาจีน",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-132",
+    "herbName": "ชุมเห็ดเทศ",
+    "shortKey": "ชุมเห็ดเทศ",
+    "rasa": "เบื่อเลี่ยน",
+    "targetElement": "น้ำ",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "ระบายท้อง รักษาโรคผิวหนัง กลากเกลื้อน",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในผู้ป่วยลำไส้อุดตัน หญิงตั้งครรภ์ ไม่ควรใช้ติดต่อกันนาน\nDrug Interactions: None",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-133",
+    "herbName": "ดอกคำฝอย",
+    "shortKey": "ดอกคำฝอย",
+    "rasa": "เผ็ด อุ่น",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "บำรุงโลหิต ขับประจำเดือน ลดไขมันในเลือด",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ในสตรีมีครรภ์ ผู้ที่มีภาวะเลือดออกง่าย\nDrug Interactions: None",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-134",
+    "herbName": "ว่านหางจระเข้",
+    "shortKey": "ว่านหางจระเข้",
+    "rasa": "เย็น จืด",
+    "targetElement": "ไฟ",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "รักษาแผลไฟไหม้ น้ำร้อนลวก สมานแผลกระเพาะอาหาร",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ยางสีเหลืองมีฤทธิ์ระบายรุนแรง ห้ามใช้ในสตรีมีครรภ์ (แบบรับประทาน)\nDrug Interactions: Digoxin [CRITICAL], Diuretics [WARNING]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-135",
+    "herbName": "รากรางจืด",
+    "shortKey": "รากรางจืด",
+    "rasa": "เย็น",
+    "targetElement": "ไฟ",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "ถอนพิษไข้ ถอนพิษเบื่อเมา",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ร่วมกับยาแผนปัจจุบันอื่น เพราะอาจลดการดูดซึมยา\nDrug Interactions: Tacrolimus / Cyclosporine [CRITICAL], Rifampicin / Ciprofloxacin / ยาปฏิชีวนะทุกชนิด [CRITICAL], Levothyroxine [CRITICAL]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-136",
+    "herbName": "มะขามป้อม",
+    "shortKey": "มะขามป้อม",
+    "rasa": "เปรี้ยว ฝาด",
+    "targetElement": "น้ำ",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "แก้ไอ ขับเสมหะ วิตามินซีสูง",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ระวังการใช้ในผู้ที่มีภาวะท้องเสียบ่อย\nDrug Interactions: Fenofibrate / Ezetimibe [SAFE]",
+    "citation": {
+      "book": "บัญชียาหลักแห่งชาติ (ยาสมุนไพร)",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-137",
+    "herbName": "สมอไทย",
+    "shortKey": "สมอไทย",
+    "rasa": "ฝาด เปรี้ยว ขม",
+    "targetElement": "น้ำ",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "ระบายอ่อนๆ สมานลำไส้ บำรุงธาตุ",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ไม่มีข้อห้ามใช้ที่ชัดเจน\nDrug Interactions: Fenofibrate / Ezetimibe [SAFE]",
+    "citation": {
+      "book": "ตำรายาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-138",
+    "herbName": "กัญชา / THC-CBD สกัด",
+    "shortKey": "กัญชา / THC-CBD สกัด",
+    "rasa": "เมาเบื่อ",
+    "targetElement": "ลม",
+    "category": "ยาในบัญชียาหลักแห่งชาติ สมุนไพร",
+    "indication": "แก้ปวดเรื้อรัง, ช่วยให้นอนหลับ, เจริญอาหาร",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ร่วมกับ Tramadol, Diazepam, Lithium, Valproic Acid",
+    "citation": {
+      "book": "ตำราสรรพคุณยาไทย",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-139",
+    "herbName": "ตำรับยาศุขไสยาศน์",
+    "shortKey": "ตำรับยาศุขไสยาศน์",
+    "rasa": "เผ็ดร้อน, ร้อนเมา",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "ช่วยให้นอนหลับ, เจริญอาหาร, แก้ลมกษัย",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ร่วมกับ Tramadol, Diazepam, Lithium, Valproic Acid",
+    "citation": {
+      "book": "คัมภีร์ธาตุพระนารายณ์",
+      "page": 1
+    }
+  },
+  {
+    "id": "FORM-140",
+    "herbName": "ยาน้ำมันกัญชา (CBD/THC)",
+    "shortKey": "น้ำมันกัญชา (CBD/THC)",
+    "rasa": "เมาเบื่อ",
+    "targetElement": "ลม",
+    "category": "สมุนไพรเดี่ยวและตำรับยาแผนไทย",
+    "indication": "แก้ปวดเรื้อรัง, ลดการอักเสบ, ช่วยให้นอนหลับ",
+    "defaultDosage": "ตามคำแนะนำแพทย์แผนไทยหรือแนวทางปฏิบัติเวชกรรมปฐมภูมิ",
+    "contraindication": "ห้ามใช้ร่วมกับ Tramadol, Diazepam, Lithium, Valproic Acid",
+    "citation": {
+      "book": "คู่มือการใช้กัญชาทางการแพทย์แผนไทย",
       "page": 1
     }
   }

@@ -317,19 +317,15 @@ export default function Step4HistoryExam() {
   const isHotDryAnomaly = tempC >= 33 && humidityPct < 65 && patientCase.season !== 'summer';
 
   return (
-    <AppShell
-      title="ซักประวัติและตรวจร่างกาย"
-      subtitle="ขั้นตอนที่ 1–2 ตามคัมภีร์: ซักประวัติอาการสำคัญ → ประเมินระดับความรุนแรง (VAS 1–10) และดึงสภาพอากาศจริงจาก Weather API"
-    >
+    <AppShell title="ซักประวัติและตรวจร่างกาย">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* คอลัมน์ซ้าย (2 ส่วน): ช่องกรอกประวัติ + กล่องสกัดอาการด้วย AI + สเกลความปวด VAS */}
         <div className="md:col-span-2 space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
               <label className="block text-xs font-bold text-[#14261D]">
-                อาการสำคัญและประวัติการเจ็บป่วย (Chief Complaint & History)
+                อาการสำคัญและประวัติการเจ็บป่วย
               </label>
-              <span className="text-[11px] text-[#5C7065]">รองรับทั้งการพิมพ์และพูดด้วยเสียง</span>
             </div>
 
             <textarea
@@ -339,7 +335,7 @@ export default function Step4HistoryExam() {
                 setNoteText(e.target.value);
                 baseTextBeforeSpeechRef.current = e.target.value.trim();
               }}
-              placeholder="พิมพ์ข้อความที่ซักประวัติคนไข้ เช่น ปวดขามากๆ ระดับความปวด 8/10, ปวดท้อง แน่นท้อง, ปวดตึงคอบ่า..."
+              placeholder="พิมพ์อาการของผู้ป่วย เช่น ปวดขามาก ระดับความปวด 8/10, ท้องอืด แน่นเฟ้อ, ปวดตึงคอบ่า..."
               className="w-full border border-gray-200 rounded-xl p-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#1E4D38] transition leading-relaxed bg-[#FDFDFD]"
             />
 
@@ -357,7 +353,7 @@ export default function Step4HistoryExam() {
                   {isListening ? (
                     <>
                       <MicOff className="w-3.5 h-3.5" />
-                      กำลังฟังเสียง... (คลิกเพื่อหยุด)
+                      กำลังฟังเสียง...
                     </>
                   ) : (
                     <>
@@ -380,7 +376,6 @@ export default function Step4HistoryExam() {
                     ล้างข้อความ
                   </button>
                 )}
-                <span className="text-[11px] text-gray-400">ภาษาไทย (th-TH)</span>
               </div>
 
               <button
@@ -392,44 +387,37 @@ export default function Step4HistoryExam() {
                 {isExtracting ? (
                   <>
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-[#B8862D]" />
-                    กำลังสกัดโครงสร้างอาการ...
+                    กำลังสกัดอาการ...
                   </>
                 ) : extractSuccess ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-green-700 stroke-[3]" />
-                    สกัดโครงสร้างสำเร็จ!
+                    สกัดสำเร็จ
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-3.5 h-3.5 text-[#B8862D]" />
-                    ให้ AI สกัดอาการ
+                    สกัดอาการด้วย AI
                   </>
                 )}
               </button>
             </div>
           </div>
 
-          {/* กล่องสเกลวัดระดับความปวดและความรุนแรงของอาการ (VAS 1–10 -> Symptom Weight +1.0 ถึง +5.0) */}
+          {/* กล่องสเกลวัดระดับความปวด VAS 1–10 */}
           <div className="bg-white border border-gray-200 p-5 rounded-2xl shadow-xs">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
                 <span className="bg-[#1E4D38] text-white p-1.5 rounded-lg">
                   <Activity className="w-3.5 h-3.5" />
                 </span>
-                <div>
-                  <h4 className="text-xs font-bold text-[#14261D]">
-                    สเกลวัดระดับความปวด / ความรุนแรงของอาการ (VAS Scale 1–10)
-                  </h4>
-                  <p className="text-[11px] text-gray-500">
-                    แปลงเป็นค่าน้ำหนักอาการสำคัญ (+1.0 ถึง +5.0) เพื่อคำนวณสมุฏฐานเชิงปริมาณตามคัมภีร์ธาตุวิภังค์และธาตุบรรจบ
-                  </p>
-                </div>
+                <h4 className="text-xs font-bold text-[#14261D]">
+                  ระดับความปวด / ความรุนแรง (VAS 1–10)
+                </h4>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#EAF3EE] text-[#1E4D38] border border-[#1E4D38]/20">
-                  ระดับ {currentPainScore}/10 → น้ำหนัก +{calculatedSymptomWeight.toFixed(1)} คะแนน
-                </span>
-              </div>
+              <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#EAF3EE] text-[#1E4D38] border border-[#1E4D38]/20">
+                VAS {currentPainScore}/10 (+{calculatedSymptomWeight.toFixed(1)} คะแนน)
+              </span>
             </div>
 
             <div className="grid grid-cols-10 gap-1.5 mt-3">
@@ -465,9 +453,9 @@ export default function Step4HistoryExam() {
             </div>
 
             <div className="flex justify-between text-[10px] text-gray-500 mt-2 px-1">
-              <span className="text-emerald-700 font-medium">1–3: ปวด/รุนแรงเล็กน้อย (+1.0 ถึง +1.5)</span>
-              <span className="text-amber-700 font-medium">4–6: ปวด/รุนแรงปานกลาง (+2.0 ถึง +3.0)</span>
-              <span className="text-rose-700 font-medium">7–10: ปวด/รุนแรงมาก (+3.5 ถึง +5.0)</span>
+              <span className="text-emerald-700 font-medium">1–3: เล็กน้อย (+1.0 ถึง +1.5)</span>
+              <span className="text-amber-700 font-medium">4–6: ปานกลาง (+2.0 ถึง +3.0)</span>
+              <span className="text-rose-700 font-medium">7–10: รุนแรง (+3.5 ถึง +5.0)</span>
             </div>
           </div>
 
@@ -479,14 +467,14 @@ export default function Step4HistoryExam() {
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
                 <span className="text-xs font-bold text-[#14261D]">
-                  ผลลัพธ์โครงสร้างอาการที่สกัดได้
+                  อาการที่สกัดได้
                 </span>
               </div>
             </div>
 
             <div className="space-y-3 text-xs">
               <div className="flex flex-col sm:flex-row sm:items-start gap-2">
-                <span className="text-gray-500 font-medium sm:w-28 shrink-0 pt-1">อาการสำคัญ (CC):</span>
+                <span className="text-gray-500 font-medium sm:w-28 shrink-0 pt-1">อาการสำคัญ:</span>
                 <div className="flex flex-wrap items-center gap-2 flex-1">
                   {patientCase.extractedSymptoms.chiefComplaint &&
                   patientCase.extractedSymptoms.chiefComplaint.length > 0 ? (
@@ -507,7 +495,7 @@ export default function Step4HistoryExam() {
                       </span>
                     ))
                   ) : (
-                    <span className="text-gray-400 italic">ยังไม่มีข้อมูลอาการ (พิมพ์อาการแล้วกดปุ่ม &ldquo;ให้ AI สกัดอาการ&rdquo;)</span>
+                    <span className="text-gray-400 italic">ยังไม่มีข้อมูลอาการ</span>
                   )}
 
                   <div className="flex items-center gap-1">
@@ -565,31 +553,31 @@ export default function Step4HistoryExam() {
         <div className="space-y-4">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs text-xs">
             <h4 className="font-bold text-[#14261D] mb-3 pb-2 border-b border-gray-100">
-              สัญญาณชีพ (Vital Signs)
+              สัญญาณชีพ
             </h4>
             <div className="space-y-2.5 text-gray-600">
               <div className="flex justify-between items-center">
-                <span>ความดันโลหิต (BP)</span>
+                <span>BP</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
                   {patientCase.vitals?.bp || '120/80 mmHg'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>ชีพจร (Pulse)</span>
+                <span>Pulse</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
-                  {patientCase.vitals?.pulse || 76} ครั้ง/นาที
+                  {patientCase.vitals?.pulse || 76} bpm
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>อุณหภูมิ (Temp)</span>
+                <span>Temp</span>
                 <span className="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded">
                   {patientCase.vitals?.temp || 36.6} °C
                 </span>
               </div>
               <div className="flex justify-between items-center pt-1 border-t border-gray-100">
-                <span>สเกลความปวด (VAS)</span>
+                <span>VAS</span>
                 <span className="font-bold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
-                  {currentPainScore} / 10 (น้ำหนัก +{calculatedSymptomWeight.toFixed(1)})
+                  {currentPainScore} / 10 (+{calculatedSymptomWeight.toFixed(1)})
                 </span>
               </div>
             </div>
@@ -600,7 +588,7 @@ export default function Step4HistoryExam() {
             <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
               <h4 className="font-bold text-[#14261D] flex items-center gap-1.5">
                 <CloudSun className="w-4 h-4 text-[#1E4D38]" />
-                อุตุสมุฏฐาน & Live Weather API
+                อุตุสมุฏฐาน & Live Weather
               </h4>
               {patientCase.weather?.isLiveApi && (
                 <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
@@ -613,37 +601,37 @@ export default function Step4HistoryExam() {
               <div className="flex justify-between items-center">
                 <span>อายุสมุฏฐาน ({patientCase.age || 58} ปี)</span>
                 <span className="font-bold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
-                  +2.0 คะแนน (Primary)
+                  +2.0 คะแนน
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span>กาลสมุฏฐาน ({patientCase.visitTime || '10:30'} น.)</span>
                 <span className="font-bold text-[#7A5214] bg-[#FDF0D5] px-2 py-0.5 rounded">
-                  +1.5 คะแนน (Secondary)
+                  +1.5 คะแนน
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span>ฤดูตามปฏิทิน</span>
                 <span className="font-bold text-[#14261D]">
                   {patientCase.season === 'rainy'
-                    ? 'วสันตฤดู (ฤดูฝน)'
+                    ? 'วสันตฤดู'
                     : patientCase.season === 'summer'
-                    ? 'คิมหันตฤดู (ฤดูร้อน)'
-                    : 'เหมันตฤดู (ฤดูหนาว)'}
+                    ? 'คิมหันตฤดู'
+                    : 'เหมันตฤดู'}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span>สภาพอากาศจริง ณ จุดตรวจ</span>
+                <span>สภาพอากาศจริง</span>
                 <span className="font-extrabold text-[#1E4D38] bg-[#EAF3EE] px-2 py-0.5 rounded">
                   {tempC} °C · ชื้น {humidityPct}%
                 </span>
               </div>
               {patientCase.weather?.conditionLabel && (
                 <div className="text-[11px] bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-700">
-                  <strong>ลักษณะอากาศ:</strong> {patientCase.weather.conditionLabel}
+                  {patientCase.weather.conditionLabel}
                   {isHotDryAnomaly && (
                     <span className="block text-rose-700 font-bold mt-0.5">
-                      ⚠️ ตรวจพบอุตุแปรปรวน: ฤดูฝนแต่แดดจัดร้อนแล้ง → กระตุ้นปิตตะ (+1.5)
+                      ⚠️ อุตุแปรปรวน: ร้อนแล้งแทรก → ปิตตะ (+1.5)
                     </span>
                   )}
                 </div>
@@ -659,9 +647,7 @@ export default function Step4HistoryExam() {
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isFetchingWeather ? 'animate-spin' : ''}`} />
               <span>
-                {isFetchingWeather
-                  ? 'กำลังดึงสภาพอากาศจริงจาก Open-Meteo API...'
-                  : '🛰️ อัปเดตสภาพอากาศจริง ณ จุดตรวจ (Live Weather API)'}
+                {isFetchingWeather ? 'กำลังดึงสภาพอากาศ...' : 'อัปเดตสภาพอากาศจริง'}
               </span>
             </button>
           </div>
@@ -675,14 +661,14 @@ export default function Step4HistoryExam() {
           onClick={() => setCurrentStep('S3')}
           className="px-4 py-2 border border-gray-300 hover:bg-gray-100 rounded-lg text-xs font-semibold cursor-pointer transition"
         >
-          ← ย้อนกลับไปหน้าเปิดเคส
+          ← ย้อนกลับ
         </button>
         <button
           type="button"
           onClick={handleProceedToSmutthan}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
         >
-          วิเคราะห์สมุฏฐาน 4 เชิงปริมาณ (ขั้นตอนถัดไป) →
+          วิเคราะห์สมุฏฐาน 4 →
         </button>
       </div>
     </AppShell>

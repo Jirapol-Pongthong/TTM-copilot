@@ -5,7 +5,7 @@ import React from 'react';
 import { useCase } from '@/context/CaseContext';
 import AppShell from '@/components/AppShell';
 import { checkHerbDrugInteraction } from '@/lib/herbDrugGuard';
-import { AlertTriangle, ArrowRight, CheckCircle2, ShieldCheck, Check } from 'lucide-react';
+import { AlertTriangle, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function Step7InteractionAlert() {
   const { setCurrentStep, patientCase, updateCase } = useCase();
@@ -20,13 +20,12 @@ export default function Step7InteractionAlert() {
 
   const checkResult = checkHerbDrugInteraction(currentRx.herbName, medsToCheck);
 
-  // ฟังก์ชันสลับเป็นทางเลือกที่ปลอดภัย (หัตถการประคบสมุนไพร) กรณีพบยาตีกัน
   const handleSwitchToSafeAlternative = () => {
     updateCase({
       prescriptions: [
         {
           herbName: 'หัตถการ: ประคบสมุนไพรบริเวณท้องและคอบ่าหลัง',
-          rasa: 'หัตถการภายนอก (ไม่ใช้ยากิน)',
+          rasa: 'หัตถการภายนอก',
           dosage: 'ประคบสมุนไพร 45 นาที สัปดาห์ละ 2 ครั้ง',
           interactionRisk: 'NONE',
           interactionDetail: 'ปลอดภัย ไม่เกิดอันตรกิริยากับยาต้านการแข็งตัวของเลือด',
@@ -36,16 +35,12 @@ export default function Step7InteractionAlert() {
     setCurrentStep('S8');
   };
 
-  // ฟังก์ชันยืนยันแผนการรักษาปัจจุบันและไปขั้นตอนถัดไป
   const handleProceedOriginal = () => {
     setCurrentStep('S8');
   };
 
   return (
-    <AppShell
-      title="ตรวจความปลอดภัยของยา"
-      subtitle="Herb-Drug Guard · ตรวจสมุนไพรที่เลือกเทียบกับยาแผนปัจจุบันที่ผู้ป่วยใช้อยู่จากฐานข้อมูลมาตรฐาน"
-    >
+    <AppShell title="ตรวจความปลอดภัยของยา">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* คอลัมน์ซ้าย (2 ส่วน): ผลการตรวจสอบ */}
         <div className="md:col-span-2">
@@ -77,10 +72,7 @@ export default function Step7InteractionAlert() {
                 ผลที่อาจเกิดขึ้น: {checkResult.effect}
               </p>
               <p className="text-xs text-[#991B1B] mt-2 leading-relaxed">
-                คำแนะนำทางคลินิก: {checkResult.recommendedAction}
-              </p>
-              <p className="text-[10px] text-[#991B1B]/80 mt-4 pt-3 border-t border-red-200/60">
-                * ตรวจสอบเทียบกับฐานข้อมูลอันตรกิริยาสมุนไพร-ยาแผนปัจจุบัน (Herb-Drug Interaction Database) กระทรวงสาธารณสุข · แพทย์เป็นผู้ตัดสินใจขั้นสุดท้าย
+                คำแนะนำ: {checkResult.recommendedAction}
               </p>
             </div>
           ) : (
@@ -88,24 +80,24 @@ export default function Step7InteractionAlert() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[#1E4D38] font-bold text-base">
                   <CheckCircle2 className="w-5 h-5 text-[#1E4D38]" />
-                  ไม่พบความเสี่ยงอันตรกิริยาระดับรุนแรง (Safety Verified)
+                  ไม่พบความเสี่ยงอันตรกิริยาระดับรุนแรง
                 </div>
                 <span className="bg-[#1E4D38] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                  ผ่านเกณฑ์ความปลอดภัย
+                  ปลอดภัย
                 </span>
               </div>
 
               <div className="bg-white p-4 rounded-xl border border-[#CBD5E1] mt-4 space-y-2 text-xs">
                 <div className="flex justify-between items-center pb-2 border-b border-gray-100">
-                  <span className="text-gray-500">ตำรับยา / หัตถการที่เลือก:</span>
+                  <span className="text-gray-500">ตำรับยา / หัตถการ:</span>
                   <span className="font-bold text-[#14261D] text-sm">{currentRx.herbName}</span>
                 </div>
                 <div className="flex justify-between items-center pb-2 border-b border-gray-100">
-                  <span className="text-gray-500">ขนาดยาและวิธีใช้:</span>
+                  <span className="text-gray-500">ขนาดและวิธีใช้:</span>
                   <span className="font-semibold text-gray-800">{currentRx.dosage}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-500">ยาประจำตัวที่ตรวจสอบ:</span>
+                  <span className="text-gray-500">ยาประจำตัวที่ตรวจ:</span>
                   <span className="font-medium text-gray-700">
                     {medsToCheck.length > 0 ? medsToCheck.join(', ') : 'ไม่มียาประจำตัวที่มีความเสี่ยง'}
                   </span>
@@ -113,10 +105,7 @@ export default function Step7InteractionAlert() {
               </div>
 
               <p className="text-xs text-[#1E4D38] mt-4 leading-relaxed font-semibold">
-                ผลการตรวจ: ไม่พบอันตรกิริยาระหว่างสมุนไพรที่เลือกกับยาประจำตัวของผู้ป่วย สามารถสั่งจ่ายได้ตามมาตรฐานการแพทย์แผนไทย
-              </p>
-              <p className="text-[10px] text-gray-500 mt-3 pt-2.5 border-t border-emerald-200/60">
-                * ผ่านการตรวจสอบตามฐานข้อมูลอันตรกิริยาสมุนไพรและยาแผนปัจจุบัน (Herb-Drug Interaction Database) กระทรวงสาธารณสุข
+                ไม่พบอันตรกิริยาระหว่างสมุนไพรที่เลือกกับยาประจำตัวของผู้ป่วย
               </p>
             </div>
           )}
@@ -137,7 +126,7 @@ export default function Step7InteractionAlert() {
                   <span className="bg-[#1E4D38] text-white text-[10px] font-bold px-2 py-0.5 rounded">แนะนำ</span>
                 </div>
                 <p className="text-[11px] text-gray-600 mt-1.5 leading-relaxed">
-                  บรรเทาท้องอืดและปวดตึงโดยไม่ใช้ยากิน ไม่เกิดอันตรกิริยากับ {checkResult.matchedDrug}
+                  ไม่เกิดอันตรกิริยากับ {checkResult.matchedDrug}
                 </p>
               </button>
 
@@ -146,22 +135,22 @@ export default function Step7InteractionAlert() {
                 onClick={() => setCurrentStep('S6')}
                 className="w-full text-left bg-white border border-gray-200 p-4 rounded-xl hover:bg-gray-50 cursor-pointer transition"
               >
-                <span className="font-bold text-xs text-gray-800">กลับไปเลือกตำรับยาอื่น (หน้า S6)</span>
+                <span className="font-bold text-xs text-gray-800">เลือกตำรับยาอื่น</span>
                 <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">
-                  กลับไปเลือกตำรับอื่น เช่น ยาธาตุบรรจบ หรือปรับแผนการรักษาเอง
+                  กลับไปเปลี่ยนตำรับยาหรือปรับแผนการรักษา
                 </p>
               </button>
             </>
           ) : (
             <>
-              <h4 className="font-bold text-xs text-[#14261D]">สรุปความพร้อมการสั่งจ่าย</h4>
-              <div className="bg-white border border-gray-200 p-4 rounded-xl space-y-2.5 text-xs shadow-xs">
+              <h4 className="font-bold text-xs text-[#14261D]">สถานะความปลอดภัย</h4>
+              <div className="bg-white border border-gray-200 p-4 rounded-xl space-y-2 text-xs shadow-xs">
                 <div className="flex items-center gap-2 text-emerald-700 font-bold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>ความปลอดภัยผ่านเกณฑ์ (Safety Verified)</span>
+                  <span>ผ่านเกณฑ์ความปลอดภัย</span>
                 </div>
                 <p className="text-[11px] text-gray-600 leading-relaxed">
-                  รายการยา <strong>{currentRx.herbName}</strong> มีความปลอดภัย สามารถสั่งจ่ายตามแผนการรักษาและไปสู่ขั้นตอนลงรหัสโรคได้ทันที
+                  สามารถสั่งจ่าย <strong>{currentRx.herbName}</strong> ได้ตามปกติ
                 </p>
               </div>
 
@@ -170,8 +159,8 @@ export default function Step7InteractionAlert() {
                 onClick={() => setCurrentStep('S6')}
                 className="w-full text-left bg-white border border-gray-200 p-3.5 rounded-xl hover:bg-gray-50 cursor-pointer transition text-xs"
               >
-                <span className="font-bold text-gray-700 block">ต้องการปรับปรุงตำรับยา?</span>
-                <span className="text-[11px] text-gray-500">คลิกเพื่อย้อนกลับไปหน้า S6 เพื่อเปลี่ยนตำรับหรือขนาดยา</span>
+                <span className="font-bold text-gray-700 block">เปลี่ยนตำรับยา</span>
+                <span className="text-[11px] text-gray-500">ย้อนกลับไปเปลี่ยนตำรับหรือขนาดยา</span>
               </button>
             </>
           )}
@@ -185,7 +174,7 @@ export default function Step7InteractionAlert() {
           onClick={() => setCurrentStep('S6')}
           className="px-4 py-2 border border-gray-300 hover:bg-gray-100 rounded-lg text-xs font-semibold cursor-pointer transition"
         >
-          ← ย้อนกลับไปหน้าเลือกตำรับยา
+          ← ย้อนกลับ
         </button>
 
         {checkResult.hasConflict ? (
@@ -195,7 +184,7 @@ export default function Step7InteractionAlert() {
               onClick={handleProceedOriginal}
               className="px-4 py-2 border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 rounded-lg text-xs font-semibold cursor-pointer transition"
             >
-              ยืนยันจ่ายยาเดิม (แพทย์รับทราบความเสี่ยง)
+              ยืนยันจ่ายยาเดิม
             </button>
             <button
               type="button"
@@ -211,7 +200,7 @@ export default function Step7InteractionAlert() {
             onClick={handleProceedOriginal}
             className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
           >
-            ยืนยันแผนการรักษา (ไปสู่การให้รหัสโรค S8) <ArrowRight className="w-3.5 h-3.5" />
+            ยืนยันแผนการรักษา <ArrowRight className="w-3.5 h-3.5" />
           </button>
         )}
       </div>

@@ -191,7 +191,7 @@ export default function Step2PatientList() {
                 {/* อาการสำคัญ & โรคประจำตัว */}
                 <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100 space-y-1.5">
                   <div className="flex items-start gap-2">
-                    <span className="font-bold text-gray-500 w-28 shrink-0">อาการสำคัญ (CC):</span>
+                    <span className="font-bold text-gray-500 w-28 shrink-0">อาการสำคัญ:</span>
                     <span className="font-bold text-[#14261D]">
                       {selectedHistoryPatient.historyDetail.chiefComplaint}
                     </span>
@@ -214,7 +214,7 @@ export default function Step2PatientList() {
                 <div className="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#E5C483]/50">
                   <div className="flex items-center gap-1.5 font-bold text-[#7A5214] mb-1">
                     <Stethoscope className="w-3.5 h-3.5" />
-                    <span>ผลการประเมินสมุฏฐาน 4</span>
+                    <span>สมุฏฐานวินิจฉัย</span>
                   </div>
                   <p className="text-[#14261D] font-semibold">
                     {selectedHistoryPatient.historyDetail.smutthan}
@@ -225,7 +225,7 @@ export default function Step2PatientList() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-1.5 font-bold text-[#14261D]">
                     <Pill className="w-3.5 h-3.5 text-[#1E4D38]" />
-                    <span>รายการยาสมุนไพรและหัตถการที่สั่งจ่าย</span>
+                    <span>รายการยาและหัตถการ</span>
                   </div>
                   {selectedHistoryPatient.historyDetail.prescriptions.map((rx, idx) => (
                     <div
@@ -246,7 +246,7 @@ export default function Step2PatientList() {
                 {/* รหัส ICD-10-TM */}
                 <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-[#14261D]">รหัสวินิจฉัยและหัตถการ (ICD-10-TM)</span>
+                    <span className="font-bold text-[#14261D]">รหัส ICD-10-TM</span>
                     <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3" /> ส่งออก HDC แล้ว
                     </span>

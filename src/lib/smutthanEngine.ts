@@ -336,8 +336,8 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   // อ้างอิง: คัมภีร์เวชศึกษา (พระยาพิษณุประสาทเวช) หน้า 18, 24, 34
   // ============================================================================
   const age = caseData.age || 58;
-  let ayuTitle = 'ปัจฉิมวัย (32 ปีขึ้นไป)';
-  let ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: วาตะเจ้าเรือน (+2.0 คะแนน)`;
+  let ayuTitle = 'ปัจฉิมวัย (> 32 ปี)';
+  let ayuDetail = `อายุ ${age} ปี · วาตะเจ้าเรือน`;
   let ayuElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
   let ayuTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'วาตะ (ลม)';
   let ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.34)';
@@ -347,7 +347,7 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     ayuElement = 'ลม';
     ayuTargetDosha = 'วาตะ (ลม)';
     reasons.push(
-      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปัจฉิมวัย > 32 ปี): วาตะเจ้าเรือนเป็นปัจจัยระดับประธานควบคุมโครงสร้างร่างกายระยะยาว (คัมภีร์เวชศึกษา น.34)`
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปัจฉิมวัย): วาตะเจ้าเรือน`
     );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 34 });
   } else if (age > 16) {
@@ -355,10 +355,10 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     ayuElement = 'ไฟ';
     ayuTargetDosha = 'ปิตตะ (ไฟ)';
     ayuTitle = 'มัชฌิมวัย (16–32 ปี)';
-    ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: ปิตตะเจ้าเรือน (+2.0 คะแนน)`;
+    ayuDetail = `อายุ ${age} ปี · ปิตตะเจ้าเรือน`;
     ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.24)';
     reasons.push(
-      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (มัชฌิมวัย 16–32 ปี): ปิตตะเจ้าเรือนเป็นปัจจัยระดับประธานตามวัย (คัมภีร์เวชศึกษา น.24)`
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (มัชฌิมวัย): ปิตตะเจ้าเรือน`
     );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 24 });
   } else {
@@ -366,10 +366,10 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     ayuElement = 'น้ำ';
     ayuTargetDosha = 'เสมหะ (น้ำ)';
     ayuTitle = 'ปฐมวัย (0–16 ปี)';
-    ayuDetail = `อายุ ${age} ปี · ธาตุเจ้าเรือนหลัก: เสมหะเจ้าเรือน (+2.0 คะแนน)`;
+    ayuDetail = `อายุ ${age} ปี · เสมหะเจ้าเรือน`;
     ayuCitation = 'อ้างอิง: คัมภีร์เวชศึกษา (น.18)';
     reasons.push(
-      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปฐมวัย 0–16 ปี): เสมหะเจ้าเรือนเป็นปัจจัยระดับประธานตามวัยเด็ก (คัมภีร์เวชศึกษา น.18)`
+      `[อายุสมุฏฐาน +2.0] อายุ ${age} ปี (ปฐมวัย): เสมหะเจ้าเรือน`
     );
     citations.push({ book: 'คัมภีร์เวชศึกษา', page: 18 });
   }
@@ -380,8 +380,8 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   // ============================================================================
   const visitTime = caseData.visitTime || '10:30';
   const hour = parseInt(visitTime.split(':')[0] || '10', 10);
-  let kalaTitle = `${visitTime} น. (ยาม 2: 10.00–14.00 น.)`;
-  let kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: ปิตตะสมุฏฐาน (+1.5 คะแนน)';
+  let kalaTitle = `${visitTime} น. (ยาม 2)`;
+  let kalaDetail = 'ช่วงปิตตะกำเริบ (10.00–14.00 / 22.00–02.00 น.)';
   let kalaElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ไฟ';
   let kalaTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' = 'ปิตตะ (ไฟ)';
   let kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.45)';
@@ -390,64 +390,59 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
     vataScore += 1.5;
     kalaElement = 'ลม';
     kalaTargetDosha = 'วาตะ (ลม)';
-    kalaTitle = `${visitTime} น. (ยาม 3: 14.00–18.00 / 02.00–06.00 น.)`;
-    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: วาตะสมุฏฐาน (+1.5 คะแนน · ลมเคลื่อนไหวมาก)';
+    kalaTitle = `${visitTime} น. (ยาม 3)`;
+    kalaDetail = 'ช่วงวาตะกำเริบ (14.00–18.00 / 02.00–06.00 น.)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.52)';
     reasons.push(
-      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 3): ช่วงเวลาวาตะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.52)`
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 3): ช่วงวาตะกำเริบ`
     );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 52 });
   } else if ((hour >= 10 && hour < 14) || hour >= 22 || hour < 2) {
     pittaScore += 1.5;
     kalaElement = 'ไฟ';
     kalaTargetDosha = 'ปิตตะ (ไฟ)';
-    kalaTitle = `${visitTime} น. (ยาม 2: 10.00–14.00 / 22.00–02.00 น.)`;
-    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: ปิตตะสมุฏฐาน (+1.5 คะแนน · ไฟย่อยและไฟความร้อนทำงานสูงสุด)';
+    kalaTitle = `${visitTime} น. (ยาม 2)`;
+    kalaDetail = 'ช่วงปิตตะกำเริบ (10.00–14.00 / 22.00–02.00 น.)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.45)';
     reasons.push(
-      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 2): ช่วงเวลาปิตตะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.45)`
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 2): ช่วงปิตตะกำเริบ`
     );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 45 });
   } else {
     semhaScore += 1.5;
     kalaElement = 'น้ำ';
     kalaTargetDosha = 'เสมหะ (น้ำ)';
-    kalaTitle = `${visitTime} น. (ยาม 1: 06.00–10.00 / 18.00–22.00 น.)`;
-    kalaDetail = 'ปัจจัยกระตุ้นตามนาฬิกาชีวภาพ: เสมหะสมุฏฐาน (+1.5 คะแนน · กระตุ้นธาตุน้ำและเสมหะ)';
+    kalaTitle = `${visitTime} น. (ยาม 1)`;
+    kalaDetail = 'ช่วงเสมหะกำเริบ (06.00–10.00 / 18.00–22.00 น.)';
     kalaCitation = 'อ้างอิง: คัมภีร์สมุฏฐานวินิจฉัย (น.30)';
     reasons.push(
-      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 1): ช่วงเวลาเสมหะกำเริบ (+1.5) ตามนาฬิกาชีวภาพ (คัมภีร์สมุฏฐานวินิจฉัย น.30)`
+      `[กาลสมุฏฐาน +1.5] เวลา ${visitTime} น. (ยาม 1): ช่วงเสมหะกำเริบ`
     );
     citations.push({ book: 'คัมภีร์สมุฏฐานวินิจฉัย', page: 30 });
   }
 
   // ============================================================================
   // 4. อุตุสมุฏฐานเชิงพลวัต (Dynamic Weather-Utu Matrix: +1.5 คะแนน)
-  // ผสานข้อมูลฤดูกาลตามปฏิทิน ร่วมกับสภาพอากาศจริงจาก Weather API (อุณหภูมิ + ความชื้น + ฝน)
-  // เพื่อป้องกันความผิดพลาดกรณี "อุตุแปรปรวน" เช่น ฤดูฝนแต่แดดออกจัดและความชื้นต่ำ
-  // อ้างอิง: คัมภีร์เวชกรรมไทย 1 (สภาการแพทย์แผนไทย) หน้า 40, 58, 66
   // ============================================================================
   const tempC = caseData.weather?.tempC ?? 29;
   const humidityPct = caseData.weather?.humidityPct ?? 78;
   const conditionLabel = caseData.weather?.conditionLabel || '';
   const seasonCalendarName =
     caseData.season === 'rainy'
-      ? 'วสันตฤดู (ฤดูฝน)'
+      ? 'วสันตฤดู'
       : caseData.season === 'summer'
-      ? 'คิมหันตฤดู (ฤดูร้อน)'
-      : 'เหมันตฤดู (ฤดูหนาว)';
+      ? 'คิมหันตฤดู'
+      : 'เหมันตฤดู';
 
   let utuTitle = `${seasonCalendarName} · ${tempC}°C ชื้น ${humidityPct}%`;
-  let utuDetail = 'ปัจจัยกระตุ้นจากอุณหภูมิและความชื้นภายนอก (+1.5 คะแนน)';
+  let utuDetail = 'สภาพอากาศภายนอกกระตุ้นสมุฏฐาน';
   let utuElement: 'ดิน' | 'น้ำ' | 'ลม' | 'ไฟ' = 'ลม';
   let utuTargetDosha: 'วาตะ (ลม)' | 'ปิตตะ (ไฟ)' | 'เสมหะ (น้ำ)' | 'ปิตตะ + วาตะ (พหุอุตุ)' = 'วาตะ (ลม)';
   let utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.58)';
   let utuWeightText = '+1.5';
-  let utuRationale = `ประเมินจากสภาพอากาศจริง ณ จุดตรวจ (${tempC}°C, ความชื้น ${humidityPct}%) ร่วมกับฤดูกาล`;
+  let utuRationale = `อากาศจริง ${tempC}°C, ความชื้น ${humidityPct}%`;
   let utuAnomalyDetected = false;
 
-  // กรณีที่ 1: แดดออกจัด / ร้อนแล้ง (อุณหภูมิ >= 33°C และความชื้น < 65%)
-  // เช่น อยู่ในฤดูฝน (วสันตฤดู) แต่วันนั้นแดดจัดและไม่ชื้น -> ต้องคิดเป็น ปิตตะสมุฏฐาน (+1.5)!
   if (tempC >= 33 && humidityPct < 65) {
     pittaScore += 1.5;
     utuElement = 'ไฟ';
@@ -456,42 +451,37 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
 
     if (caseData.season !== 'summer') {
       utuAnomalyDetected = true;
-      utuTitle = `${seasonCalendarName} · แต่อากาศจริงแดดจัดร้อนแล้ง (${tempC}°C, ชื้น ${humidityPct}%)`;
-      utuDetail = `อุตุแปรปรวน (ร้อนแทรกใน${seasonCalendarName}): แสงแดดจัดและความชื้นต่ำกระตุ้นปิตตะสมุฏฐาน (+1.5 คะแนน) แทนธาตุประจำฤดู`;
-      utuRationale = `ตรวจพบอุตุแปรปรวนจาก Weather API (${tempC}°C, ชื้น ${humidityPct}%): แม้อยู่ใน${seasonCalendarName}แต่แดดออกจัด ไม่มีความชื้นสูง จึงส่งผลกระตุ้นธาตุไฟโดยตรง`;
+      utuTitle = `${seasonCalendarName} · ร้อนแล้ง (${tempC}°C, ชื้น ${humidityPct}%)`;
+      utuDetail = `อุตุแปรปรวน (ร้อนแทรกใน${seasonCalendarName}) กระตุ้นปิตตะสมุฏฐาน`;
+      utuRationale = `อุตุแปรปรวน (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นธาตุไฟ`;
       reasons.push(
-        `[อุตุสมุฏฐาน +1.5 | อุตุแปรปรวน] ปฏิทินเป็น${seasonCalendarName} แต่สภาพอากาศจริงแดดจัดร้อนแล้ง (${tempC}°C, ชื้น ${humidityPct}%) จึงกระตุ้นปิตตะสมุฏฐาน (+1.5) แทนวาตะ (คัมภีร์เวชกรรมไทย 1 น.40)`
+        `[อุตุสมุฏฐาน +1.5 | อุตุแปรปรวน] ${seasonCalendarName}แต่อากาศร้อนแล้ง (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นปิตตะสมุฏฐาน`
       );
     } else {
-      utuTitle = `${seasonCalendarName} · แดดจัดร้อนอบอ้าว (${tempC}°C, ชื้น ${humidityPct}%)`;
-      utuDetail = 'ความร้อนและแสงแดดภายนอกกระตุ้นปิตตะสมุฏฐาน (+1.5 คะแนน · สันตัปปัคคี)';
+      utuTitle = `${seasonCalendarName} · ร้อนจัด (${tempC}°C, ชื้น ${humidityPct}%)`;
+      utuDetail = 'อากาศร้อนกระตุ้นปิตตะสมุฏฐาน (สันตัปปัคคี)';
       reasons.push(
-        `[อุตุสมุฏฐาน +1.5] คิมหันตฤดูและอากาศร้อนจัด (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นให้ปิตตะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.40)`
+        `[อุตุสมุฏฐาน +1.5] คิมหันตฤดู (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นปิตตะสมุฏฐาน`
       );
     }
     citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 40 });
-  }
-  // กรณีที่ 2: ร้อนชื้นอบอ้าว (พหุอุตุ: อุณหภูมิ >= 32°C และความชื้น >= 65%)
-  // ทั้งไอร้อนและความชื้นสูงทำงานร่วมกัน -> แบ่งน้ำหนัก ปิตตะ +0.8 และ วาตะ +0.7 (รวม +1.5)
-  else if (tempC >= 32 && humidityPct >= 65) {
+  } else if (tempC >= 32 && humidityPct >= 65) {
     pittaScore += 0.8;
     vataScore += 0.7;
     utuElement = vataScore >= pittaScore ? 'ลม' : 'ไฟ';
     utuTargetDosha = 'ปิตตะ + วาตะ (พหุอุตุ)';
     utuWeightText = '+0.8 ปิตตะ / +0.7 วาตะ';
     utuAnomalyDetected = true;
-    utuTitle = `${seasonCalendarName} · อากาศร้อนชื้นอบอ้าว (${tempC}°C, ชื้น ${humidityPct}%)`;
-    utuDetail = 'พหุอุตุ (ความร้อนสูงผสมความชื้นอับ): กระตุ้นทั้งปิตตะสมุฏฐาน (+0.8) และวาตะสมุฏฐาน (+0.7)';
+    utuTitle = `${seasonCalendarName} · ร้อนชื้น (${tempC}°C, ชื้น ${humidityPct}%)`;
+    utuDetail = 'พหุอุตุ: กระตุ้นทั้งปิตตะ (+0.8) และวาตะ (+0.7)';
     utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.40 & น.58)';
-    utuRationale = `สภาพอากาศจริงทั้งร้อน (${tempC}°C) และชื้นสูง (${humidityPct}%) จึงกระจายค่าน้ำหนัก +1.5 เข้าสู่ปิตตะ (+0.8) และวาตะ (+0.7)`;
+    utuRationale = `อากาศร้อนชื้น (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นปิตตะและวาตะ`;
     reasons.push(
-      `[อุตุสมุฏฐาน +1.5 | พหุอุตุ] สภาพอากาศจริงร้อนชื้นอบอ้าว (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นทั้งปิตตะสมุฏฐาน (+0.8) และวาตะสมุฏฐาน (+0.7) (คัมภีร์เวชกรรมไทย 1 น.40, 58)`
+      `[อุตุสมุฏฐาน +1.5 | พหุอุตุ] อากาศร้อนชื้น (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นปิตตะ (+0.8) และวาตะ (+0.7)`
     );
     citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 40 });
     citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 58 });
-  }
-  // กรณีที่ 3: อากาศเย็น / หนาว (< 25°C)
-  else if (tempC < 25) {
+  } else if (tempC < 25) {
     semhaScore += 1.5;
     utuElement = 'น้ำ';
     utuTargetDosha = 'เสมหะ (น้ำ)';
@@ -500,22 +490,20 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
       utuAnomalyDetected = true;
     }
     utuTitle = `${seasonCalendarName} · อากาศเย็น (${tempC}°C, ชื้น ${humidityPct}%)`;
-    utuDetail = 'ความเย็นภายนอกกระตุ้นเสมหะสมุฏฐาน (+1.5 คะแนน · ธาตุน้ำและเสมหะกำเริบ)';
+    utuDetail = 'ความเย็นภายนอกกระตุ้นเสมหะสมุฏฐาน';
     reasons.push(
-      `[อุตุสมุฏฐาน +1.5] อุณหภูมิอากาศเย็น (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นให้เสมหะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.66)`
+      `[อุตุสมุฏฐาน +1.5] อากาศเย็น (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นเสมหะสมุฏฐาน`
     );
     citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 66 });
-  }
-  // กรณีที่ 4: ความชื้นสูง / มีฝนตก / วสันตอุตุปกติ
-  else {
+  } else {
     vataScore += 1.5;
     utuElement = 'ลม';
     utuTargetDosha = 'วาตะ (ลม)';
     utuCitation = 'อ้างอิง: คัมภีร์เวชกรรมไทย 1 (น.58)';
-    utuTitle = `${seasonCalendarName} · อากาศชื้น/ไอฝน (${tempC}°C, ชื้น ${humidityPct}%)`;
-    utuDetail = `สภาพอากาศชื้นสัมพัทธ์สูง (${humidityPct}%) กระตุ้นวาตะสมุฏฐาน (+1.5 คะแนน · ลมกำเริบ)`;
+    utuTitle = `${seasonCalendarName} · ${tempC}°C ชื้น ${humidityPct}%`;
+    utuDetail = `ความชื้นสัมพัทธ์ ${humidityPct}% กระตุ้นวาตะสมุฏฐาน`;
     reasons.push(
-      `[อุตุสมุฏฐาน +1.5] ${seasonCalendarName} สภาพอากาศชื้น (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นให้วาตะสมุฏฐานกำเริบ (+1.5) (คัมภีร์เวชกรรมไทย 1 น.58)`
+      `[อุตุสมุฏฐาน +1.5] ${seasonCalendarName} (${tempC}°C, ชื้น ${humidityPct}%) กระตุ้นวาตะสมุฏฐาน`
     );
     citations.push({ book: 'คัมภีร์เวชกรรมไทย เล่ม 1', page: 58 });
   }
@@ -559,13 +547,13 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
 
   const matchedCount = [dhatuMatch, utuMatch, ayuMatch, kalaMatch].filter(Boolean).length;
 
-  const concordanceLevel = `${maxDoshaScore.toFixed(1)} / 10.0 คะแนน (${confidence}%)`;
-  const concordanceDescription = `ประเมินด้วยโมเดลคณิตศาสตร์ถ่วงน้ำหนัก (AHP & Delphi): อายุ (+2.0) + กาล (+1.5) + อุตุจากสภาพอากาศจริง ${tempC}°C/ชื้น ${humidityPct}% (+1.5) + อาการสำคัญ VAS ${vasScore}/10 (+${symptomWeight.toFixed(1)}) สอดคล้องกัน ${matchedCount}/4 มิติ`;
+  const concordanceLevel = `${maxDoshaScore.toFixed(1)} / 10.0 (${confidence}%)`;
+  const concordanceDescription = `อายุ (+2.0) · กาล (+1.5) · อุตุ (+1.5) · อาการสำคัญ VAS ${vasScore}/10 (+${symptomWeight.toFixed(1)})`;
 
   const cards: SmutthanDimensionCard[] = [
     {
-      dimension: 'อาการสำคัญ (ธาตุสมุฏฐาน)',
-      badge: dhatuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
+      dimension: 'ธาตุสมุฏฐาน (อาการสำคัญ)',
+      badge: dhatuMatch ? 'ตรงธาตุหลัก' : 'ปัจจัยร่วม',
       weightBadge: `+${symptomWeight.toFixed(1)} (VAS ${vasScore}/10)`,
       weightValue: symptomWeight,
       targetDosha: symptomTargetDosha,
@@ -573,36 +561,36 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
       title: dhatuTitle,
       detail: dhatuDetail,
       citationText: dhatuCitation,
-      healthScienceRationale: `ปรับตามระดับความรุนแรงจริงที่ผู้ป่วยเป็น (VAS Scale ${vasScore}/10 → น้ำหนัก +${symptomWeight.toFixed(1)} จากฐาน +1.0 ถึง +5.0)`,
+      healthScienceRationale: `VAS ${vasScore}/10 → น้ำหนัก +${symptomWeight.toFixed(1)}`,
     },
     {
-      dimension: 'อายุสมุฏฐาน (Primary Factor)',
-      badge: ayuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
-      weightBadge: '+2.0 (น้ำหนัก ~40%)',
+      dimension: 'อายุสมุฏฐาน',
+      badge: ayuMatch ? 'ตรงธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: '+2.0',
       weightValue: 2.0,
       targetDosha: ayuTargetDosha,
       isMatch: ayuMatch,
       title: ayuTitle,
       detail: ayuDetail,
       citationText: ayuCitation,
-      healthScienceRationale: 'เป็นฐานธาตุเจ้าเรือนหลักตามพันธุกรรมและช่วงวัยที่ควบคุมโครงสร้างร่างกายระยะยาว',
+      healthScienceRationale: 'ฐานธาตุเจ้าเรือนหลักตามช่วงวัย',
     },
     {
-      dimension: 'กาลสมุฏฐาน (Secondary Factor)',
-      badge: kalaMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
-      weightBadge: '+1.5 (น้ำหนัก ~30%)',
+      dimension: 'กาลสมุฏฐาน',
+      badge: kalaMatch ? 'ตรงธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: '+1.5',
       weightValue: 1.5,
       targetDosha: kalaTargetDosha,
       isMatch: kalaMatch,
       title: kalaTitle,
       detail: kalaDetail,
       citationText: kalaCitation,
-      healthScienceRationale: 'เป็นปัจจัยกระตุ้นชั่วคราวตามนาฬิกาชีวภาพในรอบวัน (Circadian Rhythm ช่วงละ 4 ชม.)',
+      healthScienceRationale: 'ปัจจัยกระตุ้นตามช่วงเวลาของวัน',
     },
     {
-      dimension: 'อุตุสมุฏฐาน (Live Weather API)',
-      badge: utuAnomalyDetected ? 'อุตุแปรปรวน' : utuMatch ? 'ตรงกับธาตุหลัก' : 'ปัจจัยร่วม',
-      weightBadge: `${utuWeightText} (อากาศจริง)`,
+      dimension: 'อุตุสมุฏฐาน',
+      badge: utuAnomalyDetected ? 'อุตุแปรปรวน' : utuMatch ? 'ตรงธาตุหลัก' : 'ปัจจัยร่วม',
+      weightBadge: utuWeightText,
       weightValue: 1.5,
       targetDosha: utuTargetDosha,
       isMatch: utuMatch,
@@ -616,31 +604,31 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   const scoringSummaryTable: ScoringRuleSummaryRow[] = [
     {
       factor: 'อายุสมุฏฐาน',
-      scriptureRef: 'คัมภีร์เวชศึกษา (ปฐม/มัชฌิม/ปัจฉิมวัย) น.18, 24, 34',
+      scriptureRef: 'คัมภีร์เวชศึกษา (น.18, 24, 34)',
       targetDosha: ayuTargetDosha,
       weight: '+2.0',
-      rationale: 'เป็นฐานธาตุเจ้าเรือนหลักตามพันธุกรรมและวัย (Primary Factor ~40%)',
+      rationale: 'ฐานธาตุเจ้าเรือนหลักตามวัย (40%)',
     },
     {
       factor: 'กาลสมุฏฐาน',
-      scriptureRef: 'คัมภีร์สมุฏฐานวินิจฉัย (ยาม 1, 2, 3) น.30, 45, 52',
+      scriptureRef: 'คัมภีร์สมุฏฐานวินิจฉัย (น.30, 45, 52)',
       targetDosha: kalaTargetDosha,
       weight: '+1.5',
-      rationale: 'เป็นปัจจัยกระตุ้นตามนาฬิกาชีวภาพ (Circadian Rhythm ~30%)',
+      rationale: 'ปัจจัยกระตุ้นตามยามเวลา (30%)',
     },
     {
-      factor: 'อุตุสมุฏฐาน (Weather API)',
-      scriptureRef: 'คัมภีร์เวชกรรมไทย 1 (คิมหันต/วสันต/เหมันต) น.40, 58, 66',
+      factor: 'อุตุสมุฏฐาน',
+      scriptureRef: 'คัมภีร์เวชกรรมไทย 1 (น.40, 58, 66)',
       targetDosha: utuTargetDosha,
       weight: utuWeightText,
       rationale: utuRationale,
     },
     {
       factor: 'อาการสำคัญ',
-      scriptureRef: 'คัมภีร์ธาตุวิภังค์ / ธาตุบรรจบ / โรคนิจฉัย / เชวตสาร',
+      scriptureRef: 'คัมภีร์ธาตุวิภังค์ / ธาตุบรรจบ / โรคนิจฉัย',
       targetDosha: symptomTargetDosha,
-      weight: `+${symptomWeight.toFixed(1)} (จากเกณฑ์ +1.0 ถึง +5.0)`,
-      rationale: `ปรับตามระดับความรุนแรงจริงที่ผู้ป่วยเป็น (VAS Scale ${vasScore}/10)`,
+      weight: `+${symptomWeight.toFixed(1)}`,
+      rationale: `ตามระดับความรุนแรง VAS ${vasScore}/10`,
     },
   ];
 

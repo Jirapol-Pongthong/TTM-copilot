@@ -32,24 +32,22 @@ export default function Step9CaseSummary() {
       : smutthanElement === 'น้ำ'
       ? 'อาโปธาตุ'
       : 'ปถวีธาตุ'
-  } (${smutthanElement}) แปรปรวน · วสันตฤดู · ${ageGroupLabel}`;
+  }แปรปรวน · วสันตฤดู · ${ageGroupLabel}`;
 
   const currentRx = patientCase.prescriptions?.[0];
   const rxSummary = currentRx
     ? `${currentRx.herbName} — ${currentRx.dosage}`
-    : 'หัตถการประคบสมุนไพรบริเวณท้องและคอบ่าหลัง (ปลอดภัย เลี่ยงยากิน)';
+    : 'หัตถการประคบสมุนไพรบริเวณท้องและคอบ่าหลัง';
 
   const hasHighRiskInteractions = currentRx?.interactionRisk === 'CRITICAL';
   const safetyText = hasHighRiskInteractions
     ? `พบความเสี่ยงยาตีกัน (${currentRx.interactionDetail}) — แนะนำปรับเป็นหัตถการภายนอก`
-    : currentRx?.interactionRisk === 'NONE'
-    ? 'ตรวจผ่านเกณฑ์ความปลอดภัยสมุนไพรและยาแผนปัจจุบัน (Herb-Drug Guard PASSED)'
-    : 'ตรวจผ่านเกณฑ์ (เลือกทางเลือกหัตถการปลอดภัย เลี่ยงอันตรกิริยากับยาต้านการแข็งตัวของเลือด)';
+    : 'ผ่านเกณฑ์ความปลอดภัยสมุนไพรและยาแผนปัจจุบัน';
 
   const confirmedICDText =
     patientCase.confirmedICD && patientCase.confirmedICD.length > 0
       ? patientCase.confirmedICD.map((c) => `${c.ttmCode} (${c.icd10tm})`).join(' · ')
-      : 'U55.22 (R14) · U77.1 (M79.1) · U60.1 (หัตถการประคบ)';
+      : 'U55.22 (R14) · U77.1 (M79.1) · U60.1';
 
   // ฟังก์ชันส่งออกข้อมูล HDC / HIS และอัปเดตสถานะเป็นตรวจแล้ว
   const handleExportHDC = () => {
@@ -69,10 +67,7 @@ export default function Step9CaseSummary() {
   };
 
   return (
-    <AppShell
-      title="สรุปเคสและส่งออกข้อมูล (Clinical Summary & HDC Export)"
-      subtitle="ตรวจทานสรุปผลการตรวจรักษาฉบับสมบูรณ์ และส่งออกข้อมูลเข้าระบบสารสนเทศโรงพยาบาล (HIS/HDC)"
-    >
+    <AppShell title="สรุปเคสและส่งออกข้อมูล">
       {/* CSS ซ่อนส่วนประกอบอื่นเวลา Print ให้เหลือเฉพาะฟอร์มสรุปเวชระเบียน */}
       <style jsx global>{`
         @media print {
@@ -101,7 +96,7 @@ export default function Step9CaseSummary() {
           <div className="border-b border-gray-100 pb-3.5 flex justify-between items-center">
             <div>
               <span className="font-bold text-base text-[#14261D] block">
-                บันทึกเวชกรรมไทย CDSS ประจำเคส
+                บันทึกเวชระเบียนเวชกรรมไทย
               </span>
               <span className="text-[11px] text-gray-500">
                 ผู้ป่วย: {patientCase.name || 'ไม่ระบุชื่อ'} (HN: {patientCase.hn || '-'}) · อายุ{' '}
@@ -117,7 +112,7 @@ export default function Step9CaseSummary() {
           <div className="space-y-3.5">
             {/* อาการสำคัญ */}
             <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-50">
-              <span className="text-gray-500 font-medium">อาการสำคัญ (CC):</span>
+              <span className="text-gray-500 font-medium">อาการสำคัญ:</span>
               <span className="col-span-3 text-[#14261D] font-bold">{chiefComplaints}</span>
             </div>
 
@@ -134,13 +129,13 @@ export default function Step9CaseSummary() {
                   โรคประจำตัว:{' '}
                   {patientCase.underlyingDiseases && patientCase.underlyingDiseases.length > 0
                     ? patientCase.underlyingDiseases.join(', ')
-                    : 'ปฏิเสธโรคประจำตัว'}
+                    : 'ไม่มี'}
                 </p>
                 <p className="text-gray-600">
                   ยาแผนปัจจุบัน:{' '}
                   {patientCase.currentMeds && patientCase.currentMeds.length > 0
                     ? patientCase.currentMeds.join(', ')
-                    : 'ไม่ได้ใช้ยาประจำ'}
+                    : 'ไม่มี'}
                 </p>
               </div>
             </div>
@@ -152,9 +147,6 @@ export default function Step9CaseSummary() {
                 <span className="text-[#14261D] font-bold bg-[#FAF9F5] px-2.5 py-1 rounded border border-gray-200 inline-block">
                   {smutthanText}
                 </span>
-                <p className="text-gray-500 text-[11px] mt-1">
-                  ระดับความสอดคล้อง: <span className="font-semibold text-[#1E4D38]">{patientCase.smutthanResult?.concordanceLevel || 'สอดคล้องระดับสูง (3/4 มิติ)'}</span> · อ้างอิงแนวทางเวชกรรมปฐมภูมิ พ.ศ. 2564
-                </p>
               </div>
             </div>
 
@@ -173,7 +165,7 @@ export default function Step9CaseSummary() {
 
             {/* ความปลอดภัยและอันตรกิริยา */}
             <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-50">
-              <span className="text-gray-500 font-medium">ความปลอดภัย (Drug Guard):</span>
+              <span className="text-gray-500 font-medium">ความปลอดภัย:</span>
               <div className="col-span-3 flex items-start gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <span className="text-gray-800 leading-relaxed">{safetyText}</span>
@@ -182,14 +174,11 @@ export default function Step9CaseSummary() {
 
             {/* รหัสสถิติ ICD-10-TM ที่ยืนยัน */}
             <div className="grid grid-cols-4 gap-2 py-2">
-              <span className="text-gray-500 font-medium">รหัสโรคที่แพทย์ยืนยัน:</span>
+              <span className="text-gray-500 font-medium">รหัส ICD-10-TM:</span>
               <div className="col-span-3">
                 <span className="font-mono font-bold text-[#14261D] bg-[#F4F8F5] px-3 py-1 rounded-lg border border-emerald-200 inline-block">
                   {confirmedICDText}
                 </span>
-                <p className="text-[10px] text-gray-400 mt-1">
-                  ตามเกณฑ์มาตรฐานข้อมูลสุขภาพกระทรวงสาธารณสุข (HDC Version 2568)
-                </p>
               </div>
             </div>
           </div>
@@ -198,17 +187,14 @@ export default function Step9CaseSummary() {
         {/* คอลัมน์ขวา: ปุ่มส่งออกและส่งต่อ */}
         <div className="space-y-4 no-print">
           <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs space-y-3 shadow-xs">
-            <h4 className="font-bold text-sm text-[#14261D] mb-1">ส่งออกและส่งต่อข้อมูล</h4>
-            <p className="text-[11px] text-gray-500 mb-3">
-              จัดเก็บเป็นเอกสารหรือส่งเข้าฐานข้อมูลบริการปฐมภูมิ
-            </p>
+            <h4 className="font-bold text-sm text-[#14261D] mb-2">ส่งออกข้อมูล</h4>
 
             <button
               type="button"
               onClick={() => window.print()}
               className="w-full border border-gray-300 hover:bg-gray-50 text-gray-800 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer transition shadow-2xs"
             >
-              <FileDown className="w-4 h-4 text-[#1E4D38]" /> พิมพ์หรือบันทึกเป็น PDF
+              <FileDown className="w-4 h-4 text-[#1E4D38]" /> พิมพ์ / บันทึก PDF
             </button>
 
             <button
@@ -224,17 +210,13 @@ export default function Step9CaseSummary() {
             {exportSuccess && (
               <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-[11px] font-semibold flex items-center gap-2 animate-fade-in">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                ส่งข้อมูลโครงสร้าง FHIR JSON เข้าสู่ HDC สธ. และอัปเดตสถานะตรวจแล้วสำเร็จ!
+                ส่งข้อมูลเข้าสู่ระบบ HDC สำเร็จ
               </div>
             )}
-
-            <div className="bg-[#FAF9F5] p-3 rounded-xl border border-gray-100 text-[10px] text-gray-500 text-center leading-relaxed">
-              โครงสร้างข้อมูลสอดคล้องกับมาตรฐาน Health Data Center (HDC) และ Fast Healthcare Interoperability Resources (FHIR)
-            </div>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-gray-200 text-xs shadow-xs">
-            <h4 className="font-bold text-[#14261D] mb-2">สถานะการให้บริการ</h4>
+            <h4 className="font-bold text-[#14261D] mb-2">สถานะการตรวจ</h4>
             <ul className="space-y-1.5 text-gray-600 text-[11px]">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
@@ -242,7 +224,7 @@ export default function Step9CaseSummary() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                ผ่านเกณฑ์ตรวจยาตีกัน (Herb-Drug Guard)
+                ผ่านเกณฑ์ตรวจอันตรกิริยาของยา
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
@@ -260,14 +242,14 @@ export default function Step9CaseSummary() {
           onClick={() => setCurrentStep('S8')}
           className="px-4 py-2 border border-gray-300 hover:bg-gray-100 rounded-lg text-xs font-semibold cursor-pointer transition"
         >
-          ← ย้อนกลับไปหน้ารหัสโรค
+          ← ย้อนกลับ
         </button>
         <button
           type="button"
           onClick={handleFinishAndReturn}
           className="px-5 py-2.5 bg-[#1E4D38] hover:bg-[#163B2B] active:scale-98 text-white rounded-lg text-xs font-bold cursor-pointer shadow-xs transition"
         >
-          เสร็จสิ้น ปิดเคสกลับหน้ารายการผู้ป่วย →
+          เสร็จสิ้น ปิดเคส →
         </button>
       </div>
     </AppShell>

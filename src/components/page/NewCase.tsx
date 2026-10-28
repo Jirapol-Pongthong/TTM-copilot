@@ -86,16 +86,12 @@ export default function Step3NewCase() {
   };
 
   return (
-    <AppShell
-      title="เปิดเคสใหม่ / ตรวจสอบประวัติทั่วไป"
-      subtitle="ข้อมูลพื้นฐาน โรคประจำตัว และยาแผนปัจจุบันที่ใช้อยู่ เพื่อส่งตรวจความปลอดภัยในขั้นตอนถัดไป"
-    >
+    <AppShell title="เปิดเคสผู้ป่วย">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* คอลัมน์ซ้าย: ข้อมูลผู้ป่วยและสัญญาณชีพ */}
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-            <h3 className="font-bold text-sm text-[#14261D]">ข้อมูลทั่วไปของผู้ป่วย</h3>
-            <span className="text-[11px] text-[#5C7065]">แก้ไขข้อมูลได้ทุกช่อง</span>
+            <h3 className="font-bold text-sm text-[#14261D]">ข้อมูลผู้ป่วย</h3>
           </div>
 
           <div className="space-y-3 text-xs">
@@ -147,9 +143,7 @@ export default function Step3NewCase() {
             </div>
 
             <div>
-              <label className="text-gray-500 font-medium">
-                โรคประจำตัว (คั่นด้วยเครื่องหมายจุลภาค ,)
-              </label>
+              <label className="text-gray-500 font-medium">โรคประจำตัว</label>
               <input
                 type="text"
                 value={diseasesInput}
@@ -159,14 +153,12 @@ export default function Step3NewCase() {
               />
             </div>
 
-            {/* ส่วนสัญญาณชีพ (แยก Format ช่องความดันโลหิต BP บน/ล่าง ชัดเจน) */}
+            {/* ส่วนสัญญาณชีพ */}
             <div className="pt-2 border-t border-gray-100">
-              <label className="text-gray-600 font-bold block mb-1.5">สัญญาณชีพแรกรับ</label>
+              <label className="text-gray-600 font-bold block mb-1.5">สัญญาณชีพ</label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <div>
-                  <span className="text-[10px] text-gray-500 block">
-                    ความดัน BP (ค่าบน / ล่าง)
-                  </span>
+                  <span className="text-[10px] text-gray-500 block">BP</span>
                   <div className="flex items-center gap-1 mt-0.5">
                     <input
                       type="text"
@@ -174,7 +166,7 @@ export default function Step3NewCase() {
                       value={bpSys}
                       onChange={(e) => setBpSys(e.target.value.replace(/[^0-9]/g, ''))}
                       placeholder="120"
-                      title="ความดันตัวบน (Systolic)"
+                      title="Systolic"
                       className="w-full border border-gray-200 rounded-lg p-1.5 text-xs text-center font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E4D38]"
                     />
                     <span className="text-gray-400 font-bold">/</span>
@@ -184,7 +176,7 @@ export default function Step3NewCase() {
                       value={bpDia}
                       onChange={(e) => setBpDia(e.target.value.replace(/[^0-9]/g, ''))}
                       placeholder="80"
-                      title="ความดันตัวล่าง (Diastolic)"
+                      title="Diastolic"
                       className="w-full border border-gray-200 rounded-lg p-1.5 text-xs text-center font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E4D38]"
                     />
                     <span className="text-[10px] text-gray-400 shrink-0">mmHg</span>
@@ -192,7 +184,7 @@ export default function Step3NewCase() {
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-gray-500 block">ชีพจร Pulse (ครั้ง/นาที)</span>
+                  <span className="text-[10px] text-gray-500 block">Pulse</span>
                   <div className="flex items-center gap-1 mt-0.5">
                     <input
                       type="text"
@@ -207,7 +199,7 @@ export default function Step3NewCase() {
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-gray-500 block">อุณหภูมิ Temp (°C)</span>
+                  <span className="text-[10px] text-gray-500 block">Temp</span>
                   <div className="flex items-center gap-1 mt-0.5">
                     <input
                       type="text"
@@ -229,12 +221,7 @@ export default function Step3NewCase() {
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-3">
-              <div>
-                <h3 className="font-bold text-sm text-[#14261D]">ยาแผนปัจจุบันที่ใช้อยู่ (Current Meds)</h3>
-                <p className="text-[11px] text-gray-500 mt-0.5">
-                  รองรับทั้งพิมพ์เล็ก/พิมพ์ใหญ่ ภาษาไทย/อังกฤษ มีหรือไม่มีหน่วย mg หรือจุด (.)
-                </p>
-              </div>
+              <h3 className="font-bold text-sm text-[#14261D]">ยาแผนปัจจุบันที่ใช้อยู่</h3>
               <span className="bg-[#FAF9F5] text-gray-600 px-2 py-0.5 rounded text-[11px] font-semibold border border-gray-200">
                 {medsList.length} รายการ
               </span>
