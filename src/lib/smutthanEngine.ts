@@ -171,7 +171,8 @@ export function evaluateSmutthan(caseData: PatientCase): FullSmutthanEvaluation 
   }
 
   scoredRules.sort((a, b) => b.score - a.score);
-  const topMatched = scoredRules.slice(0, 3);
+  // เลือกเฉพาะกฎอันดับ 1 ที่ตรงกับอาการของผู้ป่วยมากที่สุด เพื่อความชัดเจนและเจาะจง ไม่ให้สับสน
+  const topMatched = scoredRules.slice(0, 1);
 
   if (topMatched.length > 0) {
     const titles: string[] = [];
